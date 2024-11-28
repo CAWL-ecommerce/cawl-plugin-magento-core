@@ -1,0 +1,164 @@
+{
+    "worldline_payment_log": {
+        "column": {
+            "log_id": true,
+            "content": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "worldline_request_log": {
+        "column": {
+            "id": true,
+            "request_path": true,
+            "request_body": true,
+            "response_body": true,
+            "response_code": true,
+            "mark_as_processed": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "worldline_payment_refund_request": {
+        "column": {
+            "id": true,
+            "invoice_id": true,
+            "increment_id": true,
+            "creditmemo_id": true,
+            "amount": true,
+            "refunded": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_477A40116EF3B505AF2CE7395E4D8BCF": true
+        }
+    },
+    "worldline_payment_transaction": {
+        "column": {
+            "entity_id": true,
+            "increment_id": true,
+            "status": true,
+            "status_code": true,
+            "amount": true,
+            "currency": true,
+            "transaction_id": true,
+            "additional_data": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "worldline_failed_payment_log": {
+        "column": {
+            "id": true,
+            "quote_payment_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WORLDLINE_FAILED_PAYMENT_LOG_ID_QUOTE_PAYMENT_ID": true,
+            "WORLDLINE_FAILED_PAYMENT_LOG_QUOTE_PAYMENT_ID": true
+        }
+    },
+    "worldline_payment": {
+        "column": {
+            "entity_id": true,
+            "increment_id": true,
+            "payment_id": true,
+            "payment_product_id": true,
+            "amount": true,
+            "currency": true,
+            "fraud_result": true,
+            "card_number": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "worldline_fraud_information": {
+        "column": {
+            "entity_id": true,
+            "worldline_payment_id": true,
+            "result": true,
+            "liability": true,
+            "exemption": true,
+            "authentication_status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "worldline_webhook": {
+        "column": {
+            "id": true,
+            "increment_id": true,
+            "type": true,
+            "status_code": true,
+            "body": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "worldline_surcharging_quote": {
+        "column": {
+            "entity_id": true,
+            "quote_id": true,
+            "invoice_id": true,
+            "payment_method": true,
+            "amount": true,
+            "base_amount": true,
+            "quote_total_amount": true,
+            "is_invoiced": true,
+            "is_refunded": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WORLDLINE_SURCHARGING_QUOTE_QUOTE_ID_QUOTE_ENTITY_ID": true
+        }
+    },
+    "worldline_surcharging_creditmemo": {
+        "column": {
+            "entity_id": true,
+            "quote_id": true,
+            "creditmemo_id": true,
+            "amount": true,
+            "base_amount": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WORLDLINE_SURCHARGING_CREDITMEMO_QUOTE_ID_QUOTE_ENTITY_ID": true,
+            "WORLDLINE_SURCHARGING_CREDITMEMO_CREDITMEMO_ID_SALES_CREDITMEMO_ENTITY_ID": true
+        }
+    },
+    "worldline_email_sending_list": {
+        "column": {
+            "entity_id": true,
+            "increment_id": true,
+            "level": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "worldline_quote_payment_information": {
+        "column": {
+            "entity_id": true,
+            "payment_id": true,
+            "payment_identifier": true,
+            "public_hash": true,
+            "method": true,
+            "device_data": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WORLDLINE_QUOTE_PAYMENT_PAYMENT_ID_QUOTE_PAYMENT_PAYMENT_ID": true
+        }
+    }
+}

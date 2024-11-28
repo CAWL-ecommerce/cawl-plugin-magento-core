@@ -1,0 +1,395 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="worldline" translate="label" sortOrder="100">
+            <label>Cawl Online Payments</label>
+        </tab>
+        <section id="payment">
+            <group id="worldline" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cawl Online Payments</label>
+                <field id="payments_info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\Payments</frontend_model>
+                </field>
+            </group>
+        </section>
+        <section id="worldline_general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>About Cawl</label>
+            <tab>worldline</tab>
+            <resource>Cawl_PaymentCore::config_worldline</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\Info</frontend_model>
+            </group>
+        </section>
+        <section id="worldline_connection" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Connection</label>
+            <tab>worldline</tab>
+            <resource>Cawl_PaymentCore::config_worldline</resource>
+            <group id="connection" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Connection</label>
+                <field id="environment_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Environment Mode</label>
+                    <source_model>Worldline\PaymentCore\Model\Config\Source\EnvironmentModeOptions</source_model>
+                </field>
+                <field id="api_key" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Key</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="environment_mode">0</field>
+                    </depends>
+                </field>
+                <field id="api_key_prod" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Key</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="environment_mode">1</field>
+                    </depends>
+                </field>
+                <field id="api_secret" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Secret</label>
+                    <validate>required-entry</validate>
+                    <backend_model>Worldline\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
+                    <depends>
+                        <field id="environment_mode">0</field>
+                    </depends>
+                </field>
+                <field id="api_secret_prod" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Secret</label>
+                    <validate>required-entry</validate>
+                    <backend_model>Worldline\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
+                    <depends>
+                        <field id="environment_mode">1</field>
+                    </depends>
+                </field>
+                <field id="merchant_id" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Merchant ID (PSPID)</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="environment_mode">0</field>
+                    </depends>
+                </field>
+                <field id="merchant_id_prod" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Merchant ID (PSPID)</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="environment_mode">1</field>
+                    </depends>
+                </field>
+                <field id="production_api_url" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Production API URL</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="environment_mode">1</field>
+                    </depends>
+                </field>
+                <field id="testing_api_url" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Testing API URL</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="environment_mode">0</field>
+                    </depends>
+                </field>
+                <field id="test_connection" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label><![CDATA[Test Connection & Save Credentials]]></label>
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\TestConnection</frontend_model>
+                </field>
+            </group>
+            <group id="webhook" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
+                <label>Webhook</label>
+                <field id="webhook_url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\WebhookUrl</frontend_model>
+                </field>
+                <field id="key" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Key</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="secret_key" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Secret Key</label>
+                    <backend_model>Worldline\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
+                    <validate>required-entry</validate>
+                    <comment>To retrieve webhooks credentials, login to the Cawl Back Office</comment>
+                </field>
+                <field id="webhook_info" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\WebhookInfo</frontend_model>
+                </field>
+            </group>
+        </section>
+        <section id="worldline_payment" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Payment Methods</label>
+            <tab>worldline</tab>
+            <resource>Cawl_PaymentCore::config_worldline</resource>
+            <group id="general_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable_3d" translate="label tooltip" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Enable 3-D Secure Authentication</label>
+                    <tooltip>Activating this option allows the issuer of the customer card to request the 3-D Secure process to be triggered. This means that both the challenge flow (where strong customer authentication is needed) and the frictionless flow (where the issuing bank will take full liability) can be triggered.</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enforce_authentication" translate="label tooltip" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Enforce Strong Customer Authentication for Every Payment</label>
+                    <tooltip>Activating this option will request the issuer to always go for a challenge flow during the 3-D Secure process.</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_3d">1</field>
+                    </depends>
+                </field>
+                <field id="authentication_exemption" translate="label tooltip" type="select" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Request Authentication Exemption for Low-value Baskets</label>
+                    <tooltip>Activating this option will request to issuer not to request a strong customer authentication for the payment if the value of the basket is below 30 EUR. This exemption can only be requested for EU customers, as it is linked to the PSD2 European regulation. Note that activating this option will transfer the liability to you, as a merchant, in case of fraud.</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_3d">1</field>
+                        <field id="enforce_authentication">0</field>
+                    </depends>
+                </field>
+                <field id="pwa_route" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Return URL</label>
+                    <comment><![CDATA[Should be set only if you use PWA Studio or any other 3rd party frontend.]]></comment>
+                </field>
+                <field id="apply_surcharge" type="select" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1">
+                    <label>Apply Surcharge</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Surcharging will allow you to ask an additional amount to your customer based on the card used. Note that this feature will only work in Australia.]]></tooltip>
+                </field>
+            </group>
+        </section>
+        <section id="worldline_order_creator" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label><![CDATA[Settings & Notifications]]></label>
+            <class>separator-top</class>
+            <tab>worldline</tab>
+            <resource>Cawl_PaymentCore::config_worldline</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General</label>
+                <field id="fallback_timeout" translate="label tooltip comment" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Fallback Timeout</label>
+                    <validate>validate-digits validate-digits-range digits-range-2-1440</validate>
+                    <tooltip><![CDATA[If the payment process is failed, change the order status after the specified time.]]></tooltip>
+                    <comment>Defines after how long our systems will fetch automatically information from Cawl to retrieve the latest payment status.</comment>
+                </field>
+                <field id="fallback_timeout_limit" translate="label tooltip comment" type="text" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Fallback Timeout Limit</label>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                    <tooltip><![CDATA[If the payment process is failed, change the order status after the specified time in "Fallback Timeout" till the value specified in this field.<br/>In other words, the request will be executed during the specified time limit.]]></tooltip>
+                    <comment>Defines for how long our systems will fetch automatically information from Cawl to retrieve the latest payment status.</comment>
+                </field>
+                <field id="cron_expr" sortOrder="30" type="text" showInDefault="1" translate="label comment" canRestore="1">
+                    <label>Schedule (Cron Syntax)</label>
+                    <comment><![CDATA[Default value: every minute. <a href='http://crontab.guru/' target='_blank'>Need help?</a>]]></comment>
+                </field>
+            </group>
+            <group id="refused_notification" translate="label" type="text" sortOrder="20" showInDefault="1">
+                <label>Payment Refused Notifications</label>
+                <field id="sending_payment_refused_emails" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>worldline_order_creator/general/sending_payment_refused_emails</config_path>
+                </field>
+                <field id="refused_payment_sender" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <config_path>worldline_order_creator/general/refused_payment_sender</config_path>
+                    <depends>
+                        <field id="sending_payment_refused_emails">1</field>
+                    </depends>
+                </field>
+                <field id="refused_payment_template" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <config_path>worldline_order_creator/general/refused_payment_template</config_path>
+                    <depends>
+                        <field id="sending_payment_refused_emails">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="refund_refused_notification" translate="label" type="text" sortOrder="30" showInDefault="1">
+                <label>Refund Refused Notifications</label>
+                <field id="active" translate="label tooltip" type="select" sortOrder="10" showInDefault="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Enable receiving emails in case your credit memo (refund) gets rejected by your acquirer.</tooltip>
+                </field>
+                <field id="sender" translate="label" type="select" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="recipient" translate="label" type="select" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>Recipient</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="copy_to" translate="label" type="text" sortOrder="40" showInDefault="1">
+                    <label>Email Copy To</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <comment>Comma-separated.</comment>
+                    <validate>validate-email</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="50" showInDefault="1" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="notification" translate="label" type="text" sortOrder="40" showInDefault="1">
+                <label>Failed Orders Notifications</label>
+                <field id="active" translate="label tooltip" type="select" sortOrder="10" showInDefault="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Enable this option in order to be informed when an order could not be created. This can happen for instance when an item is out of stock.</tooltip>
+                </field>
+                <field id="sender" translate="label" type="select" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="recipient" translate="label" type="select" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>Recipient</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="copy_to" translate="label" type="text" sortOrder="40" showInDefault="1">
+                    <label>Email Copy To</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <comment>Comma-separated.</comment>
+                    <validate>validate-email</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="50" showInDefault="1" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="auto_refund" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
+                <label>Auto Refund For Out Of Stock Orders</label>
+                <field id="active" translate="label tooltip" type="select" sortOrder="10" showInDefault="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>There are some cases when an order can not be created after a successful payment. E.g. if there is 1 product and several customers are trying to buy it. For the first buyer, the order will be created, and the rest will receive a refund (if the setting is set to yes) as the item is out of stock already.</tooltip>
+                </field>
+                <field id="sender" translate="label" type="select" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="recipient" translate="label" type="select" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>Recipient</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="copy_to" translate="label" type="text" sortOrder="40" showInDefault="1">
+                    <label>Email Copy To</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <comment>Comma-separated.</comment>
+                    <validate>validate-email</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="50" showInDefault="1" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="active_to_customer" translate="label tooltip" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Enable Email To Customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>When an automatic refund is issued due to out-of-stock item(s),
+                        you can choose to activate this option which will trigger an email
+                        notification to be sent to your customer.
+                    </tooltip>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="to_customer_sender" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Email To Customer Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="active_to_customer">1</field>
+                    </depends>
+                </field>
+                <field id="to_customer_template" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Email To Customer Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="active_to_customer">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="worldline_debug" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Debug</label>
+            <tab>worldline</tab>
+            <resource>Cawl_PaymentCore::config_worldline</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>General</label>
+                <field id="logging_lifetime" translate="label" type="text" sortOrder="30" showInDefault="1">
+                    <label>Logging Records Lifetime (Days)</label>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                </field>
+            </group>
+            <group id="debug" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Debug Logs</label>
+                <field id="download_debug" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Download Debug Log</label>
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\DownloadDebugLog</frontend_model>
+                </field>
+                <field id="erase_debug" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Erase Debug Log</label>
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\EraseDebugLog</frontend_model>
+                </field>
+            </group>
+            <group id="worldline_request" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cawl Request Logs</label>
+                <field id="log" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Request Log Grid</label>
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\RequestLogGrid</frontend_model>
+                </field>
+                <field id="log_mode" translate="label comment" type="select" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Log mode</label>
+                    <source_model>Worldline\PaymentCore\Logger\Config\Source\LogMode</source_model>
+                </field>
+            </group>
+            <group id="webhooks" translate="label" type="text" sortOrder="40" showInDefault="1">
+                <label>Webhooks</label>
+                <field id="log" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Webhook Grid</label>
+                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\WebhookGrid</frontend_model>
+                </field>
+                <field id="active" translate="label" type="select" sortOrder="20" showInDefault="1">
+                    <label>Log Webhooks</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Preference -->
+    <preference type="OnlinePayments\Sdk\DefaultConnection" for="OnlinePayments\Sdk\Connection" />
+    <preference type="Magento\Framework\Filesystem\Driver\File" for="Magento\Framework\Filesystem\DriverInterface" />
+    <preference type="Worldline\PaymentCore\Model\Log\Log" for="Worldline\PaymentCore\Api\Data\LogInterface" />
+    <preference type="Worldline\PaymentCore\Model\Log\LogRepository" for="Worldline\PaymentCore\Api\LogRepositoryInterface" />
+    <preference type="Worldline\PaymentCore\Logger\RequestLog" for="Worldline\PaymentCore\Api\Data\RequestLogInterface" />
+    <preference type="Worldline\PaymentCore\Model\RefundRequest\RefundRequest" for="Worldline\PaymentCore\Api\Data\RefundRequestInterface" />
+    <preference type="Worldline\PaymentCore\Model\RefundRequest\RefundRequestRepository" for="Worldline\PaymentCore\Api\RefundRequestRepositoryInterface" />
+    <preference type="Worldline\PaymentCore\Model\Transaction\Transaction" for="Worldline\PaymentCore\Api\Data\TransactionInterface" />
+    <preference type="Worldline\PaymentCore\Model\Transaction\TransactionRepository" for="Worldline\PaymentCore\Api\TransactionRepositoryInterface" />
+    <preference type="Worldline\PaymentCore\Model\Transaction\TransactionWLResponseManager" for="Worldline\PaymentCore\Api\TransactionWLResponseManagerInterface" />
+    <preference type="Worldline\PaymentCore\Model\Transaction\PaymentInfo" for="Worldline\PaymentCore\Api\Data\PaymentInfoInterface" />
+    <preference type="Worldline\PaymentCore\Model\PendingOrderManager" for="Worldline\PaymentCore\Api\PendingOrderManagerInterface" />
+    <preference type="Worldline\PaymentCore\Model\CacheIdentifier" for="Worldline\PaymentCore\Api\Data\CacheIdentifierInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\EmailSendingList" for="Worldline\PaymentCore\Api\Data\EmailSendingListInterface" />
+    <preference type="Worldline\PaymentCore\Model\EmailSendingListRepository" for="Worldline\PaymentCore\Api\EmailSendingListRepositoryInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\OrderState\OrderState" for="Worldline\PaymentCore\Api\Data\OrderStateInterface" />
+    <preference type="Worldline\PaymentCore\Model\OrderState\OrderStateManager" for="Worldline\PaymentCore\Api\OrderStateManagerInterface" />
+
+    <preference type="Worldline\PaymentCore\WebApi\Checkout\QuoteManager" for="Worldline\PaymentCore\Api\WebApi\Checkout\QuoteManagerInterface" />
+    <preference type="Worldline\PaymentCore\WebApi\Checkout\BaseCreatePaymentManagement" for="Worldline\PaymentCore\Api\WebApi\Checkout\BaseCreatePaymentManagementInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\Payment\Payment" for="Worldline\PaymentCore\Api\Data\PaymentInterface" />
+    <preference type="Worldline\PaymentCore\Model\Payment\PaymentRepository" for="Worldline\PaymentCore\Api\PaymentRepositoryInterface" />
+    <preference type="Worldline\PaymentCore\Model\Payment\PaymentManager" for="Worldline\PaymentCore\Api\PaymentManagerInterface" />
+    <preference type="Worldline\PaymentCore\Model\Payment\PaymentIdFormatter" for="Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\QuotePayment\QuotePayment" for="Worldline\PaymentCore\Api\Data\QuotePaymentInterface" />
+    <preference type="Worldline\PaymentCore\Model\QuotePayment\QuotePaymentRepository" for="Worldline\PaymentCore\Api\QuotePaymentRepositoryInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\Fraud\Fraud" for="Worldline\PaymentCore\Api\Data\FraudInterface" />
+    <preference type="Worldline\PaymentCore\Model\Fraud\FraudRepository" for="Worldline\PaymentCore\Api\FraudRepositoryInterface" />
+    <preference type="Worldline\PaymentCore\Model\Fraud\FraudManager" for="Worldline\PaymentCore\Api\FraudManagerInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\PaymentDataManager" for="Worldline\PaymentCore\Api\PaymentDataManagerInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\PaymentInfoCleaner" for="Worldline\PaymentCore\Api\PaymentInfoCleanerInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\Order\CanPlaceContext" for="Worldline\PaymentCore\Api\Data\CanPlaceOrderContextInterface" />
+    <preference type="Worldline\PaymentCore\Model\Order\CanPlaceOrderContextManager" for="Worldline\PaymentCore\Api\CanPlaceOrderContextManagerInterface" />
+    <preference type="Worldline\PaymentCore\Model\Webhook\Webhook" for="Worldline\PaymentCore\Api\Data\WebhookInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\QuoteRestoration" for="Worldline\PaymentCore\Api\QuoteRestorationInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\AmountFormatter" for="Worldline\PaymentCore\Api\AmountFormatterInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\SurchargingQuote\QuoteTotal" for="Worldline\PaymentCore\Api\QuoteTotalInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\SurchargingQuote\SurchargingQuote" for="Worldline\PaymentCore\Api\Data\SurchargingQuoteInterface" />
+    <preference type="Worldline\PaymentCore\Model\SurchargingQuote\SurchargingQuoteRepository" for="Worldline\PaymentCore\Api\SurchargingQuoteRepositoryInterface" />
+    <preference type="Worldline\PaymentCore\Model\SurchargingQuote\SurchargingQuoteManager" for="Worldline\PaymentCore\Api\SurchargingQuoteManagerInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\SurchargingCreditmemo\SurchargingCreditmemo" for="Worldline\PaymentCore\Api\Data\SurchargingCreditmemoInterface" />
+    <preference type="Worldline\PaymentCore\Model\SurchargingCreditmemo\SurchargingCreditmemoRepository" for="Worldline\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface" />
+    <preference type="Worldline\PaymentCore\Model\SurchargingCreditmemo\SurchargingCreditmemoManager" for="Worldline\PaymentCore\Api\SurchargingCreditmemoManagerInterface" />
+
+    <preference type="Worldline\PaymentCore\Service\Payment\CancelPaymentService" for="Worldline\PaymentCore\Api\Service\Payment\CancelPaymentServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Payment\CapturePaymentService" for="Worldline\PaymentCore\Api\Service\Payment\CapturePaymentServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Payment\GetPaymentDetailsService" for="Worldline\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Payment\GetPaymentProductsService" for="Worldline\PaymentCore\Api\Service\GetPaymentProductsServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Payment\GetPaymentProductsRequestBuilder" for="Worldline\PaymentCore\Api\Service\GetPaymentProductsRequestBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\Payment\CapturePaymentRequestBuilder" for="Worldline\PaymentCore\Api\Service\CapturePaymentRequestBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\Payment\CreatePaymentService" for="Worldline\PaymentCore\Api\Service\Payment\CreatePaymentServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Refund\CreateRefundService" for="Worldline\PaymentCore\Api\Service\Refund\CreateRefundServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Refund\RefundRequestDataBuilder" for="Worldline\PaymentCore\Api\Service\Refund\RefundRequestDataBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\Payment\GetPaymentService" for="Worldline\PaymentCore\Api\Service\Payment\GetPaymentServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Services\TestConnectionService" for="Worldline\PaymentCore\Api\Service\Services\TestConnectionServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Services\SurchargeCalculationService" for="Worldline\PaymentCore\Api\Service\Services\SurchargeCalculationServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\Services\CalculateSurchargeRequestBuilder" for="Worldline\PaymentCore\Api\Service\CalculateSurchargeRequestBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\Token\DeleteTokenService" for="Worldline\PaymentCore\Api\Service\Token\DeleteTokenServiceInterface" />
+    <preference type="Worldline\PaymentCore\Service\CreateRequest\Order\GeneralDataBuilder" for="Worldline\PaymentCore\Api\Service\CreateRequest\Order\GeneralDataBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\CreateRequest\Order\AmountDataBuilder" for="Worldline\PaymentCore\Api\Service\CreateRequest\Order\AmountDataBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\CreateRequest\Order\CustomerDataBuilder" for="Worldline\PaymentCore\Api\Service\CreateRequest\Order\CustomerDataBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\CreateRequest\Order\ReferenceDataBuilder" for="Worldline\PaymentCore\Api\Service\CreateRequest\Order\ReferenceDataBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\CreateRequest\Order\ShippingAddressDataBuilder" for="Worldline\PaymentCore\Api\Service\CreateRequest\Order\ShippingAddressDataBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\CreateRequest\Order\SurchargeDataBuilder" for="Worldline\PaymentCore\Api\Service\CreateRequest\Order\SurchargeDataBuilderInterface" />
+    <preference type="Worldline\PaymentCore\Service\CreateRequest\ThreeDSecureDataBuilder" for="Worldline\PaymentCore\Api\Service\CreateRequest\ThreeDSecureDataBuilderInterface" />
+
+    <preference type="Worldline\PaymentCore\Infrastructure\ServiceStubSwitcher" for="Worldline\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface" />
+    <preference type="Worldline\PaymentCore\Infrastructure\WebhookStubSender" for="Worldline\PaymentCore\Api\Test\Infrastructure\WebhookStubSenderInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\RefundRequest\CreditmemoOnlineService" for="Worldline\PaymentCore\Api\CreditmemoOnlineServiceInterface" />
+    <preference type="Worldline\PaymentCore\Model\MethodNameExtractor" for="Worldline\PaymentCore\Api\MethodNameExtractorInterface" />
+    <preference type="Worldline\PaymentCore\Model\CardDate" for="Worldline\PaymentCore\Api\CardDateInterface" />
+    <preference type="Worldline\PaymentCore\Model\ClientProvider" for="Worldline\PaymentCore\Api\ClientProviderInterface" />
+    <preference type="Worldline\PaymentCore\Model\Checkout\SessionDataManager" for="Worldline\PaymentCore\Api\SessionDataManagerInterface" />
+    <preference type="Worldline\PaymentCore\Model\AvailableMethodChecker" for="Worldline\PaymentCore\Api\AvailableMethodCheckerInterface" />
+    <preference type="Worldline\PaymentCore\Model\VaultValidation" for="Worldline\PaymentCore\Api\VaultValidationInterface" />
+    <preference type="Worldline\PaymentCore\Model\Config\WorldlineConfig" for="Worldline\PaymentCore\Api\Config\WorldlineConfigInterface" />
+    <preference type="Worldline\PaymentCore\Model\Config\GeneralSettingsConfig" for="Worldline\PaymentCore\Api\Config\GeneralSettingsConfigInterface" />
+    <preference type="Worldline\PaymentCore\Model\ResourceModel\Quote" for="Worldline\PaymentCore\Api\QuoteResourceInterface" />
+
+    <preference type="Worldline\PaymentCore\Gateway\SubjectReader" for="Worldline\PaymentCore\Api\SubjectReaderInterface" />
+
+    <preference type="Worldline\PaymentCore\Ui\PaymentIconsProvider" for="Worldline\PaymentCore\Api\Ui\PaymentIconsProviderInterface" />
+    <preference type="Worldline\PaymentCore\Ui\PaymentProductsProvider" for="Worldline\PaymentCore\Api\Ui\PaymentProductsProviderInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\Order\InvoiceManager" for="Worldline\PaymentCore\Api\Order\InvoiceManagerInterface" />
+
+    <preference type="Worldline\PaymentCore\Model\Webhook\PlaceOrderManager" for="Worldline\PaymentCore\Api\Webhook\PlaceOrderManagerInterface" />
+    <!-- End Preference -->
+
+    <type name="Worldline\PaymentCore\Block\Info">
+        <arguments>
+            <argument name="infoFormatter" xsi:type="object">Worldline\PaymentCore\Block\InfoFormatter</argument>
+        </arguments>
+    </type>
+
+    <type name="Worldline\PaymentCore\Model\Webhook\GeneralProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="payment.pending_capture" xsi:type="object">Worldline\PaymentCore\Model\Webhook\PlaceOrderProcessor</item>
+                <item name="payment.capture_requested" xsi:type="object">Worldline\PaymentCore\Model\Webhook\PlaceOrderProcessor</item>
+                <item name="payment.captured" xsi:type="object">Worldline\PaymentCore\Model\Webhook\PlaceOrderProcessor</item>
+                <item name="payment.authorization_requested" xsi:type="object">Worldline\PaymentCore\Model\Webhook\PlaceOrderProcessor</item>
+                <item name="payment.refunded" xsi:type="object">Worldline\PaymentCore\Model\Webhook\CreditmemoProcessor</item>
+                <item name="payment.rejected" xsi:type="object">Worldline\PaymentCore\Model\Webhook\RejectPaymentProcessor</item>
+                <item name="payment.cancelled" xsi:type="object">Worldline\PaymentCore\Model\Webhook\Payment\CancelledProcessor</item>
+                <item name="refund.refund_requested" xsi:type="object">Worldline\PaymentCore\Model\Webhook\CreditmemoProcessor</item>
+                <item name="refund.rejected" xsi:type="object">Worldline\PaymentCore\Model\Webhook\RejectPaymentProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Worldline\PaymentCore\Model\Order\CanPlaceValidator">
+        <arguments>
+            <argument name="validatorPool" xsi:type="array">
+                <item name="status.code" xsi:type="object">Worldline\PaymentCore\Model\Order\ValidatorPool\StatusCodeValidator\Proxy</item>
+                <item name="acquired.amount" xsi:type="object">Worldline\PaymentCore\Model\Order\ValidatorPool\AcquiredAmountValidator\Proxy</item>
+                <item name="increment.id" xsi:type="object">Worldline\PaymentCore\Model\Order\ValidatorPool\IncrementIdValidator\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Plugin -->
+    <type name="OnlinePayments\Sdk\Communicator">
+        <plugin name="Cawl_PaymentCore::debug_logger"
+                type="Worldline\PaymentCore\Logger\Plugin\OnlinePayments\Sdk\Communicator\DebugLog"/>
+    </type>
+    <type name="Worldline\PaymentCore\Service\Payment\GetPaymentDetailsService">
+        <plugin name="Cawl_PaymentCore::test_infrastructure_get_payment_details_service"
+                type="Worldline\PaymentCore\Infrastructure\Plugin\Service\Payment\GetPaymentDetailsServiceMock"/>
+    </type>
+    <type name="Worldline\PaymentCore\Service\Payment\GetPaymentService">
+        <plugin name="Cawl_PaymentCore::test_infrastructure_get_payment_service"
+                type="Worldline\PaymentCore\Infrastructure\Plugin\Service\Payment\GetPaymentServiceMock"/>
+    </type>
+    <type name="Worldline\PaymentCore\Service\Refund\CreateRefundService">
+        <plugin name="Cawl_PaymentCore::test_infrastructure_create_refund_service"
+                type="Worldline\PaymentCore\Infrastructure\Plugin\Service\Refund\CreateRefundServiceMock"/>
+    </type>
+    <type name="Worldline\PaymentCore\Service\Payment\GetPaymentProductsService">
+        <plugin name="Cawl_PaymentCore::test_infrastructure_get_payment_products_service"
+                type="Worldline\PaymentCore\Infrastructure\Plugin\Service\Payment\GetPaymentProductsServiceMock"/>
+    </type>
+    <type name="Worldline\PaymentCore\Service\Payment\CancelPaymentService">
+        <plugin name="Cawl_PaymentCore::test_infrastructure_cancel_payment_service"
+                type="Worldline\PaymentCore\Infrastructure\Plugin\Service\Payment\CancelPaymentServiceMock"/>
+    </type>
+    <type name="Worldline\PaymentCore\Service\Services\SurchargeCalculationService">
+        <plugin name="Cawl_PaymentCore::test_infrastructure_surcharge_calculation_service"
+                type="Worldline\PaymentCore\Infrastructure\Plugin\Service\Services\SurchargeCalculationServiceMock"/>
+    </type>
+    <type name="Worldline\PaymentCore\Model\Config\WebhookConfig">
+        <plugin name="Cawl_PaymentCore::decrypt_keys_for_tests"
+                type="Worldline\PaymentCore\Infrastructure\Plugin\WebhookConfig\DecryptedKey"/>
+    </type>
+    <!-- End Plugin -->
+
+    <!-- Command -->
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="world-line-order-status-updater" xsi:type="object">Worldline\PaymentCore\Console\Command\OrderStatusUpdater</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- End Command -->
+
+    <!-- Dedicated log file -->
+    <type name="Worldline\PaymentCore\Controller\Webhook\Index">
+        <arguments>
+            <argument name="logger" xsi:type="object">Worldline\PaymentCore\Model\Webhook\Logger\Virtual</argument>
+        </arguments>
+    </type>
+    <type name="Worldline\PaymentCore\Model\Order\Creation\OrderCreationProcessor">
+        <arguments>
+            <argument name="logger" xsi:type="object">Worldline\PaymentCore\Model\Webhook\Logger\Virtual</argument>
+            <argument name="pendingOrderManager" xsi:type="object">Worldline\PaymentCore\Api\PendingOrderManagerInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Worldline\PaymentCore\Cron\OrderCreator">
+        <arguments>
+            <argument name="logger" xsi:type="object">Worldline\PaymentCore\Model\Webhook\Logger\Virtual</argument>
+        </arguments>
+    </type>
+    <virtualType name="Worldline\PaymentCore\Model\Webhook\Logger\Virtual"
+                 type="Monolog\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">worldline_webhook</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Worldline\PaymentCore\Model\Webhook\Logger\Handler\Virtual</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Worldline\PaymentCore\Model\Webhook\Logger\Handler\Virtual"
+                 type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+            <argument name="fileName" xsi:type="string">/var/log/worldline-order-update.log</argument>
+        </arguments>
+    </virtualType>
+    <!-- END Dedicated log file -->
+
+    <!-- UI components configuration -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="request_log_listing_data_source" xsi:type="string">Worldline\PaymentCore\View\Element\UiComponent\DataProvider\RequestLog\Virtual</item>
+                <item name="webhooks_listing_data_source" xsi:type="string">Worldline\PaymentCore\View\Element\UiComponent\DataProvider\Webhooks\Virtual</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Worldline\PaymentCore\View\Element\UiComponent\DataProvider\RequestLog\Virtual" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">worldline_request_log</argument>
+            <argument name="resourceModel" xsi:type="string">Worldline\PaymentCore\Logger\ResourceModel\RequestLog</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Worldline\PaymentCore\View\Element\UiComponent\DataProvider\Webhooks\Virtual" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">worldline_webhook</argument>
+            <argument name="resourceModel" xsi:type="string">Worldline\PaymentCore\Model\Webhook\ResourceModel\Webhook</argument>
+        </arguments>
+    </virtualType>
+    <!-- END UI components configuration -->
+
+    <!-- General payment configuration -->
+    <!-- Logger, initialized with WorldlineConfig -->
+    <type name="Worldline\PaymentCore\Logger\Plugin\OnlinePayments\Sdk\Communicator\DebugLog">
+        <arguments>
+            <argument name="logger" xsi:type="object">Worldline\PaymentCore\Model\Method\Logger\Virtual</argument>
+        </arguments>
+    </type>
+    <virtualType name="Worldline\PaymentCore\Model\Logger\Virtual" type="Monolog\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">worldline_debug</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">Worldline\PaymentCore\Logger\Handler\Debug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- END Logger, initialized with WorldlineConfig -->
+
+    <virtualType name="Worldline\PaymentCore\Gateway\ErrorMapper\VirtualErrorMessageMapper\Virtual" type="Magento\Payment\Gateway\ErrorMapper\ErrorMessageMapper">
+        <arguments>
+            <argument name="messageMapping" xsi:type="object">Worldline\PaymentCore\Gateway\ErrorMapper\VirtualMappingData</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Worldline\PaymentCore\Gateway\ErrorMapper\VirtualMappingData" type="Magento\Payment\Gateway\ErrorMapper\MappingData">
+        <arguments>
+            <argument name="reader" xsi:type="object">Worldline\PaymentCore\Gateway\ErrorMapper\VirtualConfigReader\Virtual</argument>
+            <argument name="cacheId" xsi:type="string">worldline_error_mapper</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Worldline\PaymentCore\Gateway\ErrorMapper\VirtualConfigReader\Virtual" type="Magento\Payment\Gateway\ErrorMapper\VirtualConfigReader">
+        <arguments>
+            <argument name="fileName" xsi:type="string">worldline_error_mapping.xml</argument>
+        </arguments>
+    </virtualType>
+    <!-- END General payment configuration -->
+</config>

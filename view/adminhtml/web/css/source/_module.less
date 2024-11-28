@@ -1,0 +1,159 @@
+//
+//  Base Styles
+//  ____________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+@input-text__border-color: #007bdb;
+@input-text-error__border-color: #adadad;
+@button-submit-form__background-color: #fff;
+@button-submit-form-hover__background-color: #514943;
+
+& when (@media-common = true) {
+    .worldline-float-right {
+        float: right;
+    }
+
+    .about-worldline {
+        width: 60%;
+
+        hr {
+            background-color: lightgrey;
+            border: none;
+            float: left;
+            height: 1px;
+            margin-top: 20px;
+            width: 100%;
+
+            &.bottom-line {
+                margin-top: 30px;
+            }
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .sub-title {
+            font-size: 14px;
+            font-weight: bold;
+            padding-top: 35px;
+
+            &.version-title {
+                padding-top: 0;
+            }
+        }
+
+        .description,
+        .button {
+            padding-top: 10px;
+        }
+
+        .version-block {
+            margin-top: 80px;
+        }
+
+        .version-block .description,
+        .new-feature-block {
+            .button {
+                padding-top: 10px;
+            }
+        }
+
+        .github-button,
+        .open-close-request-form-button {
+            & {
+                background-color: @button-submit-form-hover__background-color;
+                border: none;
+                color: @button-submit-form__background-color;
+                float: right;
+                transition: background-color .3s ease;
+            }
+
+            &:hover {
+                background-color: @button-submit-form-hover__background-color;
+            }
+        }
+    }
+
+    .worldline-order-view-fraud-information {
+        margin-top: 50px;
+    }
+
+    .form-inline .new-feature-block {
+        & {
+            width: 100%;
+        }
+
+        & > .label {
+            padding: 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        & > .action-secondary {
+            margin: 0;
+        }
+    }
+
+    .form-inline .form.worldline-feature-form {
+        .field {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .label {
+            padding: 0;
+            text-align: left;
+        }
+
+        .form-textarea {
+            width: 100%;
+        }
+
+        .action-submit-form {
+            & {
+                background-color: @button-submit-form-hover__background-color;
+                border: none;
+                color: @button-submit-form__background-color;
+                float: right;
+                transition: background-color .3s ease;
+            }
+
+            &:hover {
+                background-color: @button-submit-form-hover__background-color;
+            }
+        }
+
+        .control {
+            width: 100%;
+        }
+
+        .input-text:not(.mage-error) {
+            border: none;
+            border-bottom: 1px solid @input-text-error__border-color;
+
+            &:focus,
+            &:active {
+                border-bottom-color: @input-text__border-color;
+            }
+        }
+
+        .form-textarea {
+            & {
+                min-height: 33px;
+            }
+
+            &:active,
+            &:focus {
+                border-color: @input-text__border-color;
+                box-shadow: none;
+                outline: 0;
+            }
+        }
+    }
+}

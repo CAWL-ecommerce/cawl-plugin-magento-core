@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="worldline_payment_log" resource="default" engine="innodb" comment="Worldline Payment Logs Table">
+        <column xsi:type="int" name="log_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="blob" name="content" nullable="false"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="log_id"/>
+        </constraint>
+    </table>
+    <table name="worldline_request_log" resource="default" engine="innodb" comment="Worldline Request Log Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="request_path"/>
+        <column xsi:type="text" name="request_body"/>
+        <column xsi:type="text" name="response_body"/>
+        <column xsi:type="smallint" name="response_code"/>
+        <column xsi:type="smallint" name="mark_as_processed" default="0"/>
+        <column xsi:type="timestamp" name="created_at" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="worldline_webhook" resource="default" engine="innodb" comment="Worldline Webhook Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="increment_id" nullable="true" length="32" comment="Increment Order ID"/>
+        <column xsi:type="varchar" name="type" nullable="true" length="32" comment="Type"/>
+        <column xsi:type="smallint" name="status_code" unsigned="false" nullable="true" comment="Status Code"/>
+        <column xsi:type="text" name="body"/>
+        <column xsi:type="timestamp" name="created_at" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="worldline_payment_refund_request" resource="default" engine="innodb" comment="Worldline Refund Request">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="invoice_id" padding="10" unsigned="true" nullable="false" comment="Invoice ID"/>
+        <column xsi:type="varchar" name="increment_id" nullable="true" length="32" comment="Increment Order ID"/>
+        <column xsi:type="int" name="creditmemo_id" nullable="true" unsigned="true" comment="CreditMemo ID"/>
+        <column xsi:type="int" name="amount" unsigned="false" nullable="true" default="0" comment="Refund Amount"/>
+        <column xsi:type="smallint" name="refunded" unsigned="false" nullable="true" default="0" comment="Refunded Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="FK_477A40116EF3B505AF2CE7395E4D8BCF"
+                    table="worldline_payment_refund_request"
+                    column="invoice_id"
+                    referenceTable="sales_invoice"
+                    referenceColumn="entity_id"
+                    onDelete="NO ACTION"/>
+    </table>
+    <table name="worldline_payment_transaction" resource="default" engine="innodb" comment="Worldline Payment Transaction">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="increment_id" nullable="true" length="32" comment="Increment Order ID"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="32" comment="Status"/>
+        <column xsi:type="smallint" name="status_code" unsigned="false" nullable="true" default="0" comment="Refunded Status"/>
+        <column xsi:type="decimal" name="amount" scale="2" precision="20" unsigned="false" nullable="false" comment="Amount"/>
+        <column xsi:type="varchar" name="currency" nullable="false" length="32" comment="Currency"/>
+        <column xsi:type="varchar" name="transaction_id" nullable="false" length="32" comment="Transaction Id"/>
+        <column xsi:type="text" name="additional_data" comment="Additional Data"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="worldline_failed_payment_log" resource="default" engine="innodb"
+           comment="Worldline Failed Payment Log">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="quote_payment_id" unsigned="true" nullable="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="WORLDLINE_FAILED_PAYMENT_LOG_ID_QUOTE_PAYMENT_ID">
+            <column name="quote_payment_id"/>
+        </constraint>
+    </table>
+    <table name="worldline_payment" resource="default" engine="innodb" comment="Worldline Payment">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="increment_id" nullable="false" length="32" comment="Increment Order ID"/>
+        <column xsi:type="varchar" name="payment_id" nullable="false" length="32" comment="Payment ID"/>
+        <column xsi:type="int" name="payment_product_id" nullable="false" unsigned="false" comment="Payment Product ID"/>
+        <column xsi:type="int" name="amount" nullable="false" unsigned="true" comment="Payment Amount"/>
+        <column xsi:type="varchar" name="currency" nullable="false" length="32" comment="Currency"/>
+        <column xsi:type="varchar" name="fraud_result" nullable="true" length="32" comment="Fraud result"/>
+        <column xsi:type="varchar" name="card_number" nullable="true" length="32" comment="Card Number"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="worldline_fraud_information" resource="default" engine="innodb" comment="Worldline Fraud Information">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="worldline_payment_id" unsigned="false" nullable="false"/>
+        <column xsi:type="varchar" name="result" nullable="true" length="32" comment="Result"/>
+        <column xsi:type="varchar" name="liability" nullable="true" length="32" comment="Liability"/>
+        <column xsi:type="varchar" name="exemption" nullable="true" length="32" comment="Exemption"/>
+        <column xsi:type="varchar" name="authentication_status" nullable="true" length="32" comment="Authentication status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="worldline_surcharging_quote" resource="default" engine="innodb" comment="Worldline Surcharging Quote">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID" />
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Quote ID"/>
+        <column xsi:type="int" name="invoice_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Invoice ID"/>
+        <column xsi:type="varchar" name="payment_method" nullable="true" length="255" comment="Method Code"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Amount"/>
+        <column xsi:type="decimal" name="base_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Amount"/>
+        <column xsi:type="decimal" name="quote_total_amount" scale="4" precision="20" unsigned="false" nullable="true" default="0" onCreate="migrateDataFrom(quote_grand_total)" comment="Quote Total Amount"/>
+        <column xsi:type="smallint" name="is_invoiced" unsigned="true" nullable="false" default="0" comment="Is Invoiced Flag"/>
+        <column xsi:type="smallint" name="is_refunded" unsigned="true" nullable="false" default="0" comment="Is Refunded Flag"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="WORLDLINE_SURCHARGING_QUOTE_QUOTE_ID_QUOTE_ENTITY_ID"
+                    table="worldline_surcharging_quote"
+                    column="quote_id"
+                    referenceTable="quote"
+                    referenceColumn="entity_id"
+                    onDelete="NO ACTION"/>
+    </table>
+    <table name="worldline_surcharging_creditmemo" resource="default" engine="innodb" comment="Worldline Surcharging Creditmemo">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID" />
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Quote ID"/>
+        <column xsi:type="int" name="creditmemo_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Creditmemo ID"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Refunded Amount"/>
+        <column xsi:type="decimal" name="base_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Refunded Base Amount"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="WORLDLINE_SURCHARGING_CREDITMEMO_QUOTE_ID_QUOTE_ENTITY_ID"
+                    table="worldline_surcharging_creditmemo"
+                    column="quote_id"
+                    referenceTable="quote"
+                    referenceColumn="entity_id"
+                    onDelete="NO ACTION"/>
+        <constraint xsi:type="foreign"
+                    referenceId="WORLDLINE_SURCHARGING_CREDITMEMO_CREDITMEMO_ID_SALES_CREDITMEMO_ENTITY_ID"
+                    table="worldline_surcharging_creditmemo"
+                    column="creditmemo_id"
+                    referenceTable="sales_creditmemo"
+                    referenceColumn="entity_id"
+                    onDelete="NO ACTION"/>
+    </table>
+    <table name="worldline_email_sending_list" resource="default" engine="innodb" comment="Worldline Email Sending List">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="increment_id" nullable="false" length="32" comment="Increment Order ID"/>
+        <column xsi:type="varchar" name="level" nullable="true" length="32" comment="Level"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="worldline_quote_payment_information" resource="default" engine="innodb" comment="Worldline Quote Payment Info">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="payment_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Payment ID"/>
+        <column xsi:type="varchar" name="payment_identifier" nullable="true" length="255" comment="Payment Identifier"/>
+        <column xsi:type="varchar" name="public_hash" nullable="true" length="255" comment="Public Hash"/>
+        <column xsi:type="varchar" name="method" nullable="true" length="255" comment="Method"/>
+        <column xsi:type="text" name="device_data" comment="Device Data"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="WORLDLINE_QUOTE_PAYMENT_PAYMENT_ID_QUOTE_PAYMENT_PAYMENT_ID"
+                    table="worldline_quote_payment_information"
+                    column="payment_id"
+                    referenceTable="quote_payment"
+                    referenceColumn="payment_id"
+                    onDelete="NO ACTION"/>
+    </table>
+</schema>

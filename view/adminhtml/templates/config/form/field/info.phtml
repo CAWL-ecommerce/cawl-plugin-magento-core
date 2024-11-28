@@ -1,0 +1,141 @@
+<?php
+/**
+ * @var Worldline\PaymentCore\Block\Adminhtml\System\Config\Info $block
+ * phpcs:disable Generic.Files.LineLength.TooLong
+ */
+?>
+
+<div class="about-worldline">
+    <div>
+        <img src="<?= $block->escapeUrl($block->getLogoUrl()) ?>"
+             alt="<?= $block->escapeHtml($block->getHtmlId()) ?>" />
+    </div>
+
+    <div class="sub-title">
+        <?= $block->escapeHtml(__('About Cawl')) ?>
+    </div>
+    <div class="description">
+        <?= $block->escapeHtml(
+            __('Increase conversion rates by offering your customers their preferred methods of payment. '
+            . 'Implement the best payment solutions quickly, while addressing key needs such as fraud prevention, '
+            . 'data analytics, security, and compliance, whether local or cross-border.')
+        ) ?>
+    </div>
+
+    <div class="sub-title">
+        <?= $block->escapeHtml(__('Create a test account')) ?>
+    </div>
+    <div class="description">
+        <?= $block->escapeHtml(
+            __('With a test account, safely perform test transactions to validate your payments integration with'
+            . ' Cawl, giving you confidence that everything is working as expected before going Live.')
+        ) ?>
+    </div>
+    <div class="button">
+        <input type="button"
+               onclick="window.open('<?= $block->escapeUrl($block->getAccountUrl()) ?>', '_blank')"
+               class="action-secondary"
+               value="<?= $block->escapeHtml(__('Create a test account')) ?>" />
+    </div>
+
+    <div class="sub-title">
+        <?= $block->escapeHtml(__('Ready to go Live?')) ?>
+    </div>
+    <div class="description">
+        <?= $block->escapeHtml(__('Get in touch with our sales team to create a Live account.')) ?>
+    </div>
+    <div class="button">
+        <input type="button"
+               onclick="window.open('<?= $block->escapeUrl($block->getSalesTeamUrl()) ?>', '_blank')"
+               class="action-secondary"
+               value="<?= $block->escapeHtml(__('Contact our sales team')) ?>" />
+    </div>
+
+    <div class="sub-title">
+        <?= $block->escapeHtml(__('Check our documentation')) ?>
+    </div>
+    <div class="description">
+        <?= $block->escapeHtml(__('Browse our Magento documentation.')) ?>
+    </div>
+    <div class="button">
+        <input type="button"
+               onclick="window.open('<?= $block->escapeUrl($block->getMagentoDocUrl()) ?>', '_blank')"
+               class="action-secondary"
+               value="<?= $block->escapeHtml(__('Check our Magento doc')) ?>" />
+    </div>
+    <div class="description">
+        <?= $block->escapeHtml(__('Browse our support site to keep up to date with the latest features and '
+            . 'payment trends.')) ?>
+    </div>
+    <div class="button">
+        <input type="button"
+               onclick="window.open('<?= $block->escapeUrl($block->getSupportSiteUrl()) ?>', '_blank')"
+               class="action-secondary"
+               value="<?= $block->escapeHtml(__('Check our support site')) ?>" />
+    </div>
+
+    <div class="sub-title">
+        <?= $block->escapeHtml(__('Get in touch')) ?>
+    </div>
+    <div class="description">
+        <?= $block->escapeHtml(__('Are you encountering issues? You have questions about our plugin or other '
+            . 'Cawl products?')) ?>
+    </div>
+    <div class="button">
+        <input type="button"
+               onclick="window.open('<?= $block->escapeUrl($block->getSupportTeamUrl()) ?>', '_blank')"
+               class="action-secondary"
+               value="<?= $block->escapeHtml(__('Contact our support team')) ?>" />
+    </div>
+    <div class="description">
+        <?= $block->escapeHtml(__('Feel we could do better with our Magento plugin?')) ?>
+    </div>
+
+    <br>
+
+    <div data-bind="scope: 'worldline-request-feature'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+
+    <hr>
+
+    <div class="description">
+        <?= $block->escapeHtml(
+            __(
+                'Currently installed version of the Cawl Online Payments plugin is <b>%1</b>',
+                $block->getCurrentVersion()
+            ),
+            ['b']
+        ) ?>
+    </div>
+    <?php if ($block->getLatestVersion()): ?>
+        <div class="description">
+            <?= $block->escapeHtml(
+                __('The latest version of the plugin is <b>%1</b>.', $block->getLatestVersion()),
+                ['b']
+            ) ?>
+        </div>
+    <?php endif; ?>
+    <div class="button">
+        <input type="button"
+               onclick="window.open('<?= $block->escapeUrl($block->getGitHubUrl()) ?>', '_blank')"
+               class="action-secondary"
+               value="<?= $block->escapeHtml(__('Check latest updates')) ?>" />
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "worldline-request-feature": {
+                            "component": "Cawl_PaymentCore/js/system/config/feature-request",
+                            "sendRequestUrl": "<?= $block->escapeUrl($block->getFeatureRequestUrl()) ?>",
+                            "storeId": "<?= (int)$block->getStoreId() ?>"
+                        }
+                    }
+                }
+            }
+        }
+</script>

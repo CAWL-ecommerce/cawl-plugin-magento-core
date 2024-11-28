@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="worldline_order_creator_refused_notification_refused_payment_template"
+              label="Payment Refused"
+              file="payment_refused.html"
+              type="html"
+              module="Cawl_PaymentCore"
+              area="frontend"/>
+    <template id="worldline_order_creator_notification_email_template"
+              label="Order creation failed"
+              file="order_creation_failed.html"
+              type="html"
+              module="Cawl_PaymentCore"
+              area="adminhtml"/>
+    <template id="worldline_order_creator_auto_refund_email_template"
+              label="Auto Refund Attempt"
+              file="auto_refund_attempt.html"
+              type="html"
+              module="Cawl_PaymentCore"
+              area="adminhtml"/>
+    <template id="worldline_order_creator_refund_refused_notification_email_template"
+              label="Refund Refused"
+              file="refund_refused.html"
+              type="html"
+              module="Cawl_PaymentCore"
+              area="adminhtml"/>
+    <template id="worldline_order_creator_auto_refund_to_customer_template"
+              label="Auto Refund To Customer"
+              file="auto_refund_to_customer.html"
+              type="html"
+              module="Cawl_PaymentCore"
+              area="frontend"/>
+</config>

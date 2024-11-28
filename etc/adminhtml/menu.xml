@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Cawl_PaymentCore::general"
+             title="Cawl"
+             translate="title"
+             module="Cawl_PaymentCore"
+             sortOrder="75"
+             parent="Magento_Backend::system"
+             dependsOnModule="Magento_AsynchronousOperations"
+             resource="Cawl_PaymentCore::general"/>
+        <add id="Cawl_PaymentCore::request_logs"
+             title="Request Logs"
+             translate="title"
+             module="Cawl_PaymentCore"
+             sortOrder="10"
+             parent="Cawl_PaymentCore::general"
+             action="worldline/system/RequestLogs"
+             resource="Cawl_PaymentCore::request_logs"/>
+        <add id="Cawl_PaymentCore::webhooks"
+             title="Webhooks"
+             translate="title"
+             module="Cawl_PaymentCore"
+             sortOrder="20"
+             parent="Cawl_PaymentCore::general"
+             action="worldline/system/Webhooks"
+             resource="Cawl_PaymentCore::webhooks"/>
+    </menu>
+</config>
