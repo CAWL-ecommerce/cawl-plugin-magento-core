@@ -68,10 +68,10 @@ This is a core module that are used with Cawl payment solutions.
 To install these solutions, you may use
 [adobe commerce marketplace](https://marketplace.magento.com/worldline-module-magento-payment.html)
 or install them from the GitHub:
-- [all payment methods](https://github.com/wl-online-payments-direct/plugin-magento) at once
-- only [credit card](https://github.com/wl-online-payments-direct/plugin-magento-creditcard)
-- only [hosted checkout](https://github.com/wl-online-payments-direct/plugin-magento-hostedcheckout)
-- [redirect payments (single payment buttons)](https://github.com/wl-online-payments-direct/plugin-magento-redirect-payments)
+- [all payment methods](https://github.com/Worldline-Plugins/cawl-plugin-magento) at once
+- only [credit card](https://github.com/Worldline-Plugins/cawl-plugin-magento-creditcard)
+- only [hosted checkout](https://github.com/Worldline-Plugins/cawl-plugin-magento-hostedcheckout)
+- [redirect payments (single payment buttons)](https://github.com/Worldline-Plugins/cawl-plugin-magento-redirect-payments)
 
 
 ### Change log:
