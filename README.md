@@ -1,4 +1,4 @@
-# Worldline Online Payments
+# Cawl Online Payments
 
 **Payment methods**
 
@@ -7,7 +7,7 @@ Our plugin supports from the most global to very local payment methods to suppor
 - **Credit and debit cards:** Visa, Mastercard, American Express, Carte Bancaire, Diners, JCB, Maestro, Union Pay International
 - **Mobile payment methods:** Alipay+, Apple Pay, Google Pay, WeChatPay
 - **Buy Now Pay Later:** Klarna, Oney 3x-4x, Oney Financement Long,
-- **Alternative payment methods:** iDEAL, Bancontact, PayPal, Bizum, Cpay, Multibanco, Przelewy24, Twint, EPS, Bank Transfer by Worldline
+- **Alternative payment methods:** iDEAL, Bancontact, PayPal, Bizum, Cpay, Multibanco, Przelewy24, Twint, EPS, Bank Transfer by Cawl
 - **Giftcards:** Intersolve gift cards, OneyBrandedGiftCard, Illicado, Giftcard Limonetik
 
 **Process high-conversion payments**
@@ -22,7 +22,7 @@ Our Magento plugin makes use of our latest set of API, built specifically to ens
   process.
 - **Adaptative keyboard:** display the right keyboard on the right field on the payment page
 - **28 supported languages** for the payment page
-- **Compatible with advanced fraud solutions:** our plugin is fully compatible with the Worldline fraud solution. Build up your
+- **Compatible with advanced fraud solutions:** our plugin is fully compatible with the Cawl fraud solution. Build up your
   custom rules to ensure any legitimate transaction can go through, and block any fraudulent transaction.
 - **Fully customizable payment pages:** the payment page is fully customizable through a powerful template builder allowing
   you to have access to both HTML and CSS of the payment page to fully blend in your own website style.
@@ -38,11 +38,11 @@ that at any time your Magento is fully up to date with the latest payment inform
 
 - **Basket is kept when clicking on “back”:** what is more frustrating that losing your basket when you click on “back” in your
   browser? Our plugin offers a native solution for this problematic!
-- **Dynamic feedback:** our plugin will listen to feedback from Worldline to update the transaction status, while
+- **Dynamic feedback:** our plugin will listen to feedback from Cawl to update the transaction status, while
   actively questioning the payment system to make sure no discrepancy occurs on your platform.
 - **Submit basket details to the payment page:** on top of providing a best-in-class customer experience, this will also enable
   some specific payment methods like Klarna on your checkout page. The order data from the cart will be displayed on the
-  Worldline Payment Page for enhanced buyer experience.
+  Cawl Payment Page for enhanced buyer experience.
 - **Integrate directly with our PWA extension:** we have also made available a Magento PWA extension that will help you build your storefront as easily as possible and introduce you to headless commerce.
 
 **Follow up your transactions**
@@ -63,7 +63,7 @@ transactions and take actions accordingly
 [![M2 Coding Standard](https://github.com/wl-online-payments-direct/plugin-magento-core/actions/workflows/coding-standard.yml/badge.svg?branch=develop)](https://github.com/wl-online-payments-direct/plugin-magento-core/actions/workflows/coding-standard.yml)
 [![M2 Mess Detector](https://github.com/wl-online-payments-direct/plugin-magento-core/actions/workflows/mess-detector.yml/badge.svg?branch=develop)](https://github.com/wl-online-payments-direct/plugin-magento-core/actions/workflows/mess-detector.yml)
 
-This is a core module that are used with Worldline payment solutions.
+This is a core module that are used with Cawl payment solutions.
 
 To install these solutions, you may use
 [adobe commerce marketplace](https://marketplace.magento.com/worldline-module-magento-payment.html)

@@ -39,7 +39,7 @@ class AdminNotification implements MessageInterface
     {
         $url = $this->urlBuilder->getUrl('worldline/system/RequestLogs');
 
-        $message = __('Worldline payment methods require your attention.');
+        $message = __('Cawl payment methods require your attention.');
         $message .= ' ';
         $message .= __('Go to <a href="%1">log grid</a> to see the details', $url);
 
