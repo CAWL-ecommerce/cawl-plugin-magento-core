@@ -7,7 +7,7 @@ use Magento\Sales\Block\Adminhtml\Order\Creditmemo\Create\Form;
 
 class ReplaceSaveUrl
 {
-    private const WORLDLINE = 'worldline';
+    private const WORLDLINE = 'cawl';
 
     public function afterGetSaveUrl(Form $subject, string $result): string
     {

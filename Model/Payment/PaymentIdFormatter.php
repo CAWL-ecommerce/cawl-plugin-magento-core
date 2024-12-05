@@ -49,7 +49,7 @@ class PaymentIdFormatter implements PaymentIdFormatterInterface
         ) || strpos($wlPaymentId, '_');
 
         if (!$isValid) {
-            throw new LocalizedException(__('Incorrect worldline payment id'));
+            throw new LocalizedException(__('Incorrect cawl payment id'));
         }
     }
 }

@@ -59,7 +59,7 @@ class CreateRefundService implements CreateRefundServiceInterface
                 ->refundPayment($paymentId, $refundRequest);
         } catch (\Exception $e) {
             $this->logger->debug($e->getMessage());
-            throw new LocalizedException(__('WorldLine refund has failed. Please contact the provider.'));
+            throw new LocalizedException(__('Cawl refund has failed. Please contact the provider.'));
         }
     }
 }

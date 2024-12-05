@@ -55,7 +55,7 @@ class SurchargeCalculationService implements SurchargeCalculationServiceInterfac
         } catch (\Exception $e) {
             $this->logger->debug($e->getMessage());
             throw new LocalizedException(
-                __('WorldLine surcharge calculation has failed. Please contact the provider.')
+                __('Cawl surcharge calculation has failed. Please contact the provider.')
             );
         }
     }

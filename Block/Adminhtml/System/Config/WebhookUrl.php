@@ -16,7 +16,7 @@ class WebhookUrl extends Field
     {
         $webhookUrl = $this->getBaseUrl() . 'worldline/webhook';
         $label = __('Webhook URL');
-        $comment = __('This URL must be specified in the worldline admin panel');
+        $comment = __('This URL must be specified in the cawl admin panel');
         $elementId = "row_{$element->getHtmlId()}";
         $copyButtonLabel = __('Copy');
 

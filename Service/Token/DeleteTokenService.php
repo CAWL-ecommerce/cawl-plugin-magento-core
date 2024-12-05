@@ -45,7 +45,7 @@ class DeleteTokenService implements DeleteTokenServiceInterface
                 ->deleteToken($token);
         } catch (\Exception $e) {
             $this->logger->debug($e->getMessage());
-            throw new LocalizedException(__('WorldLine delete token has failed. Please contact the provider.'));
+            throw new LocalizedException(__('Cawl delete token has failed. Please contact the provider.'));
         }
     }
 }

@@ -15,7 +15,7 @@ class WebhookInfo extends Field
     public function render(AbstractElement $element): string
     {
         $elementId = "row_{$element->getHtmlId()}";
-        $message = __('To retrieve the webhooks credentials, login to the Worldline Back Office.');
+        $message = __('To retrieve the webhooks credentials, login to the Cawl Back Office.');
         $message .= '<br>';
         $message .= __(
             'Go to Configuration > Technical information > API settings > Webhooks Configuration'
