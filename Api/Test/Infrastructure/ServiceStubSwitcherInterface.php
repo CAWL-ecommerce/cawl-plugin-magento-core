@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api\Test\Infrastructure;
+namespace Cawl\PaymentCore\Api\Test\Infrastructure;
 
 interface ServiceStubSwitcherInterface
 {

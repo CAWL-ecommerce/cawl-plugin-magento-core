@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\RefundRequest;
+namespace Cawl\PaymentCore\Model\RefundRequest;
 
 use Magento\Sales\Model\Order;
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
-use Worldline\PaymentCore\Api\RefundRequestRepositoryInterface;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\RefundRequestRepositoryInterface;
 
 class RefundValidator
 {

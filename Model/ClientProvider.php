@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use OnlinePayments\Sdk\Client;
 use OnlinePayments\Sdk\ClientFactory;
 use OnlinePayments\Sdk\CommunicatorConfigurationFactory;
-use Worldline\PaymentCore\Api\ClientProviderInterface;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
-use Worldline\PaymentCore\OnlinePayments\Sdk\Communicator;
-use Worldline\PaymentCore\OnlinePayments\Sdk\CommunicatorFactory;
+use Cawl\PaymentCore\Api\ClientProviderInterface;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\OnlinePayments\Sdk\Communicator;
+use Cawl\PaymentCore\OnlinePayments\Sdk\CommunicatorFactory;
 
 class ClientProvider implements ClientProviderInterface
 {

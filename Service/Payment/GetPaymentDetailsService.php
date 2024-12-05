@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Payment;
+namespace Cawl\PaymentCore\Service\Payment;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface;
-use Worldline\PaymentCore\Api\ClientProviderInterface;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface;
+use Cawl\PaymentCore\Api\ClientProviderInterface;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 
 /**
  * Implementation for GetPaymentDetailsApi

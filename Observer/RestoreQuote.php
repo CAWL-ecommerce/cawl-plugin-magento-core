@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Observer;
+namespace Cawl\PaymentCore\Observer;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Worldline\PaymentCore\Api\QuoteRestorationInterface;
+use Cawl\PaymentCore\Api\QuoteRestorationInterface;
 
 /**
  * Event controller_action_predispatch_checkout_cart_index

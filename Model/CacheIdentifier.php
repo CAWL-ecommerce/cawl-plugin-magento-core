@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
-use Worldline\PaymentCore\Api\Data\CacheIdentifierInterface;
+use Cawl\PaymentCore\Api\Data\CacheIdentifierInterface;
 
 class CacheIdentifier implements CacheIdentifierInterface
 {

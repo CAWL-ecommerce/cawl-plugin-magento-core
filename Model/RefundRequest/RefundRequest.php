@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\RefundRequest;
+namespace Cawl\PaymentCore\Model\RefundRequest;
 
 use Magento\Framework\Model\AbstractModel;
-use Worldline\PaymentCore\Api\Data\RefundRequestInterface;
-use Worldline\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest as RefundRequestResource;
+use Cawl\PaymentCore\Api\Data\RefundRequestInterface;
+use Cawl\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest as RefundRequestResource;
 
 class RefundRequest extends AbstractModel implements RefundRequestInterface
 {

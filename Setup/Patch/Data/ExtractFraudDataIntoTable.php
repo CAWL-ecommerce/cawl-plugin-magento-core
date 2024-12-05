@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Setup\Patch\Data;
+namespace Cawl\PaymentCore\Setup\Patch\Data;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Data\FraudInterface;
-use Worldline\PaymentCore\Api\Data\TransactionInterface;
-use Worldline\PaymentCore\Model\Fraud\ResourceModel\Fraud as FraudResource;
-use Worldline\PaymentCore\Model\Payment\ResourceModel\Payment\CollectionFactory as PaymentCollectionFactory;
+use Cawl\PaymentCore\Api\Data\FraudInterface;
+use Cawl\PaymentCore\Api\Data\TransactionInterface;
+use Cawl\PaymentCore\Model\Fraud\ResourceModel\Fraud as FraudResource;
+use Cawl\PaymentCore\Model\Payment\ResourceModel\Payment\CollectionFactory as PaymentCollectionFactory;
 
 /**
  * Copy fraud information from worldline_payment to worldline_fraud_information

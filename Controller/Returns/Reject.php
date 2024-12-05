@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Returns;
+namespace Cawl\PaymentCore\Controller\Returns;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
-use Worldline\PaymentCore\Api\QuoteRestorationInterface;
+use Cawl\PaymentCore\Api\QuoteRestorationInterface;
 
 class Reject extends Action implements HttpGetActionInterface
 {

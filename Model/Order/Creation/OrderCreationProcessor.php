@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order\Creation;
+namespace Cawl\PaymentCore\Model\Order\Creation;
 
-use Worldline\PaymentCore\Api\PendingOrderManagerInterface;
-use Worldline\PaymentCore\Model\OutStockRefunder;
-use Worldline\PaymentCore\Model\ResourceModel\PendingOrderProvider;
-use Worldline\PaymentCore\Model\Order\FailedOrderCreationNotification;
+use Cawl\PaymentCore\Api\PendingOrderManagerInterface;
+use Cawl\PaymentCore\Model\OutStockRefunder;
+use Cawl\PaymentCore\Model\ResourceModel\PendingOrderProvider;
+use Cawl\PaymentCore\Model\Order\FailedOrderCreationNotification;
 
 class OrderCreationProcessor
 {

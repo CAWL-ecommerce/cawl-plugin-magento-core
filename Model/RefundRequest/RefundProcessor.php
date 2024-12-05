@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\RefundRequest;
+namespace Cawl\PaymentCore\Model\RefundRequest;
 
 use Magento\Sales\Api\CreditmemoRepositoryInterface;
-use Worldline\PaymentCore\Api\Data\RefundRequestInterface;
-use Worldline\PaymentCore\Api\RefundRequestRepositoryInterface;
+use Cawl\PaymentCore\Api\Data\RefundRequestInterface;
+use Cawl\PaymentCore\Api\RefundRequestRepositoryInterface;
 
 class RefundProcessor
 {

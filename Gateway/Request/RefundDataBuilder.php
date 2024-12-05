@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Request;
+namespace Cawl\PaymentCore\Gateway\Request;
 
 use Magento\Payment\Gateway\Request\BuilderInterface;
 use Magento\Sales\Model\Order\Payment;
-use Worldline\PaymentCore\Api\Service\Refund\RefundRequestDataBuilderInterface;
-use Worldline\PaymentCore\Gateway\SubjectReader;
+use Cawl\PaymentCore\Api\Service\Refund\RefundRequestDataBuilderInterface;
+use Cawl\PaymentCore\Gateway\SubjectReader;
 
 class RefundDataBuilder implements BuilderInterface
 {

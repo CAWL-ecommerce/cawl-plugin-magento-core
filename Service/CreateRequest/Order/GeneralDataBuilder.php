@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\CreateRequest\Order;
+namespace Cawl\PaymentCore\Service\CreateRequest\Order;
 
 use Magento\Quote\Api\Data\CartInterface;
 use OnlinePayments\Sdk\Domain\Order;
 use OnlinePayments\Sdk\Domain\OrderFactory;
-use Worldline\PaymentCore\Api\Service\CreateRequest\Order\GeneralDataBuilderInterface;
+use Cawl\PaymentCore\Api\Service\CreateRequest\Order\GeneralDataBuilderInterface;
 
 class GeneralDataBuilder implements GeneralDataBuilderInterface
 {

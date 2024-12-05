@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Transaction;
+namespace Cawl\PaymentCore\Model\Transaction;
 
 use Magento\Sales\Api\Data\OrderInterface;
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInfoInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInfoInterfaceFactory;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
-use Worldline\PaymentCore\Api\Data\TransactionInterface;
-use Worldline\PaymentCore\Api\PaymentRepositoryInterface;
-use Worldline\PaymentCore\Api\TransactionRepositoryInterface;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInfoInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInfoInterfaceFactory;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
+use Cawl\PaymentCore\Api\Data\TransactionInterface;
+use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
+use Cawl\PaymentCore\Api\TransactionRepositoryInterface;
 
 class PaymentInfoBuilder
 {

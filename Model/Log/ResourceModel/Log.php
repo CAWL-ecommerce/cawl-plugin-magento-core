@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Log\ResourceModel;
+namespace Cawl\PaymentCore\Model\Log\ResourceModel;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Worldline\PaymentCore\Api\Data\LogInterface;
+use Cawl\PaymentCore\Api\Data\LogInterface;
 
 class Log extends AbstractDb
 {

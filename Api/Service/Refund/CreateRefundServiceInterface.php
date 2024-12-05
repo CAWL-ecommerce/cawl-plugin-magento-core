@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api\Service\Refund;
+namespace Cawl\PaymentCore\Api\Service\Refund;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\Domain\RefundRequest;

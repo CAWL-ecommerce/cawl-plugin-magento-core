@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook;
 
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Quote\Model\QuoteManagement;
 use Magento\Sales\Model\OrderFactory;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\PaymentDataManagerInterface;
-use Worldline\PaymentCore\Api\SessionDataManagerInterface;
-use Worldline\PaymentCore\Api\SurchargingQuoteManagerInterface;
-use Worldline\PaymentCore\Api\Webhook\ProcessorInterface;
-use Worldline\PaymentCore\Model\Order\FailedOrderCreationNotification;
-use Worldline\PaymentCore\Api\Webhook\PlaceOrderManagerInterface;
+use Cawl\PaymentCore\Api\PaymentDataManagerInterface;
+use Cawl\PaymentCore\Api\SessionDataManagerInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteManagerInterface;
+use Cawl\PaymentCore\Api\Webhook\ProcessorInterface;
+use Cawl\PaymentCore\Model\Order\FailedOrderCreationNotification;
+use Cawl\PaymentCore\Api\Webhook\PlaceOrderManagerInterface;
 
 /**
  * Identify if a webhook can trigger the order placement process, place an order and save payment information

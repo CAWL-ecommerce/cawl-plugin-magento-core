@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\DataAssigner;
+namespace Cawl\PaymentCore\Model\DataAssigner;
 
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Quote\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\Data\QuotePaymentInterface;
+use Cawl\PaymentCore\Api\Data\QuotePaymentInterface;
 
 /**
  * Assign device data to the payment

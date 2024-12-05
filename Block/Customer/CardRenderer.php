@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Block\Customer;
+namespace Cawl\PaymentCore\Block\Customer;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Payment\Model\CcConfigProvider;

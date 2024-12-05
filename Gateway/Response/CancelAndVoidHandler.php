@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Response;
+namespace Cawl\PaymentCore\Gateway\Response;
 
 use Magento\Payment\Gateway\Response\HandlerInterface;
 use Magento\Sales\Model\Order\Payment;
-use Worldline\PaymentCore\Gateway\SubjectReader;
+use Cawl\PaymentCore\Gateway\SubjectReader;
 
 /**
  * Handle cancel and void responses

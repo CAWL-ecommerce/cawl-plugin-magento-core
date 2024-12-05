@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Payment;
+namespace Cawl\PaymentCore\Service\Payment;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Event\ManagerInterface;
@@ -9,7 +9,7 @@ use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParams;
 use OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParamsFactory;
-use Worldline\PaymentCore\Api\Service\GetPaymentProductsRequestBuilderInterface;
+use Cawl\PaymentCore\Api\Service\GetPaymentProductsRequestBuilderInterface;
 
 class GetPaymentProductsRequestBuilder implements GetPaymentProductsRequestBuilderInterface
 {

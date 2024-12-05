@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order\ValidatorPool;
+namespace Cawl\PaymentCore\Model\Order\ValidatorPool;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\OrderIncrementIdChecker;
-use Worldline\PaymentCore\Model\Order\CanPlaceContext;
+use Cawl\PaymentCore\Model\Order\CanPlaceContext;
 
 /**
  * Validate if an order has been created with this increment ID

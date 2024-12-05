@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\CreateRequest;
+namespace Cawl\PaymentCore\Service\CreateRequest;
 
 use InvalidArgumentException;
 use Magento\Quote\Api\Data\CartInterface;
@@ -9,10 +9,10 @@ use OnlinePayments\Sdk\Domain\RedirectionData;
 use OnlinePayments\Sdk\Domain\RedirectionDataFactory;
 use OnlinePayments\Sdk\Domain\ThreeDSecure;
 use OnlinePayments\Sdk\Domain\ThreeDSecureFactory;
-use Worldline\PaymentCore\Api\Service\CreateRequest\ThreeDSecureDataBuilderInterface;
-use Worldline\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
-use Worldline\PaymentCore\Model\MethodNameExtractor;
-use Worldline\PaymentCore\Model\ThreeDSecure\ParamsHandler;
+use Cawl\PaymentCore\Api\Service\CreateRequest\ThreeDSecureDataBuilderInterface;
+use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
+use Cawl\PaymentCore\Model\MethodNameExtractor;
+use Cawl\PaymentCore\Model\ThreeDSecure\ParamsHandler;
 
 class ThreeDSecureDataBuilder implements ThreeDSecureDataBuilderInterface
 {

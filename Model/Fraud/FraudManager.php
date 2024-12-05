@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Fraud;
+namespace Cawl\PaymentCore\Model\Fraud;
 
 use OnlinePayments\Sdk\DataObject;
 use OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificOutput;
 use OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificOutput;
-use Worldline\PaymentCore\Api\Data\FraudInterface;
-use Worldline\PaymentCore\Api\Data\FraudInterfaceFactory;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\FraudManagerInterface;
-use Worldline\PaymentCore\Api\FraudRepositoryInterface;
+use Cawl\PaymentCore\Api\Data\FraudInterface;
+use Cawl\PaymentCore\Api\Data\FraudInterfaceFactory;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\FraudManagerInterface;
+use Cawl\PaymentCore\Api\FraudRepositoryInterface;
 
 /**
  * Manager for fraud entity

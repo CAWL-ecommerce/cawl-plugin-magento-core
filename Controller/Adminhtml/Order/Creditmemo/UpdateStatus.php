@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\Order\Creditmemo;
+namespace Cawl\PaymentCore\Controller\Adminhtml\Order\Creditmemo;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Worldline\PaymentCore\Model\RefundRequest\CreditmemoUpdater;
+use Cawl\PaymentCore\Model\RefundRequest\CreditmemoUpdater;
 
 class UpdateStatus extends Action implements HttpGetActionInterface
 {

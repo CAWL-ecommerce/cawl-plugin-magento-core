@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Returns;
+namespace Cawl\PaymentCore\Controller\Returns;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
@@ -12,8 +12,8 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\MailException;
 use Magento\Framework\Phrase;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\PendingOrderManagerInterface;
-use Worldline\PaymentCore\Model\Order\FailedOrderCreationNotification;
+use Cawl\PaymentCore\Api\PendingOrderManagerInterface;
+use Cawl\PaymentCore\Model\Order\FailedOrderCreationNotification;
 
 class PendingOrder extends Action implements HttpPostActionInterface
 {

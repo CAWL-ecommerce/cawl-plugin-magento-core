@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook\ResourceModel;
+namespace Cawl\PaymentCore\Model\Webhook\ResourceModel;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Worldline\PaymentCore\Api\Data\WebhookInterface;
+use Cawl\PaymentCore\Api\Data\WebhookInterface;
 
 /**
  * Resource model for webhook entity

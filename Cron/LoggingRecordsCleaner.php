@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Cron;
+namespace Cawl\PaymentCore\Cron;
 
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Logger\ResourceModel\RequestLog;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
-use Worldline\PaymentCore\Model\Log\ResourceModel\Log;
-use Worldline\PaymentCore\Model\Webhook\ResourceModel\Webhook as WebhookResource;
+use Cawl\PaymentCore\Logger\ResourceModel\RequestLog;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\Model\Log\ResourceModel\Log;
+use Cawl\PaymentCore\Model\Webhook\ResourceModel\Webhook as WebhookResource;
 
 class LoggingRecordsCleaner
 {

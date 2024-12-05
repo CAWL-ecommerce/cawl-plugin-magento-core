@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Services;
+namespace Cawl\PaymentCore\Service\Services;
 
 use Magento\Framework\Exception\LocalizedException;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Service\Services\TestConnectionServiceInterface;
-use Worldline\PaymentCore\Api\ClientProviderInterface;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\Api\Service\Services\TestConnectionServiceInterface;
+use Cawl\PaymentCore\Api\ClientProviderInterface;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 
 /**
  * @link https://support.direct.ingenico.com/documentation/api/reference/#tag/Services/operation/TestConnectionApi

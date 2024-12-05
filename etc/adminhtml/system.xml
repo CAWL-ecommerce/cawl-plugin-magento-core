@@ -9,7 +9,7 @@
             <group id="worldline" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Cawl Online Payments</label>
                 <field id="payments_info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\Payments</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\Payments</frontend_model>
                 </field>
             </group>
         </section>
@@ -18,7 +18,7 @@
             <tab>worldline</tab>
             <resource>Cawl_PaymentCore::config_worldline</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\Info</frontend_model>
+                <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\Info</frontend_model>
             </group>
         </section>
         <section id="worldline_connection" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
@@ -29,7 +29,7 @@
                 <label>Connection</label>
                 <field id="environment_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Environment Mode</label>
-                    <source_model>Worldline\PaymentCore\Model\Config\Source\EnvironmentModeOptions</source_model>
+                    <source_model>Cawl\PaymentCore\Model\Config\Source\EnvironmentModeOptions</source_model>
                 </field>
                 <field id="api_key" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>API Key</label>
@@ -48,8 +48,8 @@
                 <field id="api_secret" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>API Secret</label>
                     <validate>required-entry</validate>
-                    <backend_model>Worldline\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
+                    <backend_model>Cawl\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
                     <depends>
                         <field id="environment_mode">0</field>
                     </depends>
@@ -57,8 +57,8 @@
                 <field id="api_secret_prod" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>API Secret</label>
                     <validate>required-entry</validate>
-                    <backend_model>Worldline\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
+                    <backend_model>Cawl\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
                     <depends>
                         <field id="environment_mode">1</field>
                     </depends>
@@ -93,13 +93,13 @@
                 </field>
                 <field id="test_connection" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label><![CDATA[Test Connection & Save Credentials]]></label>
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\TestConnection</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\TestConnection</frontend_model>
                 </field>
             </group>
             <group id="webhook" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
                 <label>Webhook</label>
                 <field id="webhook_url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\WebhookUrl</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\WebhookUrl</frontend_model>
                 </field>
                 <field id="key" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1">
                     <label>Key</label>
@@ -107,13 +107,13 @@
                 </field>
                 <field id="secret_key" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
                     <label>Secret Key</label>
-                    <backend_model>Worldline\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
+                    <backend_model>Cawl\PaymentCore\Model\Config\Backend\EncryptedSecretKey</backend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\SecretKey</frontend_model>
                     <validate>required-entry</validate>
                     <comment>To retrieve webhooks credentials, login to the Cawl Back Office</comment>
                 </field>
                 <field id="webhook_info" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\WebhookInfo</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\WebhookInfo</frontend_model>
                 </field>
             </group>
         </section>
@@ -361,29 +361,29 @@
                 <label>Debug Logs</label>
                 <field id="download_debug" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Download Debug Log</label>
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\DownloadDebugLog</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\DownloadDebugLog</frontend_model>
                 </field>
                 <field id="erase_debug" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Erase Debug Log</label>
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\EraseDebugLog</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\EraseDebugLog</frontend_model>
                 </field>
             </group>
             <group id="worldline_request" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Cawl Request Logs</label>
                 <field id="log" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Request Log Grid</label>
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\RequestLogGrid</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\RequestLogGrid</frontend_model>
                 </field>
                 <field id="log_mode" translate="label comment" type="select" sortOrder="20" showInDefault="1" canRestore="1">
                     <label>Log mode</label>
-                    <source_model>Worldline\PaymentCore\Logger\Config\Source\LogMode</source_model>
+                    <source_model>Cawl\PaymentCore\Logger\Config\Source\LogMode</source_model>
                 </field>
             </group>
             <group id="webhooks" translate="label" type="text" sortOrder="40" showInDefault="1">
                 <label>Webhooks</label>
                 <field id="log" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Webhook Grid</label>
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\WebhookGrid</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\WebhookGrid</frontend_model>
                 </field>
                 <field id="active" translate="label" type="select" sortOrder="20" showInDefault="1">
                     <label>Log Webhooks</label>

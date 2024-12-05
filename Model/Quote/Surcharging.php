@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Quote;
+namespace Cawl\PaymentCore\Model\Quote;
 
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Api\Data\ShippingAssignmentInterface;
 use Magento\Quote\Model\Quote;
 use Magento\Quote\Model\Quote\Address\Total;
 use Magento\Quote\Model\Quote\Address\Total\AbstractTotal;
-use Worldline\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
-use Worldline\PaymentCore\Api\QuoteTotalInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
+use Cawl\PaymentCore\Api\QuoteTotalInterface;
 
 class Surcharging extends AbstractTotal
 {

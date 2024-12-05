@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\OrderFactory;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
-use Worldline\PaymentCore\Api\PaymentManagerInterface;
-use Worldline\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface;
-use Worldline\PaymentCore\Model\Transaction\TransactionUpdater;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
+use Cawl\PaymentCore\Api\PaymentManagerInterface;
+use Cawl\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface;
+use Cawl\PaymentCore\Model\Transaction\TransactionUpdater;
 
 class PaymentInfoUpdater
 {

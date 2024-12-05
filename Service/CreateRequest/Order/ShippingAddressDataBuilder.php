@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\CreateRequest\Order;
+namespace Cawl\PaymentCore\Service\CreateRequest\Order;
 
 use Magento\Quote\Api\Data\CartInterface;
 use OnlinePayments\Sdk\Domain\AddressPersonalFactory;
 use OnlinePayments\Sdk\Domain\PersonalNameFactory;
 use OnlinePayments\Sdk\Domain\Shipping;
 use OnlinePayments\Sdk\Domain\ShippingFactory;
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
-use Worldline\PaymentCore\Api\Service\CreateRequest\Order\ShippingAddressDataBuilderInterface;
-use Worldline\PaymentCore\Model\Quote\Address\Comparer;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\Service\CreateRequest\Order\ShippingAddressDataBuilderInterface;
+use Cawl\PaymentCore\Model\Quote\Address\Comparer;
 
 class ShippingAddressDataBuilder implements ShippingAddressDataBuilderInterface
 {

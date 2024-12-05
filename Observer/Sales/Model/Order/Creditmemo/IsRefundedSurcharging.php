@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Observer\Sales\Model\Order\Creditmemo;
+namespace Cawl\PaymentCore\Observer\Sales\Model\Order\Creditmemo;
 
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Worldline\PaymentCore\Api\SurchargingCreditmemoManagerInterface;
-use Worldline\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
-use Worldline\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
-use Worldline\PaymentCore\Model\Quote\Surcharging as QuoteSurcharging;
+use Cawl\PaymentCore\Api\SurchargingCreditmemoManagerInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
+use Cawl\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
+use Cawl\PaymentCore\Model\Quote\Surcharging as QuoteSurcharging;
 
 /**
  * Save surcharging data when submit credit memo, 'sales_order_creditmemo_save_after' event

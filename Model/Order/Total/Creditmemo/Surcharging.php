@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order\Total\Creditmemo;
+namespace Cawl\PaymentCore\Model\Order\Total\Creditmemo;
 
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Sales\Model\Order\Creditmemo;
 use Magento\Sales\Model\Order\Creditmemo\Total\AbstractTotal;
-use Worldline\PaymentCore\Api\Data\SurchargingCreditmemoInterface;
-use Worldline\PaymentCore\Api\Data\SurchargingQuoteInterface;
-use Worldline\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
-use Worldline\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
-use Worldline\PaymentCore\Model\Quote\Surcharging as QuoteSurcharging;
+use Cawl\PaymentCore\Api\Data\SurchargingCreditmemoInterface;
+use Cawl\PaymentCore\Api\Data\SurchargingQuoteInterface;
+use Cawl\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
+use Cawl\PaymentCore\Model\Quote\Surcharging as QuoteSurcharging;
 
 class Surcharging extends AbstractTotal
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\CreateRequest\Order;
+namespace Cawl\PaymentCore\Service\CreateRequest\Order;
 
 use Magento\Payment\Gateway\Data\AddressAdapterInterface;
 use Magento\Payment\Model\InfoInterface;
@@ -13,8 +13,8 @@ use OnlinePayments\Sdk\Domain\Customer;
 use OnlinePayments\Sdk\Domain\CustomerFactory;
 use OnlinePayments\Sdk\Domain\PersonalInformationFactory;
 use OnlinePayments\Sdk\Domain\PersonalNameFactory;
-use Worldline\PaymentCore\Api\Service\CreateRequest\Order\CustomerDataBuilderInterface;
-use Worldline\PaymentCore\Gateway\Request\Customer\DeviceDataBuilder;
+use Cawl\PaymentCore\Api\Service\CreateRequest\Order\CustomerDataBuilderInterface;
+use Cawl\PaymentCore\Gateway\Request\Customer\DeviceDataBuilder;
 
 class CustomerDataBuilder implements CustomerDataBuilderInterface
 {

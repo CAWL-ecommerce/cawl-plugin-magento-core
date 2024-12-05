@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api\Config;
+namespace Cawl\PaymentCore\Api\Config;
 
 use Magento\Store\Model\ScopeInterface;
 

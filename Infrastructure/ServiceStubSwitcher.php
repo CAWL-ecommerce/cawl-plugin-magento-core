@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure;
+namespace Cawl\PaymentCore\Infrastructure;
 
-use Worldline\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
+use Cawl\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
 
 class ServiceStubSwitcher implements ServiceStubSwitcherInterface
 {

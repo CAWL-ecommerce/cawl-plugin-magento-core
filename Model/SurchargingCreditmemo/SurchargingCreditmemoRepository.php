@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\SurchargingCreditmemo;
+namespace Cawl\PaymentCore\Model\SurchargingCreditmemo;
 
-use Worldline\PaymentCore\Api\Data\SurchargingCreditmemoInterface;
-use Worldline\PaymentCore\Api\Data\SurchargingCreditmemoInterfaceFactory;
-use Worldline\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
-use Worldline\PaymentCore\Model\SurchargingCreditmemo\ResourceModel\SurchargingCreditmemo as ResourceModel;
-use Worldline\PaymentCore\Model\SurchargingCreditmemo\ResourceModel\SurchargingCreditmemo\CollectionFactory;
+use Cawl\PaymentCore\Api\Data\SurchargingCreditmemoInterface;
+use Cawl\PaymentCore\Api\Data\SurchargingCreditmemoInterfaceFactory;
+use Cawl\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
+use Cawl\PaymentCore\Model\SurchargingCreditmemo\ResourceModel\SurchargingCreditmemo as ResourceModel;
+use Cawl\PaymentCore\Model\SurchargingCreditmemo\ResourceModel\SurchargingCreditmemo\CollectionFactory;
 
 class SurchargingCreditmemoRepository implements SurchargingCreditmemoRepositoryInterface
 {

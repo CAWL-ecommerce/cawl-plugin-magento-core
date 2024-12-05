@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api\Order;
+namespace Cawl\PaymentCore\Api\Order;
 
 use Magento\Sales\Api\Data\OrderInterface;
 

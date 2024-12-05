@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Refund;
+namespace Cawl\PaymentCore\Service\Refund;
 
 use OnlinePayments\Sdk\Domain\AmountOfMoneyFactory;
 use OnlinePayments\Sdk\Domain\RefundRequest;
 use OnlinePayments\Sdk\Domain\RefundRequestFactory;
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
-use Worldline\PaymentCore\Api\Service\Refund\RefundRequestDataBuilderInterface;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\Service\Refund\RefundRequestDataBuilderInterface;
 
 class RefundRequestDataBuilder implements RefundRequestDataBuilderInterface
 {

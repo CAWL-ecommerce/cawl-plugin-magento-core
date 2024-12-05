@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
 use Magento\Framework\DB\Transaction;
 use Magento\Framework\Exception\LocalizedException;
@@ -11,7 +11,7 @@ use Magento\Sales\Model\Order\Email\Sender\InvoiceSender;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Service\InvoiceService;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Order\InvoiceManagerInterface;
+use Cawl\PaymentCore\Api\Order\InvoiceManagerInterface;
 
 class InvoiceManager implements InvoiceManagerInterface
 {

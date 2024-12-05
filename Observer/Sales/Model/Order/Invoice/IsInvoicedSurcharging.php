@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Observer\Sales\Model\Order\Invoice;
+namespace Cawl\PaymentCore\Observer\Sales\Model\Order\Invoice;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Worldline\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
 
 /**
  * Save surcharging data when submit invoice, 'sales_order_invoice_save_after' event

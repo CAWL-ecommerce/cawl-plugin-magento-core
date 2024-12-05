@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\SurchargingQuote;
+namespace Cawl\PaymentCore\Model\SurchargingQuote;
 
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Quote\Api\Data\CartInterface;
 use OnlinePayments\Sdk\Domain\SurchargeSpecificOutput;
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
-use Worldline\PaymentCore\Api\QuoteTotalInterface;
-use Worldline\PaymentCore\Api\SurchargingQuoteManagerInterface;
-use Worldline\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\QuoteTotalInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteManagerInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
 
 class SurchargingQuoteManager implements SurchargingQuoteManagerInterface
 {

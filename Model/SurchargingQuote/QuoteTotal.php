@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\SurchargingQuote;
+namespace Cawl\PaymentCore\Model\SurchargingQuote;
 
 use Magento\Quote\Api\Data\CartInterface;
-use Worldline\PaymentCore\Api\QuoteTotalInterface;
+use Cawl\PaymentCore\Api\QuoteTotalInterface;
 
 class QuoteTotal implements QuoteTotalInterface
 {

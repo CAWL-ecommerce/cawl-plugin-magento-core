@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\OrderStatusHistoryRepositoryInterface;
@@ -12,7 +12,7 @@ use OnlinePayments\Sdk\Domain\PaymentResponse;
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Model\Webhook\WebhookResponseManager;
+use Cawl\PaymentCore\Model\Webhook\WebhookResponseManager;
 
 /**
  * Format and save comment to the order

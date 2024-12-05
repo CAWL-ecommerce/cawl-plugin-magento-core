@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Request;
+namespace Cawl\PaymentCore\Gateway\Request;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Payment\Gateway\Request\BuilderInterface;
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
-use Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
-use Worldline\PaymentCore\Gateway\SubjectReader;
-use Worldline\PaymentCore\Service\Payment\CapturePaymentRequestBuilder;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
+use Cawl\PaymentCore\Gateway\SubjectReader;
+use Cawl\PaymentCore\Service\Payment\CapturePaymentRequestBuilder;
 
 class CaptureDataBuilder implements BuilderInterface
 {

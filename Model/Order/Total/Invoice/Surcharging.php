@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order\Total\Invoice;
+namespace Cawl\PaymentCore\Model\Order\Total\Invoice;
 
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Invoice\Total\AbstractTotal;
-use Worldline\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
 
 class Surcharging extends AbstractTotal
 {

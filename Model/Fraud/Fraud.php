@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Fraud;
+namespace Cawl\PaymentCore\Model\Fraud;
 
 use Magento\Framework\Model\AbstractModel;
-use Worldline\PaymentCore\Api\Data\FraudInterface;
-use Worldline\PaymentCore\Model\Fraud\ResourceModel\Fraud as FraudResource;
+use Cawl\PaymentCore\Api\Data\FraudInterface;
+use Cawl\PaymentCore\Model\Fraud\ResourceModel\Fraud as FraudResource;
 
 /**
  * Data model for fraud entity

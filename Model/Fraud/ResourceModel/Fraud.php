@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Fraud\ResourceModel;
+namespace Cawl\PaymentCore\Model\Fraud\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 

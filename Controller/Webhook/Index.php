@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Webhook;
+namespace Cawl\PaymentCore\Controller\Webhook;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\CsrfAwareActionInterface;
@@ -13,8 +13,8 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Model\Webhook\RequestProcessor;
-use Worldline\PaymentCore\Model\Webhook\GeneralProcessor;
+use Cawl\PaymentCore\Model\Webhook\RequestProcessor;
+use Cawl\PaymentCore\Model\Webhook\GeneralProcessor;
 
 class Index implements CsrfAwareActionInterface, HttpPostActionInterface
 {

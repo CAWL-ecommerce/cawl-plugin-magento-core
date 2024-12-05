@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Block\Adminhtml;
+namespace Cawl\PaymentCore\Block\Adminhtml;
 
-use Worldline\PaymentCore\Api\Data\PaymentInfoInterface;
-use Worldline\PaymentCore\Api\InfoFormatterInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInfoInterface;
+use Cawl\PaymentCore\Api\InfoFormatterInterface;
 
 /**
  * Order view payment info formatter for the admin panel

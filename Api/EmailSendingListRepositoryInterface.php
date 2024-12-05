@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api;
+namespace Cawl\PaymentCore\Api;
 
-use Worldline\PaymentCore\Api\Data\EmailSendingListInterface;
+use Cawl\PaymentCore\Api\Data\EmailSendingListInterface;
 
 interface EmailSendingListRepositoryInterface
 {

@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\RefundRequest;
+namespace Cawl\PaymentCore\Model\RefundRequest;
 
 use Exception;
 use Magento\Framework\Exception\CouldNotSaveException;
-use Worldline\PaymentCore\Api\Data\RefundRequestInterface;
-use Worldline\PaymentCore\Api\Data\RefundRequestInterfaceFactory;
-use Worldline\PaymentCore\Api\RefundRequestRepositoryInterface;
-use Worldline\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest as RefundRequestResource;
-use Worldline\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest\Collection;
-use Worldline\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest\CollectionFactory;
+use Cawl\PaymentCore\Api\Data\RefundRequestInterface;
+use Cawl\PaymentCore\Api\Data\RefundRequestInterfaceFactory;
+use Cawl\PaymentCore\Api\RefundRequestRepositoryInterface;
+use Cawl\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest as RefundRequestResource;
+use Cawl\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest\Collection;
+use Cawl\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest\CollectionFactory;
 
 class RefundRequestRepository implements RefundRequestRepositoryInterface
 {

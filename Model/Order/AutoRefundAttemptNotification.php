@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\Exception\MailException;
 use Magento\Framework\Mail\Template\SenderResolverInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Quote\Api\Data\CartInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Model\Config\AutoRefundConfigProvider;
-use Worldline\PaymentCore\Model\EmailSender;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Model\Config\AutoRefundConfigProvider;
+use Cawl\PaymentCore\Model\EmailSender;
 
 class AutoRefundAttemptNotification
 {

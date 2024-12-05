@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\OrderState;
+namespace Cawl\PaymentCore\Model\OrderState;
 
-use Worldline\PaymentCore\Api\Data\OrderStateInterfaceFactory;
-use Worldline\PaymentCore\Api\OrderStateManagerInterface;
+use Cawl\PaymentCore\Api\Data\OrderStateInterfaceFactory;
+use Cawl\PaymentCore\Api\OrderStateManagerInterface;
 
 class OrderStateManager implements OrderStateManagerInterface
 {

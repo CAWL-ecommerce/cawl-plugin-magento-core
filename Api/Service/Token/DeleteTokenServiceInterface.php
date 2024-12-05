@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api\Service\Token;
+namespace Cawl\PaymentCore\Api\Service\Token;
 
 interface DeleteTokenServiceInterface
 {

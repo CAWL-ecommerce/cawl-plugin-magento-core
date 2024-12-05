@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Setup\Patch\Data;
+namespace Cawl\PaymentCore\Setup\Patch\Data;
 
 use Magento\Framework\App\Cache\Manager;
 use Magento\Framework\App\Cache\Type\Config as CacheTypeConfig;

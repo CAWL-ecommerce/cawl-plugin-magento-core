@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Transaction\ResourceModel\Transaction;
+namespace Cawl\PaymentCore\Model\Transaction\ResourceModel\Transaction;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Worldline\PaymentCore\Model\Transaction\ResourceModel\Transaction as TransactionResource;
-use Worldline\PaymentCore\Model\Transaction\Transaction as TransactionModel;
+use Cawl\PaymentCore\Model\Transaction\ResourceModel\Transaction as TransactionResource;
+use Cawl\PaymentCore\Model\Transaction\Transaction as TransactionModel;
 
 class Collection extends AbstractCollection
 {

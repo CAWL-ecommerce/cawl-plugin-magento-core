@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Checkout;
+namespace Cawl\PaymentCore\Model\Checkout;
 
 use Magento\Checkout\Model\Session;
 use Magento\Sales\Api\Data\OrderInterface;
-use Worldline\PaymentCore\Api\SessionDataManagerInterface;
+use Cawl\PaymentCore\Api\SessionDataManagerInterface;
 
 /**
  * @SuppressWarnings(PHPMD.CookieAndSessionMisuse)

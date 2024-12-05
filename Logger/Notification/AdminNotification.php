@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Logger\Notification;
+namespace Cawl\PaymentCore\Logger\Notification;
 
 use Magento\Framework\Notification\MessageInterface;
 use Magento\Framework\UrlInterface;
-use Worldline\PaymentCore\Logger\ResourceModel\RequestLog;
+use Cawl\PaymentCore\Logger\ResourceModel\RequestLog;
 
 class AdminNotification implements MessageInterface
 {

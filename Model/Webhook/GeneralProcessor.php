@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
-use Worldline\PaymentCore\Api\Webhook\CustomProcessorStrategyInterface;
-use Worldline\PaymentCore\Api\Webhook\ProcessorInterface;
-use Worldline\PaymentCore\Model\Order\CommentManager as OrderCommentManager;
+use Cawl\PaymentCore\Api\Webhook\CustomProcessorStrategyInterface;
+use Cawl\PaymentCore\Api\Webhook\ProcessorInterface;
+use Cawl\PaymentCore\Model\Order\CommentManager as OrderCommentManager;
 
 class GeneralProcessor implements ProcessorInterface
 {

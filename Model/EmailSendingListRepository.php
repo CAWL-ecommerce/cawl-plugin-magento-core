@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Framework\Exception\CouldNotSaveException;
-use Worldline\PaymentCore\Api\Data\EmailSendingListInterface;
-use Worldline\PaymentCore\Api\Data\EmailSendingListInterfaceFactory;
-use Worldline\PaymentCore\Api\EmailSendingListRepositoryInterface;
-use Worldline\PaymentCore\Model\ResourceModel\EmailSendingList as EmailSendingListResource;
-use Worldline\PaymentCore\Model\ResourceModel\EmailSendingList\CollectionFactory;
+use Cawl\PaymentCore\Api\Data\EmailSendingListInterface;
+use Cawl\PaymentCore\Api\Data\EmailSendingListInterfaceFactory;
+use Cawl\PaymentCore\Api\EmailSendingListRepositoryInterface;
+use Cawl\PaymentCore\Model\ResourceModel\EmailSendingList as EmailSendingListResource;
+use Cawl\PaymentCore\Model\ResourceModel\EmailSendingList\CollectionFactory;
 
 class EmailSendingListRepository implements EmailSendingListRepositoryInterface
 {

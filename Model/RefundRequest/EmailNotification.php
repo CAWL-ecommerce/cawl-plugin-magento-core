@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\RefundRequest;
+namespace Cawl\PaymentCore\Model\RefundRequest;
 
 use Magento\Sales\Api\Data\CreditmemoInterface;
 use Magento\Sales\Helper\Data as SalesData;

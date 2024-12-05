@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use OnlinePayments\Sdk\Domain\PaymentResponse;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\FraudManagerInterface;
-use Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
-use Worldline\PaymentCore\Api\PaymentDataManagerInterface;
-use Worldline\PaymentCore\Api\PaymentManagerInterface;
-use Worldline\PaymentCore\Api\QuoteResourceInterface;
-use Worldline\PaymentCore\Api\TransactionWLResponseManagerInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\FraudManagerInterface;
+use Cawl\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
+use Cawl\PaymentCore\Api\PaymentDataManagerInterface;
+use Cawl\PaymentCore\Api\PaymentManagerInterface;
+use Cawl\PaymentCore\Api\QuoteResourceInterface;
+use Cawl\PaymentCore\Api\TransactionWLResponseManagerInterface;
 
 /**
  * Manager for worldline payment entity

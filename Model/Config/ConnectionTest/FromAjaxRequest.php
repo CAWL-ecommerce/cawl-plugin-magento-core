@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Config\ConnectionTest;
+namespace Cawl\PaymentCore\Model\Config\ConnectionTest;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Store\Model\ScopeInterface;
-use Worldline\PaymentCore\Api\Service\Services\TestConnectionServiceInterface;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\Api\Service\Services\TestConnectionServiceInterface;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 
 class FromAjaxRequest
 {

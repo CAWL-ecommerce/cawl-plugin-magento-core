@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Http\Client;
+namespace Cawl\PaymentCore\Gateway\Http\Client;
 
 use Exception;
 use Magento\Payment\Gateway\Http\ClientException;

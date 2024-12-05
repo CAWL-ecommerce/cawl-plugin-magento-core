@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Plugin\Magento\Sales\Block\Adminhtml\Order\Creditmemo\Create\Form;
+namespace Cawl\PaymentCore\Plugin\Magento\Sales\Block\Adminhtml\Order\Creditmemo\Create\Form;
 
 use Magento\Sales\Block\Adminhtml\Order\Creditmemo\Create\Form;
 

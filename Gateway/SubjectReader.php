@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway;
+namespace Cawl\PaymentCore\Gateway;
 
 use InvalidArgumentException;
 use Magento\Payment\Gateway\Data\PaymentDataObject;
@@ -9,7 +9,7 @@ use Magento\Payment\Gateway\Data\PaymentDataObjectInterface;
 use Magento\Payment\Gateway\Helper;
 use OnlinePayments\Sdk\DataObject;
 use OnlinePayments\Sdk\Domain\CreatePaymentResponse;
-use Worldline\PaymentCore\Api\SubjectReaderInterface;
+use Cawl\PaymentCore\Api\SubjectReaderInterface;
 
 class SubjectReader implements SubjectReaderInterface
 {

@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\Exception\MailException;
 use Magento\Framework\Mail\Template\SenderResolverInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
-use Worldline\PaymentCore\Api\Data\EmailSendingListInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\EmailSendingListRepositoryInterface;
-use Worldline\PaymentCore\Model\Config\OrderNotificationConfigProvider;
-use Worldline\PaymentCore\Model\EmailSender;
-use Worldline\PaymentCore\Api\QuoteResourceInterface;
+use Cawl\PaymentCore\Api\Data\EmailSendingListInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\EmailSendingListRepositoryInterface;
+use Cawl\PaymentCore\Model\Config\OrderNotificationConfigProvider;
+use Cawl\PaymentCore\Model\EmailSender;
+use Cawl\PaymentCore\Api\QuoteResourceInterface;
 
 class FailedOrderCreationNotification
 {

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Block\Sales\Creditmemo\View;
+namespace Cawl\PaymentCore\Block\Sales\Creditmemo\View;
 
 use Magento\Framework\DataObjectFactory;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-use Worldline\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
-use Worldline\PaymentCore\Model\Quote\Surcharging as QuoteSurcharging;
+use Cawl\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
+use Cawl\PaymentCore\Model\Quote\Surcharging as QuoteSurcharging;
 
 class Surcharging extends Template
 {

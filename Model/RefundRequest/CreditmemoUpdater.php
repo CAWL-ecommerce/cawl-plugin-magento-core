@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\RefundRequest;
+namespace Cawl\PaymentCore\Model\RefundRequest;
 
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\Data\TransactionInterface;
-use Worldline\PaymentCore\Api\QuoteResourceInterface;
-use Worldline\PaymentCore\Api\RefundRequestRepositoryInterface;
-use Worldline\PaymentCore\Api\TransactionRepositoryInterface;
-use Worldline\PaymentCore\Model\Order\PaymentInfoUpdater;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\Data\TransactionInterface;
+use Cawl\PaymentCore\Api\QuoteResourceInterface;
+use Cawl\PaymentCore\Api\RefundRequestRepositoryInterface;
+use Cawl\PaymentCore\Api\TransactionRepositoryInterface;
+use Cawl\PaymentCore\Model\Order\PaymentInfoUpdater;
 
 /**
  * Update credit memo when webhooks are missing

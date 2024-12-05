@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\PaymentDetails;
+namespace Cawl\PaymentCore\Controller\Adminhtml\PaymentDetails;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
-use Worldline\PaymentCore\Model\Order\PaymentInfoUpdater;
+use Cawl\PaymentCore\Model\Order\PaymentInfoUpdater;
 
 class Update extends Action implements HttpPostActionInterface
 {

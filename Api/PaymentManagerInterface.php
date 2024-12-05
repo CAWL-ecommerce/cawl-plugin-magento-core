@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api;
+namespace Cawl\PaymentCore\Api;
 
 use OnlinePayments\Sdk\DataObject;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
 
 /**
  * Manager interface for worldline payment entity

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\System;
+namespace Cawl\PaymentCore\Controller\Adminhtml\System;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -9,7 +9,7 @@ use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\FlagManager;
-use Worldline\PaymentCore\Model\ThreeDSecure\Notification\AdminNotification;
+use Cawl\PaymentCore\Model\ThreeDSecure\Notification\AdminNotification;
 
 class IgnoreMovedSettingsNotification extends Action implements HttpGetActionInterface
 {

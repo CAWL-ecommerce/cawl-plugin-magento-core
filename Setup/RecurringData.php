@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Setup;
+namespace Cawl\PaymentCore\Setup;
 
 use Magento\Framework\FlagManager;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use Worldline\PaymentCore\Cron\OrderCreator;
+use Cawl\PaymentCore\Cron\OrderCreator;
 
 /**
  * Reset worldline order update watcher flag

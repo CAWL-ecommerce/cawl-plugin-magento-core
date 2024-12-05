@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Log;
+namespace Cawl\PaymentCore\Model\Log;
 
 use Magento\Framework\Model\AbstractModel;
-use Worldline\PaymentCore\Api\Data\LogInterface;
-use Worldline\PaymentCore\Model\Log\ResourceModel\Log as LogResource;
+use Cawl\PaymentCore\Api\Data\LogInterface;
+use Cawl\PaymentCore\Model\Log\ResourceModel\Log as LogResource;
 
 class Log extends AbstractModel implements LogInterface
 {

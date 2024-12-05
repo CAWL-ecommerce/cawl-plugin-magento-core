@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Command;
+namespace Cawl\PaymentCore\Gateway\Command;
 
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
@@ -14,8 +14,8 @@ use Magento\Payment\Gateway\Helper\ContextHelper;
 use Magento\Sales\Api\Data\OrderPaymentInterface;
 use Magento\Sales\Api\Data\TransactionInterface;
 use Magento\Sales\Api\TransactionRepositoryInterface;
-use Worldline\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
-use Worldline\PaymentCore\Gateway\SubjectReader;
+use Cawl\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
+use Cawl\PaymentCore\Gateway\SubjectReader;
 
 /**
  * Used for Magento 2.3.7

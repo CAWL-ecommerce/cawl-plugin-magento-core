@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
 use Magento\Framework\DataObject;
-use Worldline\PaymentCore\Api\Data\CanPlaceOrderContextInterface;
+use Cawl\PaymentCore\Api\Data\CanPlaceOrderContextInterface;
 
 /**
  * Context for the validator pool

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\System\Config;
+namespace Cawl\PaymentCore\Controller\Adminhtml\System\Config;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -10,7 +10,7 @@ use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Data\Form\FormKey\Validator;
 use Magento\Framework\Exception\LocalizedException;
-use Worldline\PaymentCore\Model\FeatureRequestBuilder;
+use Cawl\PaymentCore\Model\FeatureRequestBuilder;
 
 class SendFeatureRequest extends Action implements HttpPostActionInterface
 {

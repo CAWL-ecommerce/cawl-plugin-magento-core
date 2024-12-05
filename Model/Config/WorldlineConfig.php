@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Config;
+namespace Cawl\PaymentCore\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Store\Model\ScopeInterface;
-use Worldline\PaymentCore\Api\Config\WorldlineConfigInterface;
+use Cawl\PaymentCore\Api\Config\WorldlineConfigInterface;
 
 class WorldlineConfig implements WorldlineConfigInterface
 {

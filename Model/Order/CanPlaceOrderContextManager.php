@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Api\Data\CartInterface;
-use Worldline\PaymentCore\Api\CanPlaceOrderContextManagerInterface;
-use Worldline\PaymentCore\Api\Data\CanPlaceOrderContextInterface;
-use Worldline\PaymentCore\Api\Data\CanPlaceOrderContextInterfaceFactory;
+use Cawl\PaymentCore\Api\CanPlaceOrderContextManagerInterface;
+use Cawl\PaymentCore\Api\Data\CanPlaceOrderContextInterface;
+use Cawl\PaymentCore\Api\Data\CanPlaceOrderContextInterfaceFactory;
 
 class CanPlaceOrderContextManager implements CanPlaceOrderContextManagerInterface
 {

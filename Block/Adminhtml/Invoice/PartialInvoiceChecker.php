@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Block\Adminhtml\Invoice;
+namespace Cawl\PaymentCore\Block\Adminhtml\Invoice;
 
 use Magento\Backend\Block\Template;
 use Magento\Sales\Api\OrderRepositoryInterface;
-use Worldline\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
-use Worldline\PaymentCore\Api\PaymentRepositoryInterface;
+use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
+use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
 
 class PartialInvoiceChecker extends Template
 {

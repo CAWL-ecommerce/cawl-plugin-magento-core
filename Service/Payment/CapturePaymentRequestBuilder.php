@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Payment;
+namespace Cawl\PaymentCore\Service\Payment;
 
 use OnlinePayments\Sdk\Domain\CapturePaymentRequest;
 use OnlinePayments\Sdk\Domain\CapturePaymentRequestFactory;
-use Worldline\PaymentCore\Api\Service\CapturePaymentRequestBuilderInterface;
+use Cawl\PaymentCore\Api\Service\CapturePaymentRequestBuilderInterface;
 
 class CapturePaymentRequestBuilder implements CapturePaymentRequestBuilderInterface
 {

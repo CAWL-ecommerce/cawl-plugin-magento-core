@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Cron;
+namespace Cawl\PaymentCore\Cron;
 
 use Magento\Framework\FlagManager;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Model\Order\Creation\OrderCreationProcessor;
+use Cawl\PaymentCore\Model\Order\Creation\OrderCreationProcessor;
 
 class OrderCreator
 {

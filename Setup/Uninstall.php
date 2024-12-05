@@ -1,21 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Setup;
+namespace Cawl\PaymentCore\Setup;
 
 use Magento\Config\Model\ResourceModel\Config as ConfigResource;
 use Magento\Config\Model\ResourceModel\Config\Data\CollectionFactory;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\Setup\UninstallInterface;
-use Worldline\PaymentCore\Logger\ResourceModel\RequestLog;
-use Worldline\PaymentCore\Model\Fraud\ResourceModel\Fraud;
-use Worldline\PaymentCore\Model\Log\ResourceModel\Log;
-use Worldline\PaymentCore\Model\Payment\ResourceModel\Payment;
-use Worldline\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest;
-use Worldline\PaymentCore\Model\ResourceModel\FailedPaymentLog;
-use Worldline\PaymentCore\Model\Transaction\ResourceModel\Transaction;
-use Worldline\PaymentCore\Model\Webhook\ResourceModel\Webhook;
+use Cawl\PaymentCore\Logger\ResourceModel\RequestLog;
+use Cawl\PaymentCore\Model\Fraud\ResourceModel\Fraud;
+use Cawl\PaymentCore\Model\Log\ResourceModel\Log;
+use Cawl\PaymentCore\Model\Payment\ResourceModel\Payment;
+use Cawl\PaymentCore\Model\RefundRequest\ResourceModel\RefundRequest;
+use Cawl\PaymentCore\Model\ResourceModel\FailedPaymentLog;
+use Cawl\PaymentCore\Model\Transaction\ResourceModel\Transaction;
+use Cawl\PaymentCore\Model\Webhook\ResourceModel\Webhook;
 
 class Uninstall implements UninstallInterface
 {

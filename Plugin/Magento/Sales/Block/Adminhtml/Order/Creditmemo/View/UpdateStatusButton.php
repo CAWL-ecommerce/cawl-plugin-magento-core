@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Plugin\Magento\Sales\Block\Adminhtml\Order\Creditmemo\View;
+namespace Cawl\PaymentCore\Plugin\Magento\Sales\Block\Adminhtml\Order\Creditmemo\View;
 
 use Magento\Sales\Block\Adminhtml\Order\Creditmemo\View;
 use Magento\Sales\Model\Order\Creditmemo;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\System\Config;
+namespace Cawl\PaymentCore\Controller\Adminhtml\System\Config;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -9,7 +9,7 @@ use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Model\Log\ResourceModel\Log;
+use Cawl\PaymentCore\Model\Log\ResourceModel\Log;
 
 class EraseDebugLog extends Action implements HttpGetActionInterface
 {

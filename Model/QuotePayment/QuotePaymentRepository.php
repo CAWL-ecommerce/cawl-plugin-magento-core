@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\QuotePayment;
+namespace Cawl\PaymentCore\Model\QuotePayment;
 
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Worldline\PaymentCore\Api\Data\QuotePaymentInterface;
-use Worldline\PaymentCore\Api\Data\QuotePaymentInterfaceFactory;
-use Worldline\PaymentCore\Api\QuotePaymentRepositoryInterface;
-use Worldline\PaymentCore\Model\QuotePayment\ResourceModel\QuotePayment as QuotePaymentResource;
-use Worldline\PaymentCore\Model\QuotePayment\ResourceModel\QuotePayment\CollectionFactory;
+use Cawl\PaymentCore\Api\Data\QuotePaymentInterface;
+use Cawl\PaymentCore\Api\Data\QuotePaymentInterfaceFactory;
+use Cawl\PaymentCore\Api\QuotePaymentRepositoryInterface;
+use Cawl\PaymentCore\Model\QuotePayment\ResourceModel\QuotePayment as QuotePaymentResource;
+use Cawl\PaymentCore\Model\QuotePayment\ResourceModel\QuotePayment\CollectionFactory;
 
 /**
  * Repository for worldline quote payment entity

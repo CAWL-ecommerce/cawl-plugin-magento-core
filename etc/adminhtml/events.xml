@@ -3,6 +3,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <!-- save surcharging data when submit credit memo -->
     <event name="sales_order_creditmemo_save_after">
-        <observer name="Cawl_PaymentCore::creditmemo_save" instance="Worldline\PaymentCore\Observer\Sales\Model\Order\Creditmemo\IsRefundedSurcharging" />
+        <observer name="Cawl_PaymentCore::creditmemo_save" instance="Cawl\PaymentCore\Observer\Sales\Model\Order\Creditmemo\IsRefundedSurcharging" />
     </event>
 </config>

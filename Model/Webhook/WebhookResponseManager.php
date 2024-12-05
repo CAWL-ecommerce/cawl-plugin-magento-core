@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\DataObject;

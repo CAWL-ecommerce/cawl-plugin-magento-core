@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Logger\Plugin\OnlinePayments\Sdk\Communicator;
+namespace Cawl\PaymentCore\Logger\Plugin\OnlinePayments\Sdk\Communicator;
 
 use Magento\Payment\Model\Method\Logger;
 use OnlinePayments\Sdk\CallContext;

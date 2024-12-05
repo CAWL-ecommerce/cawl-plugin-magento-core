@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Services;
+namespace Cawl\PaymentCore\Service\Services;
 
 use Magento\Quote\Api\Data\CartInterface;
 use OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
 use OnlinePayments\Sdk\Domain\CalculateSurchargeRequestFactory;
 use OnlinePayments\Sdk\Domain\CardSource;
 use OnlinePayments\Sdk\Domain\CardSourceFactory;
-use Worldline\PaymentCore\Api\Service\CalculateSurchargeRequestBuilderInterface;
-use Worldline\PaymentCore\Service\CreateRequest\Order\AmountDataBuilder;
+use Cawl\PaymentCore\Api\Service\CalculateSurchargeRequestBuilderInterface;
+use Cawl\PaymentCore\Service\CreateRequest\Order\AmountDataBuilder;
 
 /**
  * @link https://support.direct.worldline-solutions.com/en/documentation/api/reference/#tag/Services/operation/SurchargeCalculation

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Validator;
+namespace Cawl\PaymentCore\Gateway\Validator;
 
 use Magento\Payment\Gateway\Config\Config;
 use Magento\Payment\Gateway\Validator\AbstractValidator;

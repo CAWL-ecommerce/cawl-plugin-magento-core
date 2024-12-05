@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\Order\Creditmemo;
+namespace Cawl\PaymentCore\Controller\Adminhtml\Order\Creditmemo;
 
 use Exception;
 use Magento\Backend\App\Action;
@@ -13,8 +13,8 @@ use Magento\Sales\Api\CreditmemoManagementInterface;
 use Magento\Sales\Controller\Adminhtml\Order\CreditmemoLoader;
 use Magento\Sales\Model\Order\Creditmemo;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Model\RefundRequest\CreditmemoOnlineService;
-use Worldline\PaymentCore\Model\RefundRequest\EmailNotification;
+use Cawl\PaymentCore\Model\RefundRequest\CreditmemoOnlineService;
+use Cawl\PaymentCore\Model\RefundRequest\EmailNotification;
 
 class Save extends Action implements HttpPostActionInterface
 {

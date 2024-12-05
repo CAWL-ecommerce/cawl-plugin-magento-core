@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Quote\Api\Data\CartInterface;
-use Worldline\PaymentCore\Model\ResourceModel\FailedPaymentLog;
-use Worldline\PaymentCore\Model\Transaction\TransactionStatusInterface;
+use Cawl\PaymentCore\Model\ResourceModel\FailedPaymentLog;
+use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 
 class RefusedStatusProcessor
 {

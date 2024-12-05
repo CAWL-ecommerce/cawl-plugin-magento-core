@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Console\Command;
+namespace Cawl\PaymentCore\Console\Command;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Worldline\PaymentCore\Model\Order\Creation\OrderCreationProcessor;
+use Cawl\PaymentCore\Model\Order\Creation\OrderCreationProcessor;
 
 class OrderStatusUpdater extends Command
 {

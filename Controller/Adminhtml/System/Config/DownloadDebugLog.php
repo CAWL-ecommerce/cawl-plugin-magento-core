@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\System\Config;
+namespace Cawl\PaymentCore\Controller\Adminhtml\System\Config;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -9,7 +9,7 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\Result\Raw;
 use Magento\Framework\Controller\Result\RawFactory;
 use Magento\Framework\Exception\FileSystemException;
-use Worldline\PaymentCore\Logger\ContentProcessor;
+use Cawl\PaymentCore\Logger\ContentProcessor;
 
 class DownloadDebugLog extends Action implements HttpGetActionInterface
 {

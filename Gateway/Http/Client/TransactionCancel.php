@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Http\Client;
+namespace Cawl\PaymentCore\Gateway\Http\Client;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\DataObject;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Service\Payment\CancelPaymentServiceInterface;
-use Worldline\PaymentCore\Api\Service\Payment\GetPaymentServiceInterface;
-use Worldline\PaymentCore\Gateway\Request\VoidAndCancelDataBuilder;
+use Cawl\PaymentCore\Api\Service\Payment\CancelPaymentServiceInterface;
+use Cawl\PaymentCore\Api\Service\Payment\GetPaymentServiceInterface;
+use Cawl\PaymentCore\Gateway\Request\VoidAndCancelDataBuilder;
 
 /**
  * Process gateway cancel action

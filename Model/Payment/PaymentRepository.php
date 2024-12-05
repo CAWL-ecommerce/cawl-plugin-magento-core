@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Payment;
+namespace Cawl\PaymentCore\Model\Payment;
 
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInterfaceFactory;
-use Worldline\PaymentCore\Api\PaymentRepositoryInterface;
-use Worldline\PaymentCore\Model\Payment\ResourceModel\Payment as PaymentResource;
-use Worldline\PaymentCore\Model\Payment\ResourceModel\Payment\CollectionFactory;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInterfaceFactory;
+use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
+use Cawl\PaymentCore\Model\Payment\ResourceModel\Payment as PaymentResource;
+use Cawl\PaymentCore\Model\Payment\ResourceModel\Payment\CollectionFactory;
 
 /**
  * Repository for worldline payment entity

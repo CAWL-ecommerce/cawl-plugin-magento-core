@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Ui\Component;
+namespace Cawl\PaymentCore\Ui\Component;
 
 use Magento\Ui\Component\ExportButton;
 

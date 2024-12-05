@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Backend\Model\Auth\Session;
 use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\Module\PackageInfo;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 
 /**
  * Prepare feature request query

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Returns;
+namespace Cawl\PaymentCore\Controller\Returns;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
@@ -9,7 +9,7 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Sales\Model\OrderFactory;
-use Worldline\PaymentCore\Api\SessionDataManagerInterface;
+use Cawl\PaymentCore\Api\SessionDataManagerInterface;
 
 class CheckOrder extends Action implements HttpPostActionInterface
 {

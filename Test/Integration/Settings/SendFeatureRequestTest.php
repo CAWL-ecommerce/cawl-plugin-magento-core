@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Test\Integration\Settings;
+namespace Cawl\PaymentCore\Test\Integration\Settings;
 
 use Magento\Backend\Model\Auth\Session;
 use Magento\Framework\App\Request\Http as HttpRequest;
@@ -10,7 +10,7 @@ use Magento\Framework\Data\Form\FormKey;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\User\Model\User;
 use PHPUnit\Framework\TestCase;
-use Worldline\PaymentCore\Controller\Adminhtml\System\Config\SendFeatureRequestFactory;
+use Cawl\PaymentCore\Controller\Adminhtml\System\Config\SendFeatureRequestFactory;
 
 class SendFeatureRequestTest extends TestCase
 {

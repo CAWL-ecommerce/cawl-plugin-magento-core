@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Config;
+namespace Cawl\PaymentCore\Gateway\Config;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Payment\Gateway\Config\ValueHandlerInterface;
 use Magento\Sales\Model\Order\Payment;
-use Worldline\PaymentCore\Api\Service\Payment\GetPaymentServiceInterface;
-use Worldline\PaymentCore\Gateway\SubjectReader;
+use Cawl\PaymentCore\Api\Service\Payment\GetPaymentServiceInterface;
+use Cawl\PaymentCore\Gateway\SubjectReader;
 
 class CanVoidHandler implements ValueHandlerInterface
 {

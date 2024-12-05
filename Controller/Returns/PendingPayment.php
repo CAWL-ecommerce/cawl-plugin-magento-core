@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Returns;
+namespace Cawl\PaymentCore\Controller\Returns;
 
 use Magento\Checkout\Model\Session;
 use Magento\Framework\App\Action\Action;

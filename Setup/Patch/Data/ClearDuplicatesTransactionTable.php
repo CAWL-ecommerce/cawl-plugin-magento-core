@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Setup\Patch\Data;
+namespace Cawl\PaymentCore\Setup\Patch\Data;
 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
-use Worldline\PaymentCore\Model\Transaction\ResourceModel\Transaction;
+use Cawl\PaymentCore\Model\Transaction\ResourceModel\Transaction;
 
 class ClearDuplicatesTransactionTable implements DataPatchInterface
 {

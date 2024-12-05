@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook\Payment;
+namespace Cawl\PaymentCore\Model\Webhook\Payment;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\Domain\PaymentResponse;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
-use Worldline\PaymentCore\Api\TransactionWLResponseManagerInterface;
-use Worldline\PaymentCore\Api\Webhook\ProcessorInterface;
-use Worldline\PaymentCore\Model\Transaction\TransactionStatusInterface;
+use Cawl\PaymentCore\Api\TransactionWLResponseManagerInterface;
+use Cawl\PaymentCore\Api\Webhook\ProcessorInterface;
+use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 
 /**
  * Handle the payment.cancelled type webhook

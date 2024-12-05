@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\Domain\PaymentResponse;
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Data\WebhookInterfaceFactory as WebhookFactory;
-use Worldline\PaymentCore\Model\Config\DebugConfig;
-use Worldline\PaymentCore\Model\Webhook\ResourceModel\Webhook as WebhookResource;
+use Cawl\PaymentCore\Api\Data\WebhookInterfaceFactory as WebhookFactory;
+use Cawl\PaymentCore\Model\Config\DebugConfig;
+use Cawl\PaymentCore\Model\Webhook\ResourceModel\Webhook as WebhookResource;
 
 /**
  * Logger for worldline webhook entity

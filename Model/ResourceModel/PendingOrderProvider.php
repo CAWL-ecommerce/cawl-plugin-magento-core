@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\ResourceModel;
+namespace Cawl\PaymentCore\Model\ResourceModel;
 
 use Magento\Framework\DB\Select;
 use Magento\Quote\Model\ResourceModel\Quote\Collection as QuoteCollection;
 use Magento\Quote\Model\ResourceModel\Quote\CollectionFactory as QuoteCollectionFactory;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Model\Order\Creation\DateLimitProvider;
+use Cawl\PaymentCore\Model\Order\Creation\DateLimitProvider;
 
 class PendingOrderProvider
 {

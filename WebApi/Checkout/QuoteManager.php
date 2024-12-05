@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\WebApi\Checkout;
+namespace Cawl\PaymentCore\WebApi\Checkout;
 
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Model\QuoteIdMaskFactory;
-use Worldline\PaymentCore\Api\WebApi\Checkout\QuoteManagerInterface;
+use Cawl\PaymentCore\Api\WebApi\Checkout\QuoteManagerInterface;
 
 class QuoteManager implements QuoteManagerInterface
 {

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\SurchargingQuote;
+namespace Cawl\PaymentCore\Model\SurchargingQuote;
 
 use Magento\Framework\Model\AbstractModel;
-use Worldline\PaymentCore\Api\Data\SurchargingQuoteInterface;
+use Cawl\PaymentCore\Api\Data\SurchargingQuoteInterface;
 
 class SurchargingQuote extends AbstractModel implements SurchargingQuoteInterface
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\ThreeDSecure\Notification;
+namespace Cawl\PaymentCore\Model\ThreeDSecure\Notification;
 
 use Magento\Framework\FlagManager;
 use Magento\Framework\Notification\MessageInterface;

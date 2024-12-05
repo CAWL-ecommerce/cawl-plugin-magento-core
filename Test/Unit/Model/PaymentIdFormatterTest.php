@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Test\Unit\Model;
+namespace Cawl\PaymentCore\Test\Unit\Model;
 
 use Magento\Framework\Exception\LocalizedException;
 use PHPUnit\Framework\TestCase;
-use Worldline\PaymentCore\Model\Payment\PaymentIdFormatter;
+use Cawl\PaymentCore\Model\Payment\PaymentIdFormatter;
 
 class PaymentIdFormatterTest extends TestCase
 {

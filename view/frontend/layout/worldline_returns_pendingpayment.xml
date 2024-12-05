@@ -8,7 +8,7 @@
         <referenceContainer name="content">
             <block name="worldline_pending_payment_page" template="Cawl_PaymentCore::pending_payment.phtml">
                 <arguments>
-                    <argument name="pending_payment_page_data_provider" xsi:type="object">Worldline\PaymentCore\ViewModel\PendingPaymentPageDataProvider</argument>
+                    <argument name="pending_payment_page_data_provider" xsi:type="object">Cawl\PaymentCore\ViewModel\PendingPaymentPageDataProvider</argument>
                 </arguments>
             </block>
         </referenceContainer>

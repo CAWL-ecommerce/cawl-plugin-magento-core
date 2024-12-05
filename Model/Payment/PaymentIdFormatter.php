@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Payment;
+namespace Cawl\PaymentCore\Model\Payment;
 
 use Magento\Framework\Exception\LocalizedException;
-use Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
+use Cawl\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
 
 /**
  * Different format of payment_id from Worldline requests

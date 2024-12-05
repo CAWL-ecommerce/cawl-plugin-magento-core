@@ -7,7 +7,7 @@
     </argument>
     <settings>
         <buttons>
-            <button name="clean" class="Worldline\PaymentCore\Block\Adminhtml\Webhook\Grid\ClearLogButton"/>
+            <button name="clean" class="Cawl\PaymentCore\Block\Adminhtml\Webhook\Grid\ClearLogButton"/>
         </buttons>
         <spinner>webhooks_columns</spinner>
         <deps>
@@ -33,7 +33,7 @@
     <listingToolbar name="listing_top">
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
-        <exportButton name="export_button" class="Worldline\PaymentCore\Ui\Component\ExportCsv">
+        <exportButton name="export_button" class="Cawl\PaymentCore\Ui\Component\ExportCsv">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="options_custom" xsi:type="array">

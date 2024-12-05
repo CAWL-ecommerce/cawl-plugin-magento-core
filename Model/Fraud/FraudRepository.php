@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Fraud;
+namespace Cawl\PaymentCore\Model\Fraud;
 
 use Magento\Framework\Exception\AlreadyExistsException;
-use Worldline\PaymentCore\Api\Data\FraudInterface;
-use Worldline\PaymentCore\Api\Data\FraudInterfaceFactory;
-use Worldline\PaymentCore\Api\FraudRepositoryInterface;
-use Worldline\PaymentCore\Api\PaymentRepositoryInterface;
-use Worldline\PaymentCore\Model\Fraud\ResourceModel\Fraud as FraudResource;
+use Cawl\PaymentCore\Api\Data\FraudInterface;
+use Cawl\PaymentCore\Api\Data\FraudInterfaceFactory;
+use Cawl\PaymentCore\Api\FraudRepositoryInterface;
+use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
+use Cawl\PaymentCore\Model\Fraud\ResourceModel\Fraud as FraudResource;
 
 /**
  * Repository for fraud entity

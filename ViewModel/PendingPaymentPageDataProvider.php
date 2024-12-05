@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\ViewModel;
+namespace Cawl\PaymentCore\ViewModel;
 
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Mail\Template\SenderResolverInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use Worldline\PaymentCore\Model\Config\OrderSynchronizationConfig;
+use Cawl\PaymentCore\Model\Config\OrderSynchronizationConfig;
 
 class PendingPaymentPageDataProvider implements ArgumentInterface
 {

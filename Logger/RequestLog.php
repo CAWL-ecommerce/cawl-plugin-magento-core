@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Logger;
+namespace Cawl\PaymentCore\Logger;
 
 use Magento\Framework\Model\AbstractModel;
-use Worldline\PaymentCore\Logger\ResourceModel\RequestLog as RequestLogResource;
-use Worldline\PaymentCore\Api\Data\RequestLogInterface;
+use Cawl\PaymentCore\Logger\ResourceModel\RequestLog as RequestLogResource;
+use Cawl\PaymentCore\Api\Data\RequestLogInterface;
 
 class RequestLog extends AbstractModel implements RequestLogInterface
 {

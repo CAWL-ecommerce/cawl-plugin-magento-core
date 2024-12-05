@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Logger\ResourceModel;
+namespace Cawl\PaymentCore\Logger\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Worldline\PaymentCore\Api\Data\RequestLogInterface;
+use Cawl\PaymentCore\Api\Data\RequestLogInterface;
 
 class RequestLog extends AbstractDb
 {

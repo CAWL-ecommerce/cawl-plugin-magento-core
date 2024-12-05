@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook;
 
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
 use OnlinePayments\Sdk\Webhooks\InMemorySecretKeyStoreFactory;
 use OnlinePayments\Sdk\Webhooks\SignatureValidationException;
 use OnlinePayments\Sdk\Webhooks\WebhooksHelperFactory;
-use Worldline\PaymentCore\Model\Config\WebhookConfig;
-use Worldline\PaymentCore\Api\QuoteResourceInterface;
+use Cawl\PaymentCore\Model\Config\WebhookConfig;
+use Cawl\PaymentCore\Api\QuoteResourceInterface;
 
 class RequestProcessor
 {

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
 use Magento\Framework\App\Area;
 use Magento\Quote\Api\Data\CartInterface;
-use Worldline\PaymentCore\Model\Config\AutoRefundConfigProvider;
-use Worldline\PaymentCore\Model\EmailSender;
+use Cawl\PaymentCore\Model\Config\AutoRefundConfigProvider;
+use Cawl\PaymentCore\Model\EmailSender;
 
 class AutoRefundToCustomerNotification
 {

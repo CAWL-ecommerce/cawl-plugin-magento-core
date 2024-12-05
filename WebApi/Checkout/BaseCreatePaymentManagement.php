@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\WebApi\Checkout;
+namespace Cawl\PaymentCore\WebApi\Checkout;
 
 use Magento\Checkout\Api\PaymentInformationManagementInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -10,13 +10,13 @@ use Magento\Quote\Api\Data\AddressInterface;
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Api\Data\PaymentInterface;
 use Magento\Quote\Model\CustomerManagement;
-use Worldline\PaymentCore\Api\Data\QuotePaymentInterfaceFactory;
-use Worldline\PaymentCore\Api\QuotePaymentRepositoryInterface;
-use Worldline\PaymentCore\Api\QuoteRestorationInterface;
-use Worldline\PaymentCore\Api\WebApi\Checkout\BaseCreatePaymentManagementInterface;
-use Worldline\PaymentCore\Api\WebApi\Checkout\QuoteManagerInterface;
-use Worldline\PaymentCore\Model\DataAssigner\DataAssignerInterface;
-use Worldline\PaymentCore\Model\QuotePayment\QuotePaymentRepository;
+use Cawl\PaymentCore\Api\Data\QuotePaymentInterfaceFactory;
+use Cawl\PaymentCore\Api\QuotePaymentRepositoryInterface;
+use Cawl\PaymentCore\Api\QuoteRestorationInterface;
+use Cawl\PaymentCore\Api\WebApi\Checkout\BaseCreatePaymentManagementInterface;
+use Cawl\PaymentCore\Api\WebApi\Checkout\QuoteManagerInterface;
+use Cawl\PaymentCore\Model\DataAssigner\DataAssignerInterface;
+use Cawl\PaymentCore\Model\QuotePayment\QuotePaymentRepository;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure\StubData\Webhook;
+namespace Cawl\PaymentCore\Infrastructure\StubData\Webhook;
 
 /**
  * phpcs:disable Magento2.Functions.StaticFunction

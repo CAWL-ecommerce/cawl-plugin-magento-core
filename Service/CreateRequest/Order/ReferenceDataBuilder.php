@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\CreateRequest\Order;
+namespace Cawl\PaymentCore\Service\CreateRequest\Order;
 
 use Magento\Quote\Api\Data\CartInterface;
 use OnlinePayments\Sdk\Domain\OrderReferences;
 use OnlinePayments\Sdk\Domain\OrderReferencesFactory;
-use Worldline\PaymentCore\Api\Service\CreateRequest\Order\ReferenceDataBuilderInterface;
+use Cawl\PaymentCore\Api\Service\CreateRequest\Order\ReferenceDataBuilderInterface;
 
 class ReferenceDataBuilder implements ReferenceDataBuilderInterface
 {

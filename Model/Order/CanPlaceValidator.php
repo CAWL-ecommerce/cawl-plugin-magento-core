@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order;
+namespace Cawl\PaymentCore\Model\Order;
 
-use Worldline\PaymentCore\Model\Order\ValidatorPool\PlaceOrderValidatorInterface;
+use Cawl\PaymentCore\Model\Order\ValidatorPool\PlaceOrderValidatorInterface;
 use Magento\Framework\Exception\LocalizedException;
 
 /**

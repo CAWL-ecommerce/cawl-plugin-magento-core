@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\SurchargingCreditmemo;
+namespace Cawl\PaymentCore\Model\SurchargingCreditmemo;
 
 use Magento\Framework\Pricing\PriceCurrencyInterface;
-use Worldline\PaymentCore\Api\Data\SurchargingCreditmemoInterfaceFactory;
-use Worldline\PaymentCore\Api\SurchargingCreditmemoManagerInterface;
-use Worldline\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
+use Cawl\PaymentCore\Api\Data\SurchargingCreditmemoInterfaceFactory;
+use Cawl\PaymentCore\Api\SurchargingCreditmemoManagerInterface;
+use Cawl\PaymentCore\Api\SurchargingCreditmemoRepositoryInterface;
 
 class SurchargingCreditmemoManager implements SurchargingCreditmemoManagerInterface
 {

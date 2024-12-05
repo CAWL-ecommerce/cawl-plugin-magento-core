@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use DateInterval;
 use DateTime;
 use DateTimeZone;
 use Magento\Framework\Serialize\Serializer\Json;
 use OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificOutput;
-use Worldline\PaymentCore\Api\CardDateInterface;
+use Cawl\PaymentCore\Api\CardDateInterface;
 
 class CardDate implements CardDateInterface
 {

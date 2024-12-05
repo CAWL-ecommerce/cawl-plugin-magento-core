@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Logger;
+namespace Cawl\PaymentCore\Logger;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\DataObject;

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Transaction\ResourceModel;
+namespace Cawl\PaymentCore\Model\Transaction\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Worldline\PaymentCore\Api\Data\TransactionInterface;
+use Cawl\PaymentCore\Api\Data\TransactionInterface;
 
 class Transaction extends AbstractDb
 {

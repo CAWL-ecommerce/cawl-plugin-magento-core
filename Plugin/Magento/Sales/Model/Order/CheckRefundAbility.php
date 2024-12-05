@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Plugin\Magento\Sales\Model\Order;
+namespace Cawl\PaymentCore\Plugin\Magento\Sales\Model\Order;
 
 use Magento\Sales\Model\Order;
-use Worldline\PaymentCore\Model\RefundRequest\RefundValidator;
+use Cawl\PaymentCore\Model\RefundRequest\RefundValidator;
 
 class CheckRefundAbility
 {

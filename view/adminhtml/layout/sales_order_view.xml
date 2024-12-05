@@ -7,7 +7,7 @@
                    name="worldline_order_view_fraud_data"
                    template="Cawl_PaymentCore::order/view/fraud.phtml">
                 <arguments>
-                    <argument name="fraud_data_provider" xsi:type="object">Worldline\PaymentCore\ViewModel\Adminhtml\Order\View\Info\FraudDataProvider</argument>
+                    <argument name="fraud_data_provider" xsi:type="object">Cawl\PaymentCore\ViewModel\Adminhtml\Order\View\Info\FraudDataProvider</argument>
                 </arguments>
             </block>
         </referenceContainer>

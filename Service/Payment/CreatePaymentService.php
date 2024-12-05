@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Payment;
+namespace Cawl\PaymentCore\Service\Payment;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\DeclinedPaymentException;
 use OnlinePayments\Sdk\Domain\CreatePaymentRequest;
 use OnlinePayments\Sdk\Domain\CreatePaymentResponse;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\ClientProviderInterface;
-use Worldline\PaymentCore\Api\Config\WorldlineConfigInterface;
-use Worldline\PaymentCore\Api\Service\Payment\CreatePaymentServiceInterface;
+use Cawl\PaymentCore\Api\ClientProviderInterface;
+use Cawl\PaymentCore\Api\Config\WorldlineConfigInterface;
+use Cawl\PaymentCore\Api\Service\Payment\CreatePaymentServiceInterface;
 
 /**
  * @link https://support.direct.ingenico.com/en/documentation/api/reference/#operation/CreatePaymentApi

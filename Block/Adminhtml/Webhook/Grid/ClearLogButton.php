@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Block\Adminhtml\Webhook\Grid;
+namespace Cawl\PaymentCore\Block\Adminhtml\Webhook\Grid;
 
 use Magento\Framework\Data\Form\FormKey;
 use Magento\Framework\UrlInterface;

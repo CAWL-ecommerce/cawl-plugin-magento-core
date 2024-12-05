@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Token;
+namespace Cawl\PaymentCore\Service\Token;
 
 use Magento\Framework\Exception\LocalizedException;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Service\Token\DeleteTokenServiceInterface;
-use Worldline\PaymentCore\Api\ClientProviderInterface;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\Api\Service\Token\DeleteTokenServiceInterface;
+use Cawl\PaymentCore\Api\ClientProviderInterface;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 
 class DeleteTokenService implements DeleteTokenServiceInterface
 {

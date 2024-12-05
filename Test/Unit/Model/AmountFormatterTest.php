@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Test\Unit\Model;
+namespace Cawl\PaymentCore\Test\Unit\Model;
 
 use PHPUnit\Framework\TestCase;
-use Worldline\PaymentCore\Model\AmountFormatter;
+use Cawl\PaymentCore\Model\AmountFormatter;
 
 class AmountFormatterTest extends TestCase
 {

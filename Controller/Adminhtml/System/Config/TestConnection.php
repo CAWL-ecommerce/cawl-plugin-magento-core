@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\System\Config;
+namespace Cawl\PaymentCore\Controller\Adminhtml\System\Config;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -9,7 +9,7 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\LocalizedException;
-use Worldline\PaymentCore\Model\Config\ConnectionTest\FromAjaxRequest;
+use Cawl\PaymentCore\Model\Config\ConnectionTest\FromAjaxRequest;
 
 class TestConnection extends Action implements HttpPostActionInterface
 {

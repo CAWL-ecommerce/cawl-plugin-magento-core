@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Config;
+namespace Cawl\PaymentCore\Model\Config;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\State;
 use Magento\Framework\UrlInterface;
 use Magento\Store\Model\ScopeInterface;
-use Worldline\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
+use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 
 class GeneralSettingsConfig implements GeneralSettingsConfigInterface
 {

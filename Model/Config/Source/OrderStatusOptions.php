@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Config\Source;
+namespace Cawl\PaymentCore\Model\Config\Source;
 
 use Magento\Sales\Model\Config\Source\Order\Status;
 use Magento\Sales\Model\Order;

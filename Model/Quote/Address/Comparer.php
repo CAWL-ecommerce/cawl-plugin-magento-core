@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Quote\Address;
+namespace Cawl\PaymentCore\Model\Quote\Address;
 
 use Magento\Quote\Api\Data\CartInterface;
 

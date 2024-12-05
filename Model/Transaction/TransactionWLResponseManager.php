@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Transaction;
+namespace Cawl\PaymentCore\Model\Transaction;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\DataObject;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use OnlinePayments\Sdk\Domain\PaymentResponse;
 use OnlinePayments\Sdk\Domain\RefundResponse;
-use Worldline\PaymentCore\Api\Data\TransactionInterfaceFactory;
-use Worldline\PaymentCore\Api\TransactionRepositoryInterface;
-use Worldline\PaymentCore\Api\TransactionWLResponseManagerInterface;
-use Worldline\PaymentCore\Model\Transaction\ResourceModel\Transaction as TransactionResource;
+use Cawl\PaymentCore\Api\Data\TransactionInterfaceFactory;
+use Cawl\PaymentCore\Api\TransactionRepositoryInterface;
+use Cawl\PaymentCore\Api\TransactionWLResponseManagerInterface;
+use Cawl\PaymentCore\Model\Transaction\ResourceModel\Transaction as TransactionResource;
 
 /**
  * Manage to format, fill and save transaction data

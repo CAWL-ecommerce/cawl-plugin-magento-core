@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Model\ResourceModel\Quote as QuoteResource;
-use Worldline\PaymentCore\Api\PaymentInfoCleanerInterface;
+use Cawl\PaymentCore\Api\PaymentInfoCleanerInterface;
 
 class PaymentInfoCleaner implements PaymentInfoCleanerInterface
 {

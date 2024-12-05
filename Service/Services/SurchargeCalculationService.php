@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\Services;
+namespace Cawl\PaymentCore\Service\Services;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\ClientProviderInterface;
-use Worldline\PaymentCore\Api\Service\Services\SurchargeCalculationServiceInterface;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\Api\ClientProviderInterface;
+use Cawl\PaymentCore\Api\Service\Services\SurchargeCalculationServiceInterface;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 
 class SurchargeCalculationService implements SurchargeCalculationServiceInterface
 {

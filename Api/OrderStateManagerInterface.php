@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api;
+namespace Cawl\PaymentCore\Api;
 
-use Worldline\PaymentCore\Model\OrderState\OrderState;
+use Cawl\PaymentCore\Model\OrderState\OrderState;
 
 interface OrderStateManagerInterface
 {

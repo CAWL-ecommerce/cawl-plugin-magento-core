@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Ui;
+namespace Cawl\PaymentCore\Ui;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\App\RequestInterface;
@@ -9,7 +9,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Asset\File;
 use Magento\Framework\View\Asset\Repository;
 use Magento\Framework\View\Asset\Source as AssetSource;
-use Worldline\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
+use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
 
 class PaymentIconsProvider implements PaymentIconsProviderInterface
 {

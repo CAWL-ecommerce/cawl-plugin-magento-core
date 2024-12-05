@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Logger;
+namespace Cawl\PaymentCore\Logger;
 
 use Magento\Framework\Exception\LocalizedException;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Data\RequestLogInterfaceFactory;
-use Worldline\PaymentCore\Logger\Config\ConfigDebugProvider;
-use Worldline\PaymentCore\Logger\Config\Source\LogMode;
-use Worldline\PaymentCore\Logger\ResourceModel\RequestLog as RequestLogResource;
+use Cawl\PaymentCore\Api\Data\RequestLogInterfaceFactory;
+use Cawl\PaymentCore\Logger\Config\ConfigDebugProvider;
+use Cawl\PaymentCore\Logger\Config\Source\LogMode;
+use Cawl\PaymentCore\Logger\ResourceModel\RequestLog as RequestLogResource;
 
 class RequestLogManager
 {

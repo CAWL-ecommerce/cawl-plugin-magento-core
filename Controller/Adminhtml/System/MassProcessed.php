@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\System;
+namespace Cawl\PaymentCore\Controller\Adminhtml\System;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -10,8 +10,8 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Ui\Component\MassAction\Filter;
-use Worldline\PaymentCore\Logger\ResourceModel\RequestLog as RequestLogResource;
-use Worldline\PaymentCore\Logger\ResourceModel\RequestLog\CollectionFactory;
+use Cawl\PaymentCore\Logger\ResourceModel\RequestLog as RequestLogResource;
+use Cawl\PaymentCore\Logger\ResourceModel\RequestLog\CollectionFactory;
 
 class MassProcessed extends Action implements HttpPostActionInterface
 {

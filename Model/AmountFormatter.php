@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
 
 class AmountFormatter implements AmountFormatterInterface
 {

@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Api\Data\CartInterface;
 use OnlinePayments\Sdk\Domain\PaymentResponse;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
-use Worldline\PaymentCore\Api\Data\CanPlaceOrderContextInterfaceFactory;
-use Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
-use Worldline\PaymentCore\Api\QuoteResourceInterface;
-use Worldline\PaymentCore\Api\Webhook\PlaceOrderManagerInterface;
-use Worldline\PaymentCore\Model\Order\CanPlaceValidator;
-use Worldline\PaymentCore\Model\QuotePayment\QuotePaymentRepository;
+use Cawl\PaymentCore\Api\Data\CanPlaceOrderContextInterfaceFactory;
+use Cawl\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
+use Cawl\PaymentCore\Api\QuoteResourceInterface;
+use Cawl\PaymentCore\Api\Webhook\PlaceOrderManagerInterface;
+use Cawl\PaymentCore\Model\Order\CanPlaceValidator;
+use Cawl\PaymentCore\Model\QuotePayment\QuotePaymentRepository;
 
 /**
  * Helper for a place order processor

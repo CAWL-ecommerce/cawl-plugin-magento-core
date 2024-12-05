@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Logger\Handler;
+namespace Cawl\PaymentCore\Logger\Handler;
 
 use Magento\Framework\Filesystem\Driver\File;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
-use Worldline\PaymentCore\Api\Data\LogInterfaceFactory;
-use Worldline\PaymentCore\Api\LogRepositoryInterface;
-use Worldline\PaymentCore\Model\Log\Log;
+use Cawl\PaymentCore\Api\Data\LogInterfaceFactory;
+use Cawl\PaymentCore\Api\LogRepositoryInterface;
+use Cawl\PaymentCore\Model\Log\Log;
 
 class Debug extends StreamHandler
 {

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order\ValidatorPool;
+namespace Cawl\PaymentCore\Model\Order\ValidatorPool;
 
 use Magento\Framework\Exception\LocalizedException;
-use Worldline\PaymentCore\Model\Order\CanPlaceContext;
+use Cawl\PaymentCore\Model\Order\CanPlaceContext;
 
 /**
  * Validate if request data is valid for placing order

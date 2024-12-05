@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure\StubData\Service\Services;
+namespace Cawl\PaymentCore\Infrastructure\StubData\Service\Services;
 
 use OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
 

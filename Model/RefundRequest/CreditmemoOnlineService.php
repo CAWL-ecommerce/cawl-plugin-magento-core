@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\RefundRequest;
+namespace Cawl\PaymentCore\Model\RefundRequest;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\CreditmemoRepositoryInterface;
@@ -9,10 +9,10 @@ use Magento\Sales\Api\Data\CreditmemoInterface;
 use Magento\Sales\Api\Data\TransactionInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order\Creditmemo;
-use Worldline\PaymentCore\Api\AmountFormatterInterface;
-use Worldline\PaymentCore\Api\CreditmemoOnlineServiceInterface;
-use Worldline\PaymentCore\Api\Data\RefundRequestInterfaceFactory;
-use Worldline\PaymentCore\Api\RefundRequestRepositoryInterface;
+use Cawl\PaymentCore\Api\AmountFormatterInterface;
+use Cawl\PaymentCore\Api\CreditmemoOnlineServiceInterface;
+use Cawl\PaymentCore\Api\Data\RefundRequestInterfaceFactory;
+use Cawl\PaymentCore\Api\RefundRequestRepositoryInterface;
 
 class CreditmemoOnlineService implements CreditmemoOnlineServiceInterface
 {

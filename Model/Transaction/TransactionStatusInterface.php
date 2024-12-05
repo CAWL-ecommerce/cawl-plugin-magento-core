@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Transaction;
+namespace Cawl\PaymentCore\Model\Transaction;
 
 /**
  * Interface container for worldline statuses

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Service\CreateRequest\Order;
+namespace Cawl\PaymentCore\Service\CreateRequest\Order;
 
 use OnlinePayments\Sdk\Domain\SurchargeSpecificInput;
 use OnlinePayments\Sdk\Domain\SurchargeSpecificInputFactory;
-use Worldline\PaymentCore\Api\Service\CreateRequest\Order\SurchargeDataBuilderInterface;
+use Cawl\PaymentCore\Api\Service\CreateRequest\Order\SurchargeDataBuilderInterface;
 
 class SurchargeDataBuilder implements SurchargeDataBuilderInterface
 {

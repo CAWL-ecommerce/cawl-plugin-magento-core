@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order\ValidatorPool;
+namespace Cawl\PaymentCore\Model\Order\ValidatorPool;
 
 use Magento\Framework\Exception\LocalizedException;
-use Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
-use Worldline\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface;
-use Worldline\PaymentCore\Model\Order\CanPlaceContext;
-use Worldline\PaymentCore\Model\Transaction\TransactionStatusInterface;
+use Cawl\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
+use Cawl\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface;
+use Cawl\PaymentCore\Model\Order\CanPlaceContext;
+use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 
 /**
  * Validate if acquired amount is valid for placing order

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Request;
+namespace Cawl\PaymentCore\Gateway\Request;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Payment\Gateway\Request\BuilderInterface;
 use Magento\Sales\Model\Order\Payment;
-use Worldline\PaymentCore\Gateway\SubjectReader;
+use Cawl\PaymentCore\Gateway\SubjectReader;
 
 class VoidAndCancelDataBuilder implements BuilderInterface
 {

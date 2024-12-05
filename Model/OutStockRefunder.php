@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\CatalogInventory\Api\StockStateInterface;
 use Magento\Quote\Api\Data\CartInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
-use Worldline\PaymentCore\Api\QuoteResourceInterface;
-use Worldline\PaymentCore\Api\Service\Refund\RefundRequestDataBuilderInterface;
-use Worldline\PaymentCore\Model\Config\AutoRefundConfigProvider;
-use Worldline\PaymentCore\Model\Order\AutoRefundAttemptNotification;
-use Worldline\PaymentCore\Model\Order\AutoRefundToCustomerNotification;
-use Worldline\PaymentCore\Service\Refund\CreateRefundService;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
+use Cawl\PaymentCore\Api\QuoteResourceInterface;
+use Cawl\PaymentCore\Api\Service\Refund\RefundRequestDataBuilderInterface;
+use Cawl\PaymentCore\Model\Config\AutoRefundConfigProvider;
+use Cawl\PaymentCore\Model\Order\AutoRefundAttemptNotification;
+use Cawl\PaymentCore\Model\Order\AutoRefundToCustomerNotification;
+use Cawl\PaymentCore\Service\Refund\CreateRefundService;
 
 class OutStockRefunder
 {

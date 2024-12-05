@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure\Plugin\Service\Refund;
+namespace Cawl\PaymentCore\Infrastructure\Plugin\Service\Refund;
 
 use OnlinePayments\Sdk\Domain\RefundRequest;
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use OnlinePayments\Sdk\Domain\RefundResponseFactory;
-use Worldline\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
-use Worldline\PaymentCore\Infrastructure\StubData\Service\Refund\GetRefundResponse;
-use Worldline\PaymentCore\Service\Refund\CreateRefundService;
+use Cawl\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
+use Cawl\PaymentCore\Infrastructure\StubData\Service\Refund\GetRefundResponse;
+use Cawl\PaymentCore\Service\Refund\CreateRefundService;
 
 class CreateRefundServiceMock
 {

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook\ResourceModel\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook\ResourceModel\Webhook;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Worldline\PaymentCore\Model\Webhook\ResourceModel\Webhook as WebhookResource;
-use Worldline\PaymentCore\Model\Webhook\Webhook as WebhookModel;
+use Cawl\PaymentCore\Model\Webhook\ResourceModel\Webhook as WebhookResource;
+use Cawl\PaymentCore\Model\Webhook\Webhook as WebhookModel;
 
 /**
  * Collection for webhook entity

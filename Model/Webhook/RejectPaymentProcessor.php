@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook;
 
 use Magento\Sales\Api\CreditmemoRepositoryInterface;
 use Magento\Sales\Model\Order\Creditmemo;
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
-use Worldline\PaymentCore\Api\QuoteResourceInterface;
-use Worldline\PaymentCore\Api\RefundRequestRepositoryInterface;
-use Worldline\PaymentCore\Api\TransactionWLResponseManagerInterface;
-use Worldline\PaymentCore\Api\Webhook\ProcessorInterface;
-use Worldline\PaymentCore\Model\RefundRequest\RefundRefusedNotification;
-use Worldline\PaymentCore\Model\RefundRequest\RefundRefusedProcessor;
-use Worldline\PaymentCore\Model\Transaction\TransactionStatusInterface;
+use Cawl\PaymentCore\Api\QuoteResourceInterface;
+use Cawl\PaymentCore\Api\RefundRequestRepositoryInterface;
+use Cawl\PaymentCore\Api\TransactionWLResponseManagerInterface;
+use Cawl\PaymentCore\Api\Webhook\ProcessorInterface;
+use Cawl\PaymentCore\Model\RefundRequest\RefundRefusedNotification;
+use Cawl\PaymentCore\Model\RefundRequest\RefundRefusedProcessor;
+use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 
 class RejectPaymentProcessor implements ProcessorInterface
 {

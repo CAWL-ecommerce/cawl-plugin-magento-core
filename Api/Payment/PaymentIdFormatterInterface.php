@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api\Payment;
+namespace Cawl\PaymentCore\Api\Payment;
 
 use Magento\Framework\Exception\LocalizedException;
 

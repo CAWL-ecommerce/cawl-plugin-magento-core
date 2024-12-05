@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Transaction;
+namespace Cawl\PaymentCore\Model\Transaction;
 
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Worldline\PaymentCore\Api\Data\TransactionInterface;
-use Worldline\PaymentCore\Api\TransactionRepositoryInterface;
-use Worldline\PaymentCore\Model\Transaction\ResourceModel\Transaction as TransactionResource;
-use Worldline\PaymentCore\Model\Transaction\ResourceModel\Transaction\CollectionFactory;
+use Cawl\PaymentCore\Api\Data\TransactionInterface;
+use Cawl\PaymentCore\Api\TransactionRepositoryInterface;
+use Cawl\PaymentCore\Model\Transaction\ResourceModel\Transaction as TransactionResource;
+use Cawl\PaymentCore\Model\Transaction\ResourceModel\Transaction\CollectionFactory;
 
 class TransactionRepository implements TransactionRepositoryInterface
 {

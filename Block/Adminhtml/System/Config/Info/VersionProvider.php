@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Block\Adminhtml\System\Config\Info;
+namespace Cawl\PaymentCore\Block\Adminhtml\System\Config\Info;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\HTTP\Client\Curl as CurlClient;

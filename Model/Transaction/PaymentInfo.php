@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Transaction;
+namespace Cawl\PaymentCore\Model\Transaction;
 
-use Worldline\PaymentCore\Api\Data\PaymentInfoInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInfoInterface;
 
 class PaymentInfo implements PaymentInfoInterface
 {

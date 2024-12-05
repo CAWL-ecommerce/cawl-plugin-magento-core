@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Http\Client;
+namespace Cawl\PaymentCore\Gateway\Http\Client;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\DataObject;
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Service\Refund\CreateRefundServiceInterface;
-use Worldline\PaymentCore\Gateway\Request\RefundDataBuilder;
+use Cawl\PaymentCore\Api\Service\Refund\CreateRefundServiceInterface;
+use Cawl\PaymentCore\Gateway\Request\RefundDataBuilder;
 
 class TransactionRefund extends AbstractTransaction
 {

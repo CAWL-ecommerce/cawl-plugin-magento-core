@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\SurchargingCreditmemo;
+namespace Cawl\PaymentCore\Model\SurchargingCreditmemo;
 
 use Magento\Framework\Model\AbstractModel;
-use Worldline\PaymentCore\Api\Data\SurchargingCreditmemoInterface;
-use Worldline\PaymentCore\Model\SurchargingCreditmemo\ResourceModel;
+use Cawl\PaymentCore\Api\Data\SurchargingCreditmemoInterface;
+use Cawl\PaymentCore\Model\SurchargingCreditmemo\ResourceModel;
 
 class SurchargingCreditmemo extends AbstractModel implements SurchargingCreditmemoInterface
 {

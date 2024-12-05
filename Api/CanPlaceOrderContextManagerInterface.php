@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api;
+namespace Cawl\PaymentCore\Api;
 
 use Magento\Quote\Api\Data\CartInterface;
-use Worldline\PaymentCore\Api\Data\CanPlaceOrderContextInterface;
+use Cawl\PaymentCore\Api\Data\CanPlaceOrderContextInterface;
 
 interface CanPlaceOrderContextManagerInterface
 {

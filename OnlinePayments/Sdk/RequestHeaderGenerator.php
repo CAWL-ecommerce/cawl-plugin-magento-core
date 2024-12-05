@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\OnlinePayments\Sdk;
+namespace Cawl\PaymentCore\OnlinePayments\Sdk;
 
 use OnlinePayments\Sdk\RequestHeaderGenerator as SdkRequestHeaderGenerator;
 

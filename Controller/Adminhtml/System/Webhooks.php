@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\System;
+namespace Cawl\PaymentCore\Controller\Adminhtml\System;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;

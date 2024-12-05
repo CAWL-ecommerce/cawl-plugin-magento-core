@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Config\Source;
+namespace Cawl\PaymentCore\Model\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 

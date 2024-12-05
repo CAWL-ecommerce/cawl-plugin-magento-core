@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Log;
+namespace Cawl\PaymentCore\Model\Log;
 
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
-use Worldline\PaymentCore\Api\Data\LogInterface;
-use Worldline\PaymentCore\Api\Data\LogInterfaceFactory;
-use Worldline\PaymentCore\Api\LogRepositoryInterface;
-use Worldline\PaymentCore\Model\Log\ResourceModel\Log as LogResource;
+use Cawl\PaymentCore\Api\Data\LogInterface;
+use Cawl\PaymentCore\Api\Data\LogInterfaceFactory;
+use Cawl\PaymentCore\Api\LogRepositoryInterface;
+use Cawl\PaymentCore\Model\Log\ResourceModel\Log as LogResource;
 
 class LogRepository implements LogRepositoryInterface
 {

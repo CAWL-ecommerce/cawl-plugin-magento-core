@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\QuoteRestorationInterface;
+use Cawl\PaymentCore\Api\QuoteRestorationInterface;
 
 /**
  * Restore quote after the payment page

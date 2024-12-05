@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Order\Creation;
+namespace Cawl\PaymentCore\Model\Order\Creation;
 
 use Magento\Framework\Stdlib\DateTime\DateTime;
-use Worldline\PaymentCore\Model\Config\OrderSynchronizationConfig;
+use Cawl\PaymentCore\Model\Config\OrderSynchronizationConfig;
 
 class DateLimitProvider
 {

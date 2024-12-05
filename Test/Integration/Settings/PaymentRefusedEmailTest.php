@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Test\Integration\Settings;
+namespace Cawl\PaymentCore\Test\Integration\Settings;
 
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Model\ResourceModel\Quote\CollectionFactory as QuoteCollectionFactory;
 use Magento\TestFramework\Helper\Bootstrap;
 use PHPUnit\Framework\TestCase;
-use Worldline\PaymentCore\Model\EmailSender;
+use Cawl\PaymentCore\Model\EmailSender;
 
 class PaymentRefusedEmailTest extends TestCase
 {

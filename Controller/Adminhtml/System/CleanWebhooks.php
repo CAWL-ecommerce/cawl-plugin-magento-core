@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Controller\Adminhtml\System;
+namespace Cawl\PaymentCore\Controller\Adminhtml\System;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -10,7 +10,7 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Model\Webhook\ResourceModel\Webhook as WebhookResource;
+use Cawl\PaymentCore\Model\Webhook\ResourceModel\Webhook as WebhookResource;
 
 class CleanWebhooks extends Action implements HttpPostActionInterface
 {

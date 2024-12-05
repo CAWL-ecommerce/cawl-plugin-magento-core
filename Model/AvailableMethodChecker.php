@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Customer\Model\Context;
 use Magento\Customer\Model\Data\Customer;
 use Magento\Framework\App\Http\Context as HttpContext;
 use Magento\Payment\Gateway\Config\Config as PaymentGatewayConfig;
 use Magento\Quote\Api\Data\CartInterface;
-use Worldline\PaymentCore\Api\AvailableMethodCheckerInterface;
+use Cawl\PaymentCore\Api\AvailableMethodCheckerInterface;
 
 class AvailableMethodChecker implements AvailableMethodCheckerInterface
 {

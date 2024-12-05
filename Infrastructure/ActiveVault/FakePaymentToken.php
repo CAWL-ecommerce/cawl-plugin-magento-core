@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure\ActiveVault;
+namespace Cawl\PaymentCore\Infrastructure\ActiveVault;
 
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 use Magento\Vault\Api\PaymentTokenRepositoryInterface;
-use Worldline\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
+use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
 
 class FakePaymentToken
 {

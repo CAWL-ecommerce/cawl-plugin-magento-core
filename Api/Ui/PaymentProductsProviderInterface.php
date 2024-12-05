@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api\Ui;
+namespace Cawl\PaymentCore\Api\Ui;
 
 interface PaymentProductsProviderInterface
 {

@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure\Plugin\Service\Payment;
+namespace Cawl\PaymentCore\Infrastructure\Plugin\Service\Payment;
 
 use OnlinePayments\Sdk\Domain\GetPaymentProductsResponse;
 use OnlinePayments\Sdk\Domain\GetPaymentProductsResponseFactory;
 use OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParams;
-use Worldline\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
-use Worldline\PaymentCore\Infrastructure\StubData\Service\Payment\GetPaymentProductsServiceResponse;
-use Worldline\PaymentCore\Service\Payment\GetPaymentProductsService;
+use Cawl\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
+use Cawl\PaymentCore\Infrastructure\StubData\Service\Payment\GetPaymentProductsServiceResponse;
+use Cawl\PaymentCore\Service\Payment\GetPaymentProductsService;
 
 class GetPaymentProductsServiceMock
 {

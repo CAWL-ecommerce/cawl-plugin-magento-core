@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Request\Customer;
+namespace Cawl\PaymentCore\Gateway\Request\Customer;
 
 use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
 use OnlinePayments\Sdk\Domain\BrowserDataFactory;

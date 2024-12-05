@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\OnlinePayments\Sdk;
+namespace Cawl\PaymentCore\OnlinePayments\Sdk;
 
 use OnlinePayments\Sdk\CallContext;
 use OnlinePayments\Sdk\Communicator as IngenicoCommunicator;
@@ -13,8 +13,8 @@ use OnlinePayments\Sdk\ResponseBuilder;
 use OnlinePayments\Sdk\ResponseClassMap;
 use OnlinePayments\Sdk\ResponseException;
 use UnexpectedValueException;
-use Worldline\PaymentCore\Logger\RequestLogManager;
-use Worldline\PaymentCore\Model\TrackerDataProvider;
+use Cawl\PaymentCore\Logger\RequestLogManager;
+use Cawl\PaymentCore\Model\TrackerDataProvider;
 
 /**
  * @core

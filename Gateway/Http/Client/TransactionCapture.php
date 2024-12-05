@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Gateway\Http\Client;
+namespace Cawl\PaymentCore\Gateway\Http\Client;
 
 use Magento\Framework\Exception\LocalizedException;
 use OnlinePayments\Sdk\Domain\CaptureResponse;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Gateway\Request\CaptureDataBuilder;
-use Worldline\PaymentCore\Api\Service\Payment\CapturePaymentServiceInterface;
+use Cawl\PaymentCore\Gateway\Request\CaptureDataBuilder;
+use Cawl\PaymentCore\Api\Service\Payment\CapturePaymentServiceInterface;
 
 class TransactionCapture extends AbstractTransaction
 {

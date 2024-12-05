@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\Webhook;
+namespace Cawl\PaymentCore\Model\Webhook;
 
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
-use Worldline\PaymentCore\Api\RefundRequestRepositoryInterface;
-use Worldline\PaymentCore\Api\TransactionWLResponseManagerInterface;
-use Worldline\PaymentCore\Api\Webhook\ProcessorInterface;
-use Worldline\PaymentCore\Model\RefundRequest\RefundProcessor;
-use Worldline\PaymentCore\Model\Transaction\TransactionStatusInterface;
+use Cawl\PaymentCore\Api\RefundRequestRepositoryInterface;
+use Cawl\PaymentCore\Api\TransactionWLResponseManagerInterface;
+use Cawl\PaymentCore\Api\Webhook\ProcessorInterface;
+use Cawl\PaymentCore\Model\RefundRequest\RefundProcessor;
+use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 
 class CreditmemoProcessor implements ProcessorInterface
 {

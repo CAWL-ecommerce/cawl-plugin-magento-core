@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api;
+namespace Cawl\PaymentCore\Api;
 
-use Worldline\PaymentCore\Api\Data\PaymentInfoInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInfoInterface;
 
 interface InfoFormatterInterface
 {

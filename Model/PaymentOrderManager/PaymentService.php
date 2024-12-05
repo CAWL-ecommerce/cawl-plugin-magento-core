@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\PaymentOrderManager;
+namespace Cawl\PaymentCore\Model\PaymentOrderManager;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Api\Data\PaymentInterface;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
-use Worldline\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
-use Worldline\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface;
+use Cawl\PaymentCore\Api\Payment\PaymentIdFormatterInterface;
+use Cawl\PaymentCore\Api\Service\GetPaymentDetailsServiceInterface;
 
 /**
  * Retrieve payment request

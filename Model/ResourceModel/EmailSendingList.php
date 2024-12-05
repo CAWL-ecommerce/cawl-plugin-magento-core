@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\ResourceModel;
+namespace Cawl\PaymentCore\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Worldline\PaymentCore\Api\Data\EmailSendingListInterface;
+use Cawl\PaymentCore\Api\Data\EmailSendingListInterface;
 
 class EmailSendingList extends AbstractDb
 {

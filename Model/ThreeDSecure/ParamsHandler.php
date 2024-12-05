@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\ThreeDSecure;
+namespace Cawl\PaymentCore\Model\ThreeDSecure;
 
 use OnlinePayments\Sdk\Domain\ThreeDSecure;
-use Worldline\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
+use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 
 class ParamsHandler
 {

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api;
+namespace Cawl\PaymentCore\Api;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Worldline\PaymentCore\Api\Data\QuotePaymentInterface;
+use Cawl\PaymentCore\Api\Data\QuotePaymentInterface;
 
 /**
  * Repository interface for worldline quote payment entity

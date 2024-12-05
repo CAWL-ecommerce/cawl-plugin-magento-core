@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\ViewModel\Adminhtml\Order\View\Info;
+namespace Cawl\PaymentCore\ViewModel\Adminhtml\Order\View\Info;
 
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Sales\Block\Adminhtml\Order\AbstractOrder;
-use Worldline\PaymentCore\Api\FraudRepositoryInterface;
+use Cawl\PaymentCore\Api\FraudRepositoryInterface;
 
 /**
  * Provider for fraud information entity

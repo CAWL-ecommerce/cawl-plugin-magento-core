@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Quote\Model\Quote\Payment;
-use Worldline\PaymentCore\Api\MethodNameExtractorInterface;
+use Cawl\PaymentCore\Api\MethodNameExtractorInterface;
 
 class MethodNameExtractor implements MethodNameExtractorInterface
 {

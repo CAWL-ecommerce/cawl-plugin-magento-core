@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure;
+namespace Cawl\PaymentCore\Infrastructure;
 
 use Magento\Framework\App\Request\HttpFactory as HttpRequestFactory;
 use Magento\Framework\Controller\ResultInterface;
-use Worldline\PaymentCore\Api\Test\Infrastructure\WebhookStubSenderInterface;
-use Worldline\PaymentCore\Controller\Webhook\IndexFactory as WebhookControllerFactory;
+use Cawl\PaymentCore\Api\Test\Infrastructure\WebhookStubSenderInterface;
+use Cawl\PaymentCore\Controller\Webhook\IndexFactory as WebhookControllerFactory;
 
 class WebhookStubSender implements WebhookStubSenderInterface
 {

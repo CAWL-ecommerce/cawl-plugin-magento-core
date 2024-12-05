@@ -1,21 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Exception;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Quote\Model\QuoteManagement;
 use Magento\Sales\Model\OrderFactory;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\PaymentDataManagerInterface;
-use Worldline\PaymentCore\Api\PendingOrderManagerInterface;
-use Worldline\PaymentCore\Api\QuoteResourceInterface;
-use Worldline\PaymentCore\Api\SessionDataManagerInterface;
-use Worldline\PaymentCore\Api\SurchargingQuoteManagerInterface;
-use Worldline\PaymentCore\Model\Order\CanPlaceOrderContextManager;
-use Worldline\PaymentCore\Model\PaymentOrderManager\PaymentService;
-use Worldline\PaymentCore\Model\Transaction\TransactionStatusInterface;
+use Cawl\PaymentCore\Api\PaymentDataManagerInterface;
+use Cawl\PaymentCore\Api\PendingOrderManagerInterface;
+use Cawl\PaymentCore\Api\QuoteResourceInterface;
+use Cawl\PaymentCore\Api\SessionDataManagerInterface;
+use Cawl\PaymentCore\Api\SurchargingQuoteManagerInterface;
+use Cawl\PaymentCore\Model\Order\CanPlaceOrderContextManager;
+use Cawl\PaymentCore\Model\PaymentOrderManager\PaymentService;
+use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 
 /**
  * Validate payment information and create an order

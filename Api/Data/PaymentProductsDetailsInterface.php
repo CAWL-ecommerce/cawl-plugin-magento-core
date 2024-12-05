@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Api\Data;
+namespace Cawl\PaymentCore\Api\Data;
 
 /**
  * Worldline payment information

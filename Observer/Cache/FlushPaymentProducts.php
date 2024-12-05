@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Observer\Cache;
+namespace Cawl\PaymentCore\Observer\Cache;
 
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use Worldline\PaymentCore\Ui\PaymentProductsProvider;
+use Cawl\PaymentCore\Ui\PaymentProductsProvider;
 
 class FlushPaymentProducts implements ObserverInterface
 {

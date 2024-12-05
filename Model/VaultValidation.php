@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 use Magento\Vault\Api\PaymentTokenManagementInterface;
-use Worldline\PaymentCore\Api\VaultValidationInterface;
+use Cawl\PaymentCore\Api\VaultValidationInterface;
 
 class VaultValidation implements VaultValidationInterface
 {

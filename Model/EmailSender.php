@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\Exception\LocalizedException;
@@ -11,9 +11,9 @@ use Magento\Framework\Mail\TransportInterfaceFactory;
 use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Quote\Api\Data\CartInterface;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Data\EmailSendingListInterface;
-use Worldline\PaymentCore\Api\EmailSendingListRepositoryInterface;
-use Worldline\PaymentCore\Model\Config\OrderSynchronizationConfig;
+use Cawl\PaymentCore\Api\Data\EmailSendingListInterface;
+use Cawl\PaymentCore\Api\EmailSendingListRepositoryInterface;
+use Cawl\PaymentCore\Model\Config\OrderSynchronizationConfig;
 
 class EmailSender
 {

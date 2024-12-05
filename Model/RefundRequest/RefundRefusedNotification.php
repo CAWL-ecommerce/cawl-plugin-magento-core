@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model\RefundRequest;
+namespace Cawl\PaymentCore\Model\RefundRequest;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\Mail\Template\SenderResolverInterface;
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Sales\Api\CreditmemoRepositoryInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInterface;
-use Worldline\PaymentCore\Model\Config\RefundRefusedConfig;
-use Worldline\PaymentCore\Model\EmailSender;
+use Cawl\PaymentCore\Api\Data\PaymentInterface;
+use Cawl\PaymentCore\Model\Config\RefundRefusedConfig;
+use Cawl\PaymentCore\Model\EmailSender;
 
 class RefundRefusedNotification
 {

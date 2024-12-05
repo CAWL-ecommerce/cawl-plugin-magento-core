@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Ui;
+namespace Cawl\PaymentCore\Ui;
 
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Serialize\SerializerInterface;
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Api\Data\CacheIdentifierInterface;
-use Worldline\PaymentCore\Api\Data\CacheIdentifierInterfaceFactory;
-use Worldline\PaymentCore\Api\Service\GetPaymentProductsServiceInterface;
-use Worldline\PaymentCore\Api\Ui\PaymentProductsProviderInterface;
-use Worldline\PaymentCore\Service\Payment\GetPaymentProductsRequestBuilder;
+use Cawl\PaymentCore\Api\Data\CacheIdentifierInterface;
+use Cawl\PaymentCore\Api\Data\CacheIdentifierInterfaceFactory;
+use Cawl\PaymentCore\Api\Service\GetPaymentProductsServiceInterface;
+use Cawl\PaymentCore\Api\Ui\PaymentProductsProviderInterface;
+use Cawl\PaymentCore\Service\Payment\GetPaymentProductsRequestBuilder;
 
 class PaymentProductsProvider implements PaymentProductsProviderInterface
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure\StubData\Service\Payment;
+namespace Cawl\PaymentCore\Infrastructure\StubData\Service\Payment;
 
 use OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParams;
 

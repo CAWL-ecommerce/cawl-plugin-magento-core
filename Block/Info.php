@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Block;
+namespace Cawl\PaymentCore\Block;
 
 use Magento\Framework\Phrase;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Payment\Model\MethodInterface;
-use Worldline\PaymentCore\Api\Data\PaymentInfoInterface;
-use Worldline\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
-use Worldline\PaymentCore\Api\InfoFormatterInterface;
-use Worldline\PaymentCore\Model\Transaction\PaymentInfoBuilder;
-use Worldline\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
+use Cawl\PaymentCore\Api\Data\PaymentInfoInterface;
+use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
+use Cawl\PaymentCore\Api\InfoFormatterInterface;
+use Cawl\PaymentCore\Model\Transaction\PaymentInfoBuilder;
+use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
 
 class Info extends Template
 {

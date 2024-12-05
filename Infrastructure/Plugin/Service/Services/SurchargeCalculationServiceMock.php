@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Infrastructure\Plugin\Service\Services;
+namespace Cawl\PaymentCore\Infrastructure\Plugin\Service\Services;
 
 use OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
 use OnlinePayments\Sdk\Domain\CalculateSurchargeResponse;
 use OnlinePayments\Sdk\Domain\CalculateSurchargeResponseFactory;
-use Worldline\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
-use Worldline\PaymentCore\Infrastructure\StubData\Service\Services\SurchargeCalculationResponse;
-use Worldline\PaymentCore\Service\Services\SurchargeCalculationService;
+use Cawl\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
+use Cawl\PaymentCore\Infrastructure\StubData\Service\Services\SurchargeCalculationResponse;
+use Cawl\PaymentCore\Service\Services\SurchargeCalculationService;
 
 class SurchargeCalculationServiceMock
 {

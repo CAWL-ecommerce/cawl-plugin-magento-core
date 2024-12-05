@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Model;
+namespace Cawl\PaymentCore\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Worldline\PaymentCore\Api\Data\EmailSendingListInterface;
-use Worldline\PaymentCore\Model\ResourceModel\EmailSendingList as EmailSendingListResource;
+use Cawl\PaymentCore\Api\Data\EmailSendingListInterface;
+use Cawl\PaymentCore\Model\ResourceModel\EmailSendingList as EmailSendingListResource;
 
 class EmailSendingList extends AbstractModel implements EmailSendingListInterface
 {
