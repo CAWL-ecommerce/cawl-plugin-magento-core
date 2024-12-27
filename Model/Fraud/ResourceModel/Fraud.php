@@ -10,7 +10,7 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
  */
 class Fraud extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_fraud_information';
+    public const TABLE_NAME = 'cawl_fraud_information';
 
     protected function _construct(): void
     {

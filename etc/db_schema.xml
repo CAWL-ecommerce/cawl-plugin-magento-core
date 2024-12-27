@@ -2,7 +2,7 @@
 
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="worldline_payment_log" resource="default" engine="innodb" comment="Worldline Payment Logs Table">
+    <table name="cawl_payment_log" resource="default" engine="innodb" comment="Cawl Payment Logs Table">
         <column xsi:type="int" name="log_id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="blob" name="content" nullable="false"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
@@ -10,7 +10,7 @@
             <column name="log_id"/>
         </constraint>
     </table>
-    <table name="worldline_request_log" resource="default" engine="innodb" comment="Worldline Request Log Table">
+    <table name="cawl_request_log" resource="default" engine="innodb" comment="Cawl Request Log Table">
         <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="varchar" name="request_path"/>
         <column xsi:type="text" name="request_body"/>
@@ -22,7 +22,7 @@
             <column name="id"/>
         </constraint>
     </table>
-    <table name="worldline_webhook" resource="default" engine="innodb" comment="Worldline Webhook Table">
+    <table name="cawl_webhook" resource="default" engine="innodb" comment="Cawl Webhook Table">
         <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="varchar" name="increment_id" nullable="true" length="32" comment="Increment Order ID"/>
         <column xsi:type="varchar" name="type" nullable="true" length="32" comment="Type"/>
@@ -33,7 +33,7 @@
             <column name="id"/>
         </constraint>
     </table>
-    <table name="worldline_payment_refund_request" resource="default" engine="innodb" comment="Worldline Refund Request">
+    <table name="cawl_payment_refund_request" resource="default" engine="innodb" comment="Cawl Refund Request">
         <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="int" name="invoice_id" padding="10" unsigned="true" nullable="false" comment="Invoice ID"/>
         <column xsi:type="varchar" name="increment_id" nullable="true" length="32" comment="Increment Order ID"/>
@@ -45,13 +45,13 @@
         </constraint>
         <constraint xsi:type="foreign"
                     referenceId="FK_477A40116EF3B505AF2CE7395E4D8BCF"
-                    table="worldline_payment_refund_request"
+                    table="cawl_payment_refund_request"
                     column="invoice_id"
                     referenceTable="sales_invoice"
                     referenceColumn="entity_id"
                     onDelete="NO ACTION"/>
     </table>
-    <table name="worldline_payment_transaction" resource="default" engine="innodb" comment="Worldline Payment Transaction">
+    <table name="cawl_payment_transaction" resource="default" engine="innodb" comment="Cawl Payment Transaction">
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="varchar" name="increment_id" nullable="true" length="32" comment="Increment Order ID"/>
         <column xsi:type="varchar" name="status" nullable="true" length="32" comment="Status"/>
@@ -65,8 +65,8 @@
             <column name="entity_id"/>
         </constraint>
     </table>
-    <table name="worldline_failed_payment_log" resource="default" engine="innodb"
-           comment="Worldline Failed Payment Log">
+    <table name="cawl_failed_payment_log" resource="default" engine="innodb"
+           comment="Cawl Failed Payment Log">
         <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="int" name="quote_payment_id" unsigned="true" nullable="false"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
@@ -76,7 +76,7 @@
             <column name="quote_payment_id"/>
         </constraint>
     </table>
-    <table name="worldline_payment" resource="default" engine="innodb" comment="Worldline Payment">
+    <table name="cawl_payment" resource="default" engine="innodb" comment="Cawl Payment">
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="varchar" name="increment_id" nullable="false" length="32" comment="Increment Order ID"/>
         <column xsi:type="varchar" name="payment_id" nullable="false" length="32" comment="Payment ID"/>
@@ -90,7 +90,7 @@
             <column name="entity_id"/>
         </constraint>
     </table>
-    <table name="worldline_fraud_information" resource="default" engine="innodb" comment="Worldline Fraud Information">
+    <table name="cawl_fraud_information" resource="default" engine="innodb" comment="Cawl Fraud Information">
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="int" name="worldline_payment_id" unsigned="false" nullable="false"/>
         <column xsi:type="varchar" name="result" nullable="true" length="32" comment="Result"/>
@@ -101,7 +101,7 @@
             <column name="entity_id"/>
         </constraint>
     </table>
-    <table name="worldline_surcharging_quote" resource="default" engine="innodb" comment="Worldline Surcharging Quote">
+    <table name="cawl_surcharging_quote" resource="default" engine="innodb" comment="Cawl Surcharging Quote">
         <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID" />
         <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Quote ID"/>
         <column xsi:type="int" name="invoice_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Invoice ID"/>
@@ -116,13 +116,13 @@
         </constraint>
         <constraint xsi:type="foreign"
                     referenceId="WORLDLINE_SURCHARGING_QUOTE_QUOTE_ID_QUOTE_ENTITY_ID"
-                    table="worldline_surcharging_quote"
+                    table="cawl_surcharging_quote"
                     column="quote_id"
                     referenceTable="quote"
                     referenceColumn="entity_id"
                     onDelete="NO ACTION"/>
     </table>
-    <table name="worldline_surcharging_creditmemo" resource="default" engine="innodb" comment="Worldline Surcharging Creditmemo">
+    <table name="cawl_surcharging_creditmemo" resource="default" engine="innodb" comment="Cawl Surcharging Creditmemo">
         <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID" />
         <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Quote ID"/>
         <column xsi:type="int" name="creditmemo_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Creditmemo ID"/>
@@ -133,20 +133,20 @@
         </constraint>
         <constraint xsi:type="foreign"
                     referenceId="WORLDLINE_SURCHARGING_CREDITMEMO_QUOTE_ID_QUOTE_ENTITY_ID"
-                    table="worldline_surcharging_creditmemo"
+                    table="cawl_surcharging_creditmemo"
                     column="quote_id"
                     referenceTable="quote"
                     referenceColumn="entity_id"
                     onDelete="NO ACTION"/>
         <constraint xsi:type="foreign"
                     referenceId="WORLDLINE_SURCHARGING_CREDITMEMO_CREDITMEMO_ID_SALES_CREDITMEMO_ENTITY_ID"
-                    table="worldline_surcharging_creditmemo"
+                    table="cawl_surcharging_creditmemo"
                     column="creditmemo_id"
                     referenceTable="sales_creditmemo"
                     referenceColumn="entity_id"
                     onDelete="NO ACTION"/>
     </table>
-    <table name="worldline_email_sending_list" resource="default" engine="innodb" comment="Worldline Email Sending List">
+    <table name="cawl_email_sending_list" resource="default" engine="innodb" comment="Cawl Email Sending List">
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="varchar" name="increment_id" nullable="false" length="32" comment="Increment Order ID"/>
         <column xsi:type="varchar" name="level" nullable="true" length="32" comment="Level"/>
@@ -154,7 +154,7 @@
             <column name="entity_id"/>
         </constraint>
     </table>
-    <table name="worldline_quote_payment_information" resource="default" engine="innodb" comment="Worldline Quote Payment Info">
+    <table name="cawl_quote_payment_information" resource="default" engine="innodb" comment="Cawl Quote Payment Info">
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="int" name="payment_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Payment ID"/>
         <column xsi:type="varchar" name="payment_identifier" nullable="true" length="255" comment="Payment Identifier"/>
@@ -166,7 +166,7 @@
         </constraint>
         <constraint xsi:type="foreign"
                     referenceId="WORLDLINE_QUOTE_PAYMENT_PAYMENT_ID_QUOTE_PAYMENT_PAYMENT_ID"
-                    table="worldline_quote_payment_information"
+                    table="cawl_quote_payment_information"
                     column="payment_id"
                     referenceTable="quote_payment"
                     referenceColumn="payment_id"

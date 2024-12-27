@@ -8,7 +8,7 @@ use Cawl\PaymentCore\Api\Data\TransactionInterface;
 
 class Transaction extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_payment_transaction';
+    public const TABLE_NAME = 'cawl_payment_transaction';
 
     /**
      * @var array

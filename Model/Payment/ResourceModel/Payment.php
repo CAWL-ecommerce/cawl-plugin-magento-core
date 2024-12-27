@@ -7,7 +7,7 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class Payment extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_payment';
+    public const TABLE_NAME = 'cawl_payment';
 
     protected function _construct(): void
     {

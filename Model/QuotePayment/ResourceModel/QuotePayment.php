@@ -7,7 +7,7 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class QuotePayment extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_quote_payment_information';
+    public const TABLE_NAME = 'cawl_quote_payment_information';
 
     protected function _construct(): void
     {

@@ -8,7 +8,7 @@ use Cawl\PaymentCore\Api\Data\RequestLogInterface;
 
 class RequestLog extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_request_log';
+    public const TABLE_NAME = 'cawl_request_log';
 
     protected function _construct(): void
     {

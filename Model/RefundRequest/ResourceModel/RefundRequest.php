@@ -8,7 +8,7 @@ use Cawl\PaymentCore\Api\Data\RefundRequestInterface;
 
 class RefundRequest extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_payment_refund_request';
+    public const TABLE_NAME = 'cawl_payment_refund_request';
 
     protected function _construct(): void
     {

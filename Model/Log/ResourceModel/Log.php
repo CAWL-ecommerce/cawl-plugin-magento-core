@@ -9,7 +9,7 @@ use Cawl\PaymentCore\Api\Data\LogInterface;
 
 class Log extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_payment_log';
+    public const TABLE_NAME = 'cawl_payment_log';
 
     protected function _construct(): void
     {

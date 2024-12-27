@@ -8,7 +8,7 @@ use Cawl\PaymentCore\Api\Data\EmailSendingListInterface;
 
 class EmailSendingList extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_email_sending_list';
+    public const TABLE_NAME = 'cawl_email_sending_list';
 
     protected function _construct(): void
     {

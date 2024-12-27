@@ -12,7 +12,7 @@ use Cawl\PaymentCore\Api\Data\WebhookInterface;
  */
 class Webhook extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_webhook';
+    public const TABLE_NAME = 'cawl_webhook';
 
     protected function _construct(): void
     {

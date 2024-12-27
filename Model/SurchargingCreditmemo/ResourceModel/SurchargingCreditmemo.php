@@ -7,7 +7,7 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class SurchargingCreditmemo extends AbstractDb
 {
-    public const TABLE_NAME = 'worldline_surcharging_creditmemo';
+    public const TABLE_NAME = 'cawl_surcharging_creditmemo';
 
     protected function _construct(): void
     {
