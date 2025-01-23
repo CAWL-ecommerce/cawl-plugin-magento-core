@@ -73,5 +73,10 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.0
+- Fixed validation for HTML template ID configuration. It is no longer required to have extension on HTML templates.
+- Fixed issue where items quantities in decimals were not taken into account.
+- Improved handling of orders where the total amount does not match the sum of line items amount due to the rounding.
+
 #### 1.0.0
 - Initial version.
