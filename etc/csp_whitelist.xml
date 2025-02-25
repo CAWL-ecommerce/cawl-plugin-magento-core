@@ -3,8 +3,8 @@
     <policies>
         <policy id="script-src">
             <values>
-                <value id="worldline_solutions" type="host">payment.ca.cawl-solutions.fr</value>
-                <value id="worldline_solutions_preprod" type="host">payment.preprod.ca.cawl-solutions.fr</value>
+                <value id="worldline_solutions" type="host">payment.cawl-solutions.fr</value>
+                <value id="worldline_solutions_preprod" type="host">payment.preprod.cawl-solutions.fr</value>
                 <value id="worldline_anz_solutions" type="host">payment.anzworldline-solutions.com.au</value>
                 <value id="worldline_anz_solutions_preprod" type="host">payment.preprod.anzworldline-solutions.com.au</value>
                 <value id="worldline_payone_solutions" type="host">payment.payone.com</value>
@@ -13,8 +13,8 @@
         </policy>
         <policy id="frame-src">
             <values>
-                <value id="worldline_solutions" type="host">payment.ca.cawl-solutions.fr</value>
-                <value id="worldline_solutions_preprod" type="host">payment.preprod.ca.cawl-solutions.fr</value>
+                <value id="worldline_solutions" type="host">payment.cawl-solutions.fr</value>
+                <value id="worldline_solutions_preprod" type="host">payment.preprod.cawl-solutions.fr</value>
                 <value id="worldline_anz_solutions" type="host">payment.anzworldline-solutions.com.au</value>
                 <value id="worldline_anz_solutions_preprod" type="host">payment.preprod.anzworldline-solutions.com.au</value>
                 <value id="worldline_payone_solutions" type="host">payment.payone.com</value>
@@ -23,8 +23,8 @@
         </policy>
         <policy id="connect-src">
             <values>
-                <value id="worldline_solutions" type="host">payment.ca.cawl-solutions.fr</value>
-                <value id="worldline_solutions_preprod" type="host">payment.preprod.ca.cawl-solutions.fr</value>
+                <value id="worldline_solutions" type="host">payment.cawl-solutions.fr</value>
+                <value id="worldline_solutions_preprod" type="host">payment.preprod.cawl-solutions.fr</value>
                 <value id="worldline_anz_solutions" type="host">payment.anzworldline-solutions.com.au</value>
                 <value id="worldline_anz_solutions_preprod" type="host">payment.preprod.anzworldline-solutions.com.au</value>
                 <value id="worldline_payone_solutions" type="host">payment.payone.com</value>

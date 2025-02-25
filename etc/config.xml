@@ -5,8 +5,8 @@
         <worldline_connection>
             <connection>
                 <environment_mode>0</environment_mode>
-                <production_api_url>https://payment.ca.cawl-solutions.fr</production_api_url>
-                <testing_api_url>https://payment.preprod.ca.cawl-solutions.fr</testing_api_url>
+                <production_api_url>https://payment.cawl-solutions.fr</production_api_url>
+                <testing_api_url>https://payment.preprod.cawl-solutions.fr</testing_api_url>
             </connection>
         </worldline_connection>
         <worldline_payment>
