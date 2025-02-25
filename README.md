@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.1
+- Updated payment gateway API base URL.
+
 #### 1.1.0
 - Fixed validation for HTML template ID configuration. It is no longer required to have extension on HTML templates.
 - Fixed issue where items quantities in decimals were not taken into account.

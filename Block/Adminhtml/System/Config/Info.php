@@ -13,12 +13,12 @@ class Info extends Field
 {
     public const SEND_FEATURE_REQUEST = 'worldline/system_config/sendFeatureRequest';
 
-    private const ACCOUNT_LINK = 'https://signup.preprod.ca.cawl-solutions.fr/';
+    private const ACCOUNT_LINK = 'https://signup.preprod.cawl-solutions.fr/';
     private const SALES_LINK = 'https://worldline.com/en/home/solutions/online-payments/wl-online-payments.html';
-    private const SUPPORT_SITE_LINK = 'https://docs.ecommerce.ca.cawl-solutions.fr/en/index';
-    private const SUPPORT_TEAM_LINK = 'https://docs.ecommerce.ca.cawl-solutions.fr/en/about/contact/index';
+    private const SUPPORT_SITE_LINK = 'https://docs.ecommerce.cawl-solutions.fr/en/index';
+    private const SUPPORT_TEAM_LINK = 'https://docs.ecommerce.cawl-solutions.fr/en/about/contact/index';
     private const MAGENTO_DOC_LINK
-        = 'https://docs.ecommerce.ca.cawl-solutions.fr/en/integration/how-to-integrate/plugins/magento';
+        = 'https://docs.ecommerce.cawl-solutions.fr/en/integration/how-to-integrate/plugins/magento';
     private const GITHUB_LINK = 'https://github.com/Worldline-Plugins/cawl-plugin-magento/releases/latest';
 
     /**
