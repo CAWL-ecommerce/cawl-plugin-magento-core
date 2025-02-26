@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.2
+- Fixed SQL error on the debug dashboards.
+
 #### 1.1.1
 - Updated payment gateway API base URL.
 
