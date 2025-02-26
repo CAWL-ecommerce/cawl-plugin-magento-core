@@ -228,13 +228,13 @@
     </type>
     <virtualType name="Cawl\PaymentCore\View\Element\UiComponent\DataProvider\RequestLog\Virtual" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
-            <argument name="mainTable" xsi:type="string">worldline_request_log</argument>
+            <argument name="mainTable" xsi:type="string">cawl_request_log</argument>
             <argument name="resourceModel" xsi:type="string">Cawl\PaymentCore\Logger\ResourceModel\RequestLog</argument>
         </arguments>
     </virtualType>
     <virtualType name="Cawl\PaymentCore\View\Element\UiComponent\DataProvider\Webhooks\Virtual" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
-            <argument name="mainTable" xsi:type="string">worldline_webhook</argument>
+            <argument name="mainTable" xsi:type="string">cawl_webhook</argument>
             <argument name="resourceModel" xsi:type="string">Cawl\PaymentCore\Model\Webhook\ResourceModel\Webhook</argument>
         </arguments>
     </virtualType>
