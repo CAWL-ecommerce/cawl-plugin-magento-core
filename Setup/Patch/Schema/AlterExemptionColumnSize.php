@@ -9,7 +9,7 @@ use Magento\Framework\Setup\Patch\SchemaPatchInterface;
 
 class AlterExemptionColumnSize implements SchemaPatchInterface
 {
-    const FRAUD_INFORMATION_TABLE_NAME = 'worldline_fraud_information';
+    const FRAUD_INFORMATION_TABLE_NAME = 'cawl_fraud_information';
 
     /**
      * @var ModuleDataSetupInterface
