@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.3
+- Added 3DS exemption types to the plugin
+
 #### 1.1.2
 - Fixed SQL error on the debug dashboards.
 
