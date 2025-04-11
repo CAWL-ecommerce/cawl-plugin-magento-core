@@ -5,6 +5,7 @@ namespace Cawl\PaymentCore\Setup\Patch\Data;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface;
+use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\StoreManagerInterface;
@@ -30,24 +31,42 @@ class SetAuthExemptionDefaults implements DataPatchInterface
      */
     private $configWriter;
 
+    /**
+     * @var ResourceConnection
+     */
+    private $resource;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         StoreManagerInterface $storeManager,
-        WriterInterface $configWriter
-    )
-    {
+        WriterInterface $configWriter,
+        ResourceConnection $resource
+    ) {
         $this->scopeConfig = $scopeConfig;
         $this->storeManager = $storeManager;
         $this->configWriter = $configWriter;
+        $this->resource = $resource;
     }
 
     public function apply(): self
     {
-        // save the values for all available websites
+        $connection = $this->resource->getConnection();
+        $configTable = $this->resource->getTableName('core_config_data');
+        $path = GeneralSettingsConfig::AUTH_EXEMPTION;
+
+        // Save values only for websites where auth_exemption is explicitly set
         foreach ($this->storeManager->getWebsites() as $website) {
             $websiteId = (int)$website->getId();
 
-            if ($this->scopeConfig->getValue(GeneralSettingsConfig::AUTH_EXEMPTION, ScopeInterface::SCOPE_WEBSITES, $websiteId)) {
+            $select = $connection->select()
+                ->from($configTable)
+                ->where('scope = ?', ScopeInterface::SCOPE_WEBSITES)
+                ->where('scope_id = ?', $websiteId)
+                ->where('path = ?', $path);
+
+            $explicitConfig = $connection->fetchRow($select);
+
+            if ($explicitConfig && (int)$explicitConfig['value'] === 1) {
                 $this->configWriter->save(
                     GeneralSettingsConfig::AUTH_EXEMPTION_TYPE,
                     self::LOW_VALUE_EXEMPTION_TYPE,
@@ -63,8 +82,8 @@ class SetAuthExemptionDefaults implements DataPatchInterface
             }
         }
 
-        // set the values for the default config
-        if ($this->scopeConfig->getValue(GeneralSettingsConfig::AUTH_EXEMPTION, ScopeInterface::SCOPE_WEBSITE, 0)) {
+        // Apply to default scope if enabled
+        if ($this->scopeConfig->getValue(GeneralSettingsConfig::AUTH_EXEMPTION, ScopeConfigInterface::SCOPE_TYPE_DEFAULT)) {
             $this->configWriter->save(
                 GeneralSettingsConfig::AUTH_EXEMPTION_TYPE,
                 self::LOW_VALUE_EXEMPTION_TYPE,
