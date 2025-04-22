@@ -7,7 +7,7 @@ use Magento\Framework\App\ResourceConnection;
 
 class FailedPaymentLog
 {
-    public const TABLE = 'worldline_failed_payment_log';
+    public const TABLE = 'cawl_failed_payment_log';
 
     /**
      * @var ResourceConnection

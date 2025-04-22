@@ -1,5 +1,5 @@
 {
-    "worldline_payment_log": {
+    "cawl_payment_log": {
         "column": {
             "log_id": true,
             "content": true,
@@ -9,7 +9,7 @@
             "PRIMARY": true
         }
     },
-    "worldline_request_log": {
+    "cawl_request_log": {
         "column": {
             "id": true,
             "request_path": true,
@@ -23,7 +23,7 @@
             "PRIMARY": true
         }
     },
-    "worldline_payment_refund_request": {
+    "cawl_payment_refund_request": {
         "column": {
             "id": true,
             "invoice_id": true,
@@ -37,7 +37,7 @@
             "FK_477A40116EF3B505AF2CE7395E4D8BCF": true
         }
     },
-    "worldline_payment_transaction": {
+    "cawl_payment_transaction": {
         "column": {
             "entity_id": true,
             "increment_id": true,
@@ -53,7 +53,7 @@
             "PRIMARY": true
         }
     },
-    "worldline_failed_payment_log": {
+    "cawl_failed_payment_log": {
         "column": {
             "id": true,
             "quote_payment_id": true
@@ -64,7 +64,7 @@
             "WORLDLINE_FAILED_PAYMENT_LOG_QUOTE_PAYMENT_ID": true
         }
     },
-    "worldline_payment": {
+    "cawl_payment": {
         "column": {
             "entity_id": true,
             "increment_id": true,
@@ -80,7 +80,7 @@
             "PRIMARY": true
         }
     },
-    "worldline_fraud_information": {
+    "cawl_fraud_information": {
         "column": {
             "entity_id": true,
             "worldline_payment_id": true,
@@ -93,7 +93,7 @@
             "PRIMARY": true
         }
     },
-    "worldline_webhook": {
+    "cawl_webhook": {
         "column": {
             "id": true,
             "increment_id": true,
@@ -106,7 +106,7 @@
             "PRIMARY": true
         }
     },
-    "worldline_surcharging_quote": {
+    "cawl_surcharging_quote": {
         "column": {
             "entity_id": true,
             "quote_id": true,
@@ -123,7 +123,7 @@
             "WORLDLINE_SURCHARGING_QUOTE_QUOTE_ID_QUOTE_ENTITY_ID": true
         }
     },
-    "worldline_surcharging_creditmemo": {
+    "cawl_surcharging_creditmemo": {
         "column": {
             "entity_id": true,
             "quote_id": true,
@@ -137,7 +137,7 @@
             "WORLDLINE_SURCHARGING_CREDITMEMO_CREDITMEMO_ID_SALES_CREDITMEMO_ENTITY_ID": true
         }
     },
-    "worldline_email_sending_list": {
+    "cawl_email_sending_list": {
         "column": {
             "entity_id": true,
             "increment_id": true,
@@ -147,7 +147,7 @@
             "PRIMARY": true
         }
     },
-    "worldline_quote_payment_information": {
+    "cawl_quote_payment_information": {
         "column": {
             "entity_id": true,
             "payment_id": true,
