@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.5
+- Fixed failed payment log table name
+
 #### 1.1.4
 - Update plugin translations
 
