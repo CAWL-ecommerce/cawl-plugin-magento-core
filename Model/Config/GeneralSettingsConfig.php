@@ -65,12 +65,12 @@ class GeneralSettingsConfig implements GeneralSettingsConfigInterface
         return $this->scopeConfig->isSetFlag(self::AUTH_EXEMPTION, ScopeInterface::SCOPE_STORE, $scopeCode);
     }
 
-    public function getAuthExemptionType(?int $scopeCode = null): string
+    public function getAuthExemptionType(?int $scopeCode = null): ?string
     {
         return $this->scopeConfig->getValue(self::AUTH_EXEMPTION_TYPE, ScopeInterface::SCOPE_STORE, $scopeCode);
     }
 
-    public function getAuthLowValueAmount(?int $scopeCode = null): string
+    public function getAuthLowValueAmount(?int $scopeCode = null): ?string
     {
         return $this->scopeConfig->getValue(self::AUTH_LOW_VALUE_AMOUNT, ScopeInterface::SCOPE_STORE, $scopeCode);
     }
@@ -85,7 +85,7 @@ class GeneralSettingsConfig implements GeneralSettingsConfigInterface
         $this->configWriter->save(self::AUTH_LOW_VALUE_AMOUNT, $amount, ScopeInterface::SCOPE_STORE);
     }
 
-    public function getAuthTransactionRiskAnalysisAmount(?int $scopeCode = null): string
+    public function getAuthTransactionRiskAnalysisAmount(?int $scopeCode = null): ?string
     {
         return $this->scopeConfig->getValue(self::AUTH_TRANSACTION_RISK_ANALYSIS_AMOUNT,
             ScopeInterface::SCOPE_STORE, $scopeCode);

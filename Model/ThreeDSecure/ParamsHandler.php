@@ -24,10 +24,6 @@ class ParamsHandler
     {
         $isThreeDEnabled = $this->generalSettings->isThreeDEnabled($storeId);
         $isAuthExemptionEnabled = $this->generalSettings->isAuthExemptionEnabled($storeId);
-        $threeDSExemptedType = $this->generalSettings->getAuthExemptionType($storeId);
-        $threeDSExemptedAmount = $threeDSExemptedType === self::LOW_VALUE_EXEMPTION_TYPE ?
-            $this->generalSettings->getAuthLowValueAmount($storeId)
-            : $this->generalSettings->getAuthTransactionRiskAnalysisAmount($storeId);
 
         $threeDSecure->setSkipAuthentication(!$isThreeDEnabled);
 
@@ -35,10 +31,18 @@ class ParamsHandler
             return;
         }
 
-        if ($isAuthExemptionEnabled && (float)$threeDSExemptedAmount >= $baseSubtotal) {
-            $threeDSecure->setSkipAuthentication(true);
-            $threeDSecure->setExemptionRequest($threeDSExemptedType);
-            $threeDSecure->setSkipSoftDecline(false);
+        if ($isAuthExemptionEnabled) {
+            $threeDSExemptedType = $this->generalSettings->getAuthExemptionType($storeId)
+                ?? self::LOW_VALUE_EXEMPTION_TYPE;
+            $threeDSExemptedAmount = $threeDSExemptedType === self::LOW_VALUE_EXEMPTION_TYPE
+                ? $this->generalSettings->getAuthLowValueAmount($storeId)
+                : $this->generalSettings->getAuthTransactionRiskAnalysisAmount($storeId);
+
+            if ((float)$threeDSExemptedAmount >= $baseSubtotal) {
+                $threeDSecure->setSkipAuthentication(true);
+                $threeDSecure->setExemptionRequest($threeDSExemptedType);
+                $threeDSecure->setSkipSoftDecline(false);
+            }
         }
 
         if ($this->generalSettings->isEnforceAuthEnabled($storeId)) {
