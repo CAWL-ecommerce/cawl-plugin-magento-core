@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.6
+- Fixed 3ds exemption default values
+
 #### 1.1.5
 - Fixed failed payment log table name
 

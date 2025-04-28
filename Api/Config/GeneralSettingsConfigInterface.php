@@ -11,15 +11,15 @@ interface GeneralSettingsConfigInterface
 
     public function isAuthExemptionEnabled(?int $scopeCode = null): bool;
 
-    public function getAuthExemptionType(?int $scopeCode = null): string;
+    public function getAuthExemptionType(?int $scopeCode = null): ?string;
 
-    public function getAuthLowValueAmount(?int $scopeCode = null): string;
+    public function getAuthLowValueAmount(?int $scopeCode = null): ?string;
 
     public function saveAuthExemptionType(string $type): void;
 
     public function saveAuthLowValueAmount(string $amount): void;
 
-    public function getAuthTransactionRiskAnalysisAmount(?int $scopeCode = null): string;
+    public function getAuthTransactionRiskAnalysisAmount(?int $scopeCode = null): ?string;
 
     public function getReturnUrl(string $returnUrl, ?int $scopeCode = null): string;
 

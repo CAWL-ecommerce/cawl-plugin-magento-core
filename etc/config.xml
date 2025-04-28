@@ -12,6 +12,8 @@
         <worldline_payment>
             <general_settings>
                 <enable_3d>1</enable_3d>
+                <authentication_exemption_limit_30>0</authentication_exemption_limit_30>
+                <authentication_exemption_limit_100>0</authentication_exemption_limit_100>
             </general_settings>
         </worldline_payment>
         <worldline_order_creator>
