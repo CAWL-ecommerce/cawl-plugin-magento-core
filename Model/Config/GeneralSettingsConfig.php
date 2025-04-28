@@ -48,8 +48,7 @@ class GeneralSettingsConfig implements GeneralSettingsConfigInterface
         UrlInterface $urlBuilder,
         ScopeConfigInterface $scopeConfig,
         WriterInterface $configWriter
-    )
-    {
+    ) {
         $this->appState = $appState;
         $this->urlBuilder = $urlBuilder;
         $this->scopeConfig = $scopeConfig;
@@ -94,14 +93,18 @@ class GeneralSettingsConfig implements GeneralSettingsConfigInterface
     public function getAuthTransactionRiskAnalysisAmount(?int $scopeCode = null): ?string
     {
         return $this->scopeConfig->getValue(
-            self::AUTH_TRANSACTION_RISK_ANALYSIS_AMOUNT, ScopeInterface::SCOPE_STORE, $scopeCode
+            self::AUTH_TRANSACTION_RISK_ANALYSIS_AMOUNT,
+            ScopeInterface::SCOPE_STORE,
+            $scopeCode
         );
     }
 
     public function getReturnUrl(string $returnUrl, ?int $scopeCode = null): string
     {
         $pwaRoute = (string)$this->scopeConfig->getValue(
-            self::PWA_ROUTE, ScopeInterface::SCOPE_STORE, $scopeCode
+            self::PWA_ROUTE,
+            ScopeInterface::SCOPE_STORE,
+            $scopeCode
         );
         if ($pwaRoute && $this->appState->getAreaCode() === Area::AREA_GRAPHQL) {
             return $pwaRoute;
