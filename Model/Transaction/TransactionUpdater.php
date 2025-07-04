@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Model\Transaction;
 
-use OnlinePayments\Sdk\DataObject;
+use OnlinePayments\Sdk\Domain\DataObject;
 use Cawl\PaymentCore\Api\Data\TransactionInterface;
 use Cawl\PaymentCore\Model\Transaction\ResourceModel\Transaction as TransactionResource;
 

@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Magento\Payment\Gateway\Data\PaymentDataObject;
 use Magento\Payment\Gateway\Data\PaymentDataObjectInterface;
 use Magento\Payment\Gateway\Helper;
-use OnlinePayments\Sdk\DataObject;
+use OnlinePayments\Sdk\Domain\DataObject;
 use OnlinePayments\Sdk\Domain\CreatePaymentResponse;
 use Cawl\PaymentCore\Api\SubjectReaderInterface;
 

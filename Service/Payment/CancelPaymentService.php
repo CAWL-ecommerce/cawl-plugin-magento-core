@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Cawl\PaymentCore\Api\Service\Payment\CancelPaymentServiceInterface;
 use Cawl\PaymentCore\Api\ClientProviderInterface;
 use Cawl\PaymentCore\Model\Config\WorldlineConfig;
+use OnlinePayments\Sdk\Domain\CancelPaymentRequest;
 
 /**
  * @link https://support.direct.ingenico.com/en/documentation/api/reference/#tag/Payments/operation/CancelPaymentApi
@@ -54,7 +55,7 @@ class CancelPaymentService implements CancelPaymentServiceInterface
             return $this->clientProvider->getClient($storeId)
                 ->merchant($this->worldlineConfig->getMerchantId($storeId))
                 ->payments()
-                ->cancelPayment($paymentId);
+                ->cancelPayment($paymentId, new CancelPaymentRequest());
         } catch (\Exception $e) {
             $this->logger->debug($e->getMessage());
             throw new LocalizedException(__('CancelPaymentApi has failed. Please contact the provider.'));

@@ -6,15 +6,16 @@ namespace Cawl\PaymentCore\OnlinePayments\Sdk;
 use OnlinePayments\Sdk\CallContext;
 use OnlinePayments\Sdk\Communicator as IngenicoCommunicator;
 use OnlinePayments\Sdk\CommunicatorConfiguration;
-use OnlinePayments\Sdk\Connection;
-use OnlinePayments\Sdk\DataObject;
-use OnlinePayments\Sdk\RequestObject;
-use OnlinePayments\Sdk\ResponseBuilder;
-use OnlinePayments\Sdk\ResponseClassMap;
+use OnlinePayments\Sdk\Communication\Connection;
+use OnlinePayments\Sdk\Domain\DataObject;
+use OnlinePayments\Sdk\Communication\RequestObject;
+use OnlinePayments\Sdk\Communication\ResponseBuilder;
+use OnlinePayments\Sdk\Communication\ResponseClassMap;
 use OnlinePayments\Sdk\ResponseException;
 use UnexpectedValueException;
 use Cawl\PaymentCore\Logger\RequestLogManager;
 use Cawl\PaymentCore\Model\TrackerDataProvider;
+use OnlinePayments\Sdk\Authentication\V1HmacAuthenticator;
 
 /**
  * @core
@@ -44,6 +45,11 @@ class Communicator extends IngenicoCommunicator
      */
     private $requestLogManager;
 
+    /**
+     * @var Connection
+     */
+    private $connection;
+
     public function __construct(
         Connection $connection,
         CommunicatorConfiguration $communicatorConfiguration,
@@ -51,40 +57,13 @@ class Communicator extends IngenicoCommunicator
         RequestHeaderGeneratorFactory $requestHeaderGeneratorFactory,
         RequestLogManager $requestLogManager
     ) {
-        parent::__construct($connection, $communicatorConfiguration);
+        parent::__construct($communicatorConfiguration, new V1HmacAuthenticator($communicatorConfiguration), $connection);
 
+        $this->connection = $connection;
         $this->trackerDataProvider = $trackerDataProvider;
         $this->communicatorConfiguration = $communicatorConfiguration;
         $this->requestHeaderGeneratorFactory = $requestHeaderGeneratorFactory;
         $this->requestLogManager = $requestLogManager;
-    }
-
-    /**
-     * @param string $httpMethod
-     * @param string $relativeUriPathWithRequestParameters
-     * @param string|null $contentType
-     * @param string $clientMetaInfo
-     * @param CallContext|null $callContext
-     *
-     * @return string[]
-     */
-    protected function getRequestHeaders(
-        $httpMethod,
-        $relativeUriPathWithRequestParameters,
-        $contentType = null,
-        $clientMetaInfo = '',
-        ?CallContext $callContext = null
-    ): array {
-        $requestHeaderGenerator = $this->requestHeaderGeneratorFactory->create([
-            'communicatorConfiguration' => $this->communicatorConfiguration,
-            'httpMethodText' => $httpMethod,
-            'uriPath' => $relativeUriPathWithRequestParameters,
-            'clientMetaInfo' => $clientMetaInfo,
-            'callContext' => $callContext
-        ]);
-
-        $requestHeaderGenerator->setTrackerData($this->trackerDataProvider->getData());
-        return $requestHeaderGenerator->generateRequestHeaders($contentType);
     }
 
     public function buildRequestUri(
@@ -205,5 +184,13 @@ class Communicator extends IngenicoCommunicator
             throw $this->getResponseExceptionFactory()->createException($httpStatusCode, $response, $callContext);
         }
         return $response;
+    }
+
+    /**
+     * @return \OnlinePayments\Sdk\Connection
+     */
+    public function getConnection()
+    {
+        return $this->connection;
     }
 }

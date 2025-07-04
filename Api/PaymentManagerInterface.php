@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Api;
 
-use OnlinePayments\Sdk\DataObject;
+use OnlinePayments\Sdk\Domain\DataObject;
 use Cawl\PaymentCore\Api\Data\PaymentInterface;
 
 /**

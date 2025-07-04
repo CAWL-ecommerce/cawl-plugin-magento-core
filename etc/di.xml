@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- Preference -->
-    <preference type="OnlinePayments\Sdk\DefaultConnection" for="OnlinePayments\Sdk\Connection" />
+    <preference type="OnlinePayments\Sdk\Communication\DefaultConnection" for="OnlinePayments\Sdk\Communication\Connection" />
     <preference type="Magento\Framework\Filesystem\Driver\File" for="Magento\Framework\Filesystem\DriverInterface" />
     <preference type="Cawl\PaymentCore\Model\Log\Log" for="Cawl\PaymentCore\Api\Data\LogInterface" />
     <preference type="Cawl\PaymentCore\Model\Log\LogRepository" for="Cawl\PaymentCore\Api\LogRepositoryInterface" />
@@ -109,6 +109,10 @@
         <arguments>
             <argument name="infoFormatter" xsi:type="object">Cawl\PaymentCore\Block\InfoFormatter</argument>
         </arguments>
+    </type>
+
+    <type name="Cawl\Catalog\Block\Product\View">
+        <plugin name="add_meal_voucher_to_json_config" type="Cawl\PaymentCore\Plugin\Magento\Catalog\Block\ProductView" />
     </type>
 
     <type name="Cawl\PaymentCore\Model\Webhook\GeneralProcessor">
