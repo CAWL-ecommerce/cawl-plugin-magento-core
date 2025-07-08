@@ -6,6 +6,7 @@ namespace Cawl\PaymentCore\Infrastructure\Plugin\Service\Payment;
 use OnlinePayments\Sdk\Domain\CancelPaymentResponse;
 use OnlinePayments\Sdk\Domain\CancelPaymentResponseFactory;
 use Cawl\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface;
+use OnlinePayments\Sdk\Domain\PaymentResponse;
 use Cawl\PaymentCore\Service\Payment\CancelPaymentService;
 use Cawl\PaymentCore\Infrastructure\StubData\Service\Payment\CancelPaymentServiceResponse;
 
@@ -32,24 +33,25 @@ class CancelPaymentServiceMock
     /**
      * @param CancelPaymentService $subject
      * @param callable $proceed
-     * @param string $paymentId
+     * @param PaymentResponse $payment
      * @param int|null $storeId
+     *
      * @return CancelPaymentResponse
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundExecute(
         CancelPaymentService $subject,
         callable $proceed,
-        string $paymentId,
+        PaymentResponse $payment,
         ?int $storeId = null
     ): CancelPaymentResponse {
         if ($this->serviceStubSwitcher->isEnabled()) {
             $response = $this->cancelPaymentResponseFactory->create();
-            $response->fromJson(CancelPaymentServiceResponse::getData($paymentId));
+            $response->fromJson(CancelPaymentServiceResponse::getData($payment->id));
 
             return $response;
         }
 
-        return $proceed($paymentId, $storeId);
+        return $proceed($payment, $storeId);
     }
 }

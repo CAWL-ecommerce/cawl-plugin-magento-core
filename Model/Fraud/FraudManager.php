@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Model\Fraud;
 
-use OnlinePayments\Sdk\DataObject;
+use OnlinePayments\Sdk\Domain\DataObject;
 use OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificOutput;
 use OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificOutput;
 use Cawl\PaymentCore\Api\Data\FraudInterface;

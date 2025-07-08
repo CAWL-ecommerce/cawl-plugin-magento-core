@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Cawl\PaymentCore\Gateway\Http\Client;
 
 use Magento\Framework\Exception\LocalizedException;
-use OnlinePayments\Sdk\DataObject;
+use OnlinePayments\Sdk\Domain\DataObject;
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use Psr\Log\LoggerInterface;
 use Cawl\PaymentCore\Api\Service\Refund\CreateRefundServiceInterface;
