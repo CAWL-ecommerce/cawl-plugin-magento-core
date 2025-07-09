@@ -41,7 +41,7 @@ class Debug extends StreamHandler
         $this->logFactory = $logFactory;
     }
 
-    protected function write(array $record): void
+    protected function write($record): void
     {
         $logDir = $this->filesystem->getParentDirectory($this->url);
 
@@ -54,7 +54,7 @@ class Debug extends StreamHandler
         $this->saveLogToDb($record);
     }
 
-    private function saveLogToDb(array $record): void
+    private function saveLogToDb($record): void
     {
         $content = var_export($record, true);
         /** @var Log $log */
