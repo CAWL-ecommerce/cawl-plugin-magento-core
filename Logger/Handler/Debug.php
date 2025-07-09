@@ -28,10 +28,11 @@ class Debug extends StreamHandler
     private $logFactory;
 
     public function __construct(
-        File $filesystem,
+        File                   $filesystem,
         LogRepositoryInterface $logRepository,
-        LogInterfaceFactory $logFactory
-    ) {
+        LogInterfaceFactory    $logFactory
+    )
+    {
         $this->filesystem = $filesystem;
         parent::__construct(BP . DIRECTORY_SEPARATOR . '/var/log/worldline/debug.log');
 
@@ -40,7 +41,7 @@ class Debug extends StreamHandler
         $this->logFactory = $logFactory;
     }
 
-    protected function write(array $record): void
+    protected function write($record): void
     {
         $logDir = $this->filesystem->getParentDirectory($this->url);
 
@@ -53,7 +54,7 @@ class Debug extends StreamHandler
         $this->saveLogToDb($record);
     }
 
-    private function saveLogToDb(array $record): void
+    private function saveLogToDb($record): void
     {
         $content = var_export($record, true);
         /** @var Log $log */
