@@ -73,6 +73,10 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.7
+- Add compatibility with PHP 8.4
+- Update SDK version
+
 #### 1.1.6
 - Fixed 3ds exemption default values
 
