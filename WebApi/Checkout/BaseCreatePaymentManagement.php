@@ -96,7 +96,7 @@ class BaseCreatePaymentManagement implements BaseCreatePaymentManagementInterfac
     public function createRequest(
         int $cartId,
         PaymentInterface $paymentMethod,
-        AddressInterface $billingAddress = null
+        ?AddressInterface $billingAddress = null
     ): string {
         $quote = $this->quoteManager->getQuote($cartId);
 
