@@ -12,6 +12,7 @@ use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
 use Cawl\PaymentCore\Api\Data\TransactionInterface;
 use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
 use Cawl\PaymentCore\Api\TransactionRepositoryInterface;
+use OnlinePayments\Sdk\Domain\PaymentResponse;
 
 class PaymentInfoBuilder
 {
@@ -62,6 +63,51 @@ class PaymentInfoBuilder
         $this->calculateTransactionAmounts($paymentInfo, $payment, $incrementId);
 
         return $paymentInfo;
+    }
+
+    /**
+     * @param PaymentResponse $paymentResponse
+     *
+     * @return PaymentInfoInterface
+     */
+    public function buildSplitTransaction(PaymentResponse $paymentResponse): PaymentInfoInterface
+    {
+        /** @var PaymentInfoInterface $paymentInfo */
+        $paymentInfo = $this->paymentInfoFactory->create();
+
+        $paymentInfo->setStatus($paymentResponse->getStatus());
+        $paymentInfo->setStatusCode($paymentResponse->getStatusOutput()->getStatusCode());
+        $paymentInfo->setLastTransactionNumber($paymentResponse->getId());
+
+        $paymentProductId = $paymentResponse->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput()->getPaymentProductId();
+        $currency = $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getCurrencyCode();
+
+        $paymentInfo->setAuthorizedAmount(
+            $this->formatAmount((int) $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getAmount(),
+                (string) $currency)
+        );
+        $paymentInfo->setFraudResult((string)$paymentResponse->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput()->getFraudResults()->getFraudServiceResult());
+        $paymentInfo->setCardLastNumbers('');
+        $paymentInfo->setPaymentProductId((int) $paymentProductId);
+        $paymentInfo->setCurrency((string) $currency);
+        $paymentInfo->setPaymentMethod(
+            PaymentProductsDetailsInterface::PAYMENT_PRODUCTS[$paymentProductId]['group'] ?? ''
+        );
+
+        return $paymentInfo;
+    }
+
+    /**
+     * @param OrderInterface $order
+     *
+     * @return string|null
+     */
+    public function getPaymentByOrderId(OrderInterface $order): ?string
+    {
+        $incrementId = (string)$order->getIncrementId();
+        $payment = $this->paymentRepository->get($incrementId);
+
+        return $payment->getPaymentId();
     }
 
     private function setPaymentInfo(

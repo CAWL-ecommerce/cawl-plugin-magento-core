@@ -16,6 +16,7 @@ use UnexpectedValueException;
 use Cawl\PaymentCore\Logger\RequestLogManager;
 use Cawl\PaymentCore\Model\TrackerDataProvider;
 use OnlinePayments\Sdk\Authentication\V1HmacAuthenticator;
+use OnlinePayments\Sdk\ExceptionFactory;
 
 /**
  * @core
@@ -49,6 +50,9 @@ class Communicator extends IngenicoCommunicator
      * @var Connection
      */
     private $connection;
+
+    /** @var ExceptionFactory|null */
+    private $responseExceptionFactory = null;
 
     public function __construct(
         Connection $connection,
@@ -192,5 +196,14 @@ class Communicator extends IngenicoCommunicator
     public function getConnection()
     {
         return $this->connection;
+    }
+
+    /** @return ExceptionFactory */
+    private function getResponseExceptionFactory()
+    {
+        if (is_null($this->responseExceptionFactory)) {
+            $this->responseExceptionFactory = new ExceptionFactory();
+        }
+        return $this->responseExceptionFactory;
     }
 }
