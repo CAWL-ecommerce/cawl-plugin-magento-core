@@ -12,7 +12,7 @@ $cardNumbers = $block->getPaymentInformation()->getCardLastNumbers();
             <span><?= $block->escapeHtml(__('ending')) ?></span> <?= $block->escapeHtml($cardNumbers) ?>
         <?php endif; ?>
 
-        <?php if ($block->getIconUrl()): ?>
+        <?php if ($block->getIconUrl($info)): ?>
             <img src="<?= $block->escapeUrl($block->getIconUrl($info)) ?>"
                  style="max-height: <?= $block->escapeHtmlAttr($block->getMaxHeight()) ?>;
                          aspect-ratio: <?= $block->escapeHtml($block->getAspectRatio()) ?>;"
