@@ -152,7 +152,7 @@ class PlaceOrderProcessor implements ProcessorInterface
         $acquiredAmount = $paymentOutput->getAcquiredAmount() ? $paymentOutput->getAcquiredAmount()->getAmount() : null;
 
         if ($paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
-            || $paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_PRODUCT_ID) {
+            || $paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID) {
             return $amountOfMoney && $acquiredAmount && ($amountOfMoney === $acquiredAmount);
         }
 
