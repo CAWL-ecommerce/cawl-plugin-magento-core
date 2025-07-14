@@ -190,14 +190,6 @@ class Communicator extends IngenicoCommunicator
         return $response;
     }
 
-    /**
-     * @return \OnlinePayments\Sdk\Connection
-     */
-    public function getConnection()
-    {
-        return $this->connection;
-    }
-
     /** @return ExceptionFactory */
     private function getResponseExceptionFactory()
     {
