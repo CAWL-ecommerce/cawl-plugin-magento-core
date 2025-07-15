@@ -3,17 +3,22 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Block;
 
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Payment\Model\MethodInterface;
+use OnlinePayments\Sdk\Domain\DataObject;
+use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
+use OnlinePayments\Sdk\Domain\PaymentResponse;
+use OnlinePayments\Sdk\Domain\RefundResponse;
+use Cawl\PaymentCore\Api\ClientProviderInterface;
 use Cawl\PaymentCore\Api\Data\PaymentInfoInterface;
 use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
 use Cawl\PaymentCore\Api\InfoFormatterInterface;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 use Cawl\PaymentCore\Model\Transaction\PaymentInfoBuilder;
 use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
-use Cawl\PaymentCore\Api\ClientProviderInterface;
-use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 
 class Info extends Template
 {
@@ -86,7 +91,7 @@ class Info extends Template
         $specificInformation = [];
         $splitPaymentInfo = $this->getSplitPaymentInformation();
         if ($splitPaymentInfo && $this->getPaymentInformation()->getPaymentProductId() !== PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID) {
-            $specificInformation[] =  $this->infoFormatter->format($splitPaymentInfo);
+            $specificInformation[] = $this->infoFormatter->format($splitPaymentInfo);
         }
         $specificInformation[] = $this->infoFormatter->format($this->getPaymentInformation());
 
@@ -169,29 +174,29 @@ class Info extends Template
                 ->payments()
                 ->getPaymentDetails($this->paymentInfoBuilder->getPaymentByOrderId($this->getInfo()->getOrder()));
         }
+        $this->splitPayment = ['payment' => null];
 
         foreach ($this->paymentDetails->getOperations() as $paymentDetail) {
-            if (null === $this->splitPayment) {
-                $this->splitPayment = ['payment' => null];
-
+            try {
                 $payment = $this->clientProvider->getClient($storeId)
                     ->merchant($this->worldlineConfig->getMerchantId($storeId))
                     ->payments()
                     ->getPayment($paymentDetail->getId());
 
-                $paymentOutput = $payment->getPaymentOutput();
+                $paymentOutput = $this->getOutput($payment);
                 $redirectPaymentMethodSpecificOutput = $paymentOutput ? $paymentOutput->getRedirectPaymentMethodSpecificOutput() : null;
-                $paymentProductId = $redirectPaymentMethodSpecificOutput ?  $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
+                $paymentProductId = $redirectPaymentMethodSpecificOutput ? $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
 
                 if ($paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID) {
                     $this->splitPayment['payment'] = $payment;
                 }
-            }
+            } catch (\Exception $e) {}
         }
         $payment = $this->splitPayment['payment'];
         if (!$payment) {
             return null;
         }
+        $this->setSplitPaymentFinalStatus($payment);
 
         return $this->paymentInfoBuilder->buildSplitTransaction($payment);
     }
@@ -205,5 +210,40 @@ class Info extends Template
     {
         $this->setTemplate('Cawl_PaymentCore::info/pdf/worldline_payment.phtml');
         return $this->toHtml();
+    }
+
+    /**
+     * @param $payment
+     *
+     * @return void
+     */
+    private function setSplitPaymentFinalStatus(&$payment)
+    {
+        $payment->getStatusOutput()->setStatusCode($this->paymentDetails->getStatusOutput()->getStatusCode());
+        $payment->getStatusOutput()->setStatusCategory($this->paymentDetails->getStatusOutput()->getStatusCategory());
+        $payment->setStatus($this->paymentDetails->getStatusOutput()->getStatusCategory());
+    }
+
+    /**
+     * @param DataObject $response
+     *
+     * @return DataObject
+     */
+    private function getOutput(DataObject $response): DataObject
+    {
+        $output = null;
+        if ($response instanceof PaymentResponse || $response instanceof PaymentDetailsResponse) {
+            $output = $response->getPaymentOutput();
+        }
+
+        if ($response instanceof RefundResponse) {
+            $output = $response->getRefundOutput();
+        }
+
+        if (!$output) {
+            throw new LocalizedException(__('Invalid output model'));
+        }
+
+        return $output;
     }
 }
