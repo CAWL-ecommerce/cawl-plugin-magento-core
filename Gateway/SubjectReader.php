@@ -62,7 +62,7 @@ class SubjectReader implements SubjectReaderInterface
         if (empty($transaction)
             || !$transaction instanceof DataObject
         ) {
-            throw new InvalidArgumentException('The object is not a class \OnlinePayments\Sdk\DataObject.');
+            throw new InvalidArgumentException('The object is not a class \OnlinePayments\Sdk\Domain\DataObject.');
         }
 
         return $transaction;

@@ -40,9 +40,9 @@ class DebugLog
         ResponseClassMap $responseClassMap,
         string $relativeUriPath,
         string $clientMetaInfo = '',
-        DataObject $requestBodyObject = null,
-        RequestObject $requestParameters = null,
-        CallContext $callContext = null
+        ?DataObject $requestBodyObject = null,
+        ?RequestObject $requestParameters = null,
+        ?CallContext $callContext = null
     ): ?DataObject {
         $data = [
             'requestUri' => $subject->buildRequestUri($relativeUriPath, $requestParameters),

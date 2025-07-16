@@ -93,7 +93,6 @@ class PlaceOrderProcessor implements ProcessorInterface
         if (!$this->shouldHandleEvent($webhookEvent)) {
             return;
         }
-
         $quote = $this->placeOrderManager->getValidatedQuote($webhookEvent);
         if (!$quote) {
             return;
@@ -152,7 +151,8 @@ class PlaceOrderProcessor implements ProcessorInterface
         $amountOfMoney = $paymentOutput->getAmountOfMoney() ? $paymentOutput->getAmountOfMoney()->getAmount() : null;
         $acquiredAmount = $paymentOutput->getAcquiredAmount() ? $paymentOutput->getAcquiredAmount()->getAmount() : null;
 
-        if ($paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID) {
+        if ($paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
+            || $paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID) {
             return $amountOfMoney && $acquiredAmount && ($amountOfMoney === $acquiredAmount);
         }
 

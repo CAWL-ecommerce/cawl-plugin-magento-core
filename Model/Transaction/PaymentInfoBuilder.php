@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Cawl\PaymentCore\Model\Transaction;
 
 use Magento\Sales\Api\Data\OrderInterface;
+use OnlinePayments\Sdk\Domain\PaymentResponse;
 use Cawl\PaymentCore\Api\AmountFormatterInterface;
 use Cawl\PaymentCore\Api\Data\PaymentInfoInterface;
 use Cawl\PaymentCore\Api\Data\PaymentInfoInterfaceFactory;

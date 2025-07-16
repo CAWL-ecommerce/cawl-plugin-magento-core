@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Communication\MetadataProvider as SdkRequestHeaderGenerator;
+use OnlinePayments\Sdk\Communication\MetadataProvider;
 
-class RequestHeaderGenerator extends SdkRequestHeaderGenerator
+class RequestHeaderGenerator extends MetadataProvider
 {
     /**
      * @var array
@@ -17,7 +17,7 @@ class RequestHeaderGenerator extends SdkRequestHeaderGenerator
         $this->trackerData = $trackerData;
     }
 
-    public function getServerMetaInfoValue(): string
+    public  function getServerMetaInfoValue(): string
     {
         $serverMetaInfo = $this->trackerData;
 

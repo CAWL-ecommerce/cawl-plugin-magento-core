@@ -11,12 +11,12 @@ use OnlinePayments\Sdk\Domain\DataObject;
 use OnlinePayments\Sdk\Communication\RequestObject;
 use OnlinePayments\Sdk\Communication\ResponseBuilder;
 use OnlinePayments\Sdk\Communication\ResponseClassMap;
+use OnlinePayments\Sdk\ExceptionFactory;
 use OnlinePayments\Sdk\ResponseException;
 use UnexpectedValueException;
 use Cawl\PaymentCore\Logger\RequestLogManager;
 use Cawl\PaymentCore\Model\TrackerDataProvider;
 use OnlinePayments\Sdk\Authentication\V1HmacAuthenticator;
-use OnlinePayments\Sdk\ExceptionFactory;
 
 /**
  * @core
@@ -90,8 +90,8 @@ class Communicator extends IngenicoCommunicator
      */
     public function get(
         ResponseClassMap $responseClassMap,
-        $relativeUriPath,
-        $clientMetaInfo = '',
+                         $relativeUriPath,
+                         $clientMetaInfo = '',
         RequestObject $requestParameters = null,
         CallContext $callContext = null
     ) {
@@ -143,9 +143,9 @@ class Communicator extends IngenicoCommunicator
      */
     public function post(
         ResponseClassMap $responseClassMap,
-        $relativeUriPath,
-        $clientMetaInfo = '',
-        $requestBodyObject = null,
+                         $relativeUriPath,
+                         $clientMetaInfo = '',
+                         $requestBodyObject = null,
         RequestObject $requestParameters = null,
         CallContext $callContext = null
     ) {
