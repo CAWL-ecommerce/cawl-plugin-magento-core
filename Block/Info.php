@@ -77,7 +77,8 @@ class Info extends Template
         ClientProviderInterface $clientProvider,
         WorldlineConfig $worldlineConfig,
         array $data = []
-    ) {
+    )
+    {
         parent::__construct($context, $data);
         $this->paymentIconProvider = $paymentIconProvider;
         $this->paymentInfoBuilder = $paymentInfoBuilder;
@@ -90,7 +91,14 @@ class Info extends Template
     {
         $specificInformation = [];
         $splitPaymentInfo = $this->getSplitPaymentInformation();
-        if ($splitPaymentInfo && $this->getPaymentInformation()->getPaymentProductId() !== PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID) {
+        if ($splitPaymentInfo &&
+            (
+                $this->getPaymentInformation()->getPaymentProductId() !==
+                PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID &&
+                $this->getPaymentInformation()->getPaymentProductId() !==
+                PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
+            )
+        ) {
             $specificInformation[] = $this->infoFormatter->format($splitPaymentInfo);
         }
         $specificInformation[] = $this->infoFormatter->format($this->getPaymentInformation());
@@ -187,10 +195,12 @@ class Info extends Template
                 $redirectPaymentMethodSpecificOutput = $paymentOutput ? $paymentOutput->getRedirectPaymentMethodSpecificOutput() : null;
                 $paymentProductId = $redirectPaymentMethodSpecificOutput ? $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
 
-                if ($paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID) {
+                if ($paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID ||
+                    $paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID) {
                     $this->splitPayment['payment'] = $payment;
                 }
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
         }
         $payment = $this->splitPayment['payment'];
         if (!$payment) {
