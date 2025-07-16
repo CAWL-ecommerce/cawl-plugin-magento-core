@@ -14,6 +14,7 @@ use Cawl\PaymentCore\Api\SurchargingQuoteManagerInterface;
 use Cawl\PaymentCore\Api\Webhook\ProcessorInterface;
 use Cawl\PaymentCore\Model\Order\FailedOrderCreationNotification;
 use Cawl\PaymentCore\Api\Webhook\PlaceOrderManagerInterface;
+use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
 
 /**
  * Identify if a webhook can trigger the order placement process, place an order and save payment information
@@ -89,6 +90,9 @@ class PlaceOrderProcessor implements ProcessorInterface
 
     public function process(WebhooksEvent $webhookEvent): void
     {
+        if (!$this->shouldHandleEvent($webhookEvent)) {
+            return;
+        }
         $quote = $this->placeOrderManager->getValidatedQuote($webhookEvent);
         if (!$quote) {
             return;
@@ -131,5 +135,27 @@ class PlaceOrderProcessor implements ProcessorInterface
                 FailedOrderCreationNotification::WEBHOOK_SPACE
             );
         }
+    }
+
+    /**
+     * @param WebhooksEvent $event
+     *
+     * @return bool
+     */
+    private function shouldHandleEvent(WebhooksEvent $event): bool
+    {
+        $payment = $event->getPayment() ?: null;
+        $paymentOutput = $payment ? $payment->getPaymentOutput() : null;
+        $redirectMethodSpecificInput = $paymentOutput ? $paymentOutput->getRedirectPaymentMethodSpecificOutput() : null;
+        $paymentProductId = $redirectMethodSpecificInput ? $redirectMethodSpecificInput->getPaymentProductId() : null;
+        $amountOfMoney = $paymentOutput->getAmountOfMoney() ? $paymentOutput->getAmountOfMoney()->getAmount() : null;
+        $acquiredAmount = $paymentOutput->getAcquiredAmount() ? $paymentOutput->getAcquiredAmount()->getAmount() : null;
+
+        if ($paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
+            || $paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID) {
+            return $amountOfMoney && $acquiredAmount && ($amountOfMoney === $acquiredAmount);
+        }
+
+        return true;
     }
 }
