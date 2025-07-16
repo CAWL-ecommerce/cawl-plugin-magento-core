@@ -13,7 +13,6 @@ use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
 use Cawl\PaymentCore\Api\Data\TransactionInterface;
 use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
 use Cawl\PaymentCore\Api\TransactionRepositoryInterface;
-use OnlinePayments\Sdk\Domain\PaymentResponse;
 
 class PaymentInfoBuilder
 {
