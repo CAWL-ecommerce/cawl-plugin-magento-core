@@ -65,6 +65,16 @@ class Info extends Template
     private $splitPayment;
 
     /**
+     * @var bool
+     */
+    private $isSplitPayment = false;
+
+    /**
+     * @var string
+     */
+    private $splitPaymentAmount;
+
+    /**
      * @var string
      */
     protected $_template = 'Cawl_PaymentCore::info/default.phtml';
@@ -99,9 +109,17 @@ class Info extends Template
                 PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
             )
         ) {
+            $this->isSplitPayment = true;
             $specificInformation[] = $this->infoFormatter->format($splitPaymentInfo);
         }
-        $specificInformation[] = $this->infoFormatter->format($this->getPaymentInformation());
+        $paymentInformation = $this->getPaymentInformation();
+
+        if ($this->isSplitPayment) {
+            $formattedSplitPaymentAmount = $this->paymentInfoBuilder->
+            getFormattedSplitPaymentAmount((int)$this->splitPaymentAmount, $paymentInformation->getCurrency());
+            $paymentInformation->setAuthorizedAmount($paymentInformation->getAuthorizedAmount() - $formattedSplitPaymentAmount);
+        }
+        $specificInformation[] = $this->infoFormatter->format($paymentInformation);
 
         return $specificInformation;
     }
@@ -109,7 +127,8 @@ class Info extends Template
     public function getPaymentTitle(array $paymentInformation = []): string
     {
         $methodUsed = __('Payment');
-        $paymentProductId = array_key_exists('paymentProductId', $paymentInformation) ? $paymentInformation['paymentProductId'] :
+        $paymentProductId = array_key_exists('paymentProductId', $paymentInformation)
+            ? $paymentInformation['paymentProductId'] :
             $this->getPaymentInformation()->getPaymentProductId();
         if ($paymentProductId
             && !empty(PaymentProductsDetailsInterface::PAYMENT_PRODUCTS[$paymentProductId]['label'])
@@ -180,7 +199,8 @@ class Info extends Template
             $this->paymentDetails = $this->clientProvider->getClient($storeId)
                 ->merchant($this->worldlineConfig->getMerchantId($storeId))
                 ->payments()
-                ->getPaymentDetails($this->paymentInfoBuilder->getPaymentByOrderId($this->getInfo()->getOrder()));
+                ->getPaymentDetails($this->paymentInfoBuilder->getPaymentByOrderId(
+                    $this->getInfo()->getOrder()));
         }
         $this->splitPayment = ['payment' => null];
 
@@ -192,11 +212,15 @@ class Info extends Template
                     ->getPayment($paymentDetail->getId());
 
                 $paymentOutput = $this->getOutput($payment);
-                $redirectPaymentMethodSpecificOutput = $paymentOutput ? $paymentOutput->getRedirectPaymentMethodSpecificOutput() : null;
-                $paymentProductId = $redirectPaymentMethodSpecificOutput ? $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
+                $redirectPaymentMethodSpecificOutput = $paymentOutput ?
+                    $paymentOutput->getRedirectPaymentMethodSpecificOutput() : null;
+                $paymentProductId = $redirectPaymentMethodSpecificOutput ?
+                    $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
 
-                if ($paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID ||
-                    $paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID) {
+                if (
+                    $paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID
+                    || $paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
+                ) {
                     $this->splitPayment['payment'] = $payment;
                 }
             } catch (\Exception $e) {
@@ -207,8 +231,9 @@ class Info extends Template
             return null;
         }
         $this->setSplitPaymentFinalStatus($payment);
+        $this->splitPaymentAmount = $payment->getPaymentOutput()->getAmountOfMoney()->getAmount() - $paymentDetail->getAmountOfMoney()->getAmount();
 
-        return $this->paymentInfoBuilder->buildSplitTransaction($payment);
+        return $this->paymentInfoBuilder->buildSplitTransaction($payment, (int) $this->splitPaymentAmount);
     }
 
     public function getMethod(): MethodInterface
