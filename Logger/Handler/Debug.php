@@ -56,7 +56,13 @@ class Debug extends StreamHandler
 
     private function saveLogToDb($record): void
     {
-        $content = var_export($record, true);
+        $callableName = 'toArray';
+        if (is_callable($record, true, $callableName)) {
+            $content = var_export($record->toArray(), true);
+        } else {
+            $content = var_export($record, true);
+        }
+
         /** @var Log $log */
         $log = $this->logFactory->create();
         $log->setContent($content);
