@@ -5,6 +5,7 @@ let config = {
         }
     },
     deps: [
-        'Cawl_PaymentCore/js/system-config-reset'
+        'Cawl_PaymentCore/js/system-config-reset',
+        'Cawl_PaymentCore/js/multiple-email-validation'
     ]
 };
