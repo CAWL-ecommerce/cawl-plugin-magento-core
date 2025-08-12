@@ -110,7 +110,10 @@ class Info extends Template
             )
         ) {
             $this->isSplitPayment = true;
-            $specificInformation[] = $this->infoFormatter->format($splitPaymentInfo);
+            $specificInformation[] = array_merge(
+                $specificInformation,
+                $this->infoFormatter->format($splitPaymentInfo)
+            );
         }
         $paymentInformation = $this->getPaymentInformation();
 
@@ -119,7 +122,10 @@ class Info extends Template
             getFormattedSplitPaymentAmount((int)$this->splitPaymentAmount, $paymentInformation->getCurrency());
             $paymentInformation->setAuthorizedAmount($paymentInformation->getAuthorizedAmount() - $formattedSplitPaymentAmount);
         }
-        $specificInformation[] = $this->infoFormatter->format($paymentInformation);
+        $specificInformation[] = array_merge(
+            $specificInformation,
+            $this->infoFormatter->format($this->getPaymentInformation())
+        );
 
         return $specificInformation;
     }
