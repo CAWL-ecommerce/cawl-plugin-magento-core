@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.13
+- Fix issue with sending email
+
 #### 1.1.12
 - Fix wrong handling of payment specific information on order page
 
