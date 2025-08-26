@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.14
+- Add quote ID to request payload
+
 #### 1.1.13
 - Fix issue with sending email
 
