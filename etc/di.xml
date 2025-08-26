@@ -105,6 +105,18 @@
     <preference type="Cawl\PaymentCore\Model\Webhook\PlaceOrderManager" for="Cawl\PaymentCore\Api\Webhook\PlaceOrderManagerInterface" />
     <!-- End Preference -->
 
+    <type name="Magento\Framework\HTTP\PhpEnvironment\RemoteAddress">
+        <arguments>
+            <argument name="alternativeHeaders" xsi:type="array">
+                <item name="x-forwarded-for" xsi:type="string">HTTP_X_FORWARDED_FOR</item>
+                <item name="x-real-ip" xsi:type="string">HTTP_X_REAL_IP</item>
+                <item name="cf-connecting-ip" xsi:type="string">HTTP_CF_CONNECTING_IP</item>
+                <item name="true-client-ip" xsi:type="string">HTTP_TRUE_CLIENT_IP</item>
+                <item name="client-ip" xsi:type="string">HTTP_CLIENT_IP</item>
+            </argument>
+        </arguments>
+    </type>
+
     <type name="Cawl\PaymentCore\Block\Info">
         <arguments>
             <argument name="infoFormatter" xsi:type="object">Cawl\PaymentCore\Block\InfoFormatter</argument>

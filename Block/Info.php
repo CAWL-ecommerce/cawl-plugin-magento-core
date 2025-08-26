@@ -22,7 +22,7 @@ use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
 
 class Info extends Template
 {
-    public const MAX_HEIGHT = '40px';
+    public const MAX_HEIGHT = '25px';
 
     /**
      * @var PaymentIconsProviderInterface
