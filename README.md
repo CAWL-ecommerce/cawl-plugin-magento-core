@@ -75,6 +75,9 @@ To install these solutions from the GitHub:
 
 #### 1.1.14
 - Add quote ID to request payload
+- Fix wrong IP address being sent on checkout
+- Decrease maximum payment method logos
+- Add compatibility with 2.4.8-p2
 
 #### 1.1.13
 - Fix issue with sending email
