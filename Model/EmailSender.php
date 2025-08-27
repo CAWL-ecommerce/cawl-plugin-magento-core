@@ -169,6 +169,8 @@ class EmailSender
         $emailsCleaned = str_replace(' ', '', $emails);
         $emailsArray = explode(',', $emailsCleaned);
 
-        return array_filter($emailsArray, function ($email) { return $email !== ''; });
+        return array_filter($emailsArray, function ($email) {
+            return $email !== '';
+        });
     }
 }

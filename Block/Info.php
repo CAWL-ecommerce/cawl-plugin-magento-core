@@ -12,6 +12,7 @@ use OnlinePayments\Sdk\Domain\DataObject;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use OnlinePayments\Sdk\Domain\PaymentResponse;
 use OnlinePayments\Sdk\Domain\RefundResponse;
+use Psr\Log\LoggerInterface;
 use Cawl\PaymentCore\Api\ClientProviderInterface;
 use Cawl\PaymentCore\Api\Data\PaymentInfoInterface;
 use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
@@ -20,6 +21,9 @@ use Cawl\PaymentCore\Model\Config\WorldlineConfig;
 use Cawl\PaymentCore\Model\Transaction\PaymentInfoBuilder;
 use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class Info extends Template
 {
     public const MAX_HEIGHT = '25px';
@@ -75,6 +79,11 @@ class Info extends Template
     private $splitPaymentAmount;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @var string
      */
     protected $_template = 'Cawl_PaymentCore::info/default.phtml';
@@ -86,15 +95,16 @@ class Info extends Template
         InfoFormatterInterface $infoFormatter,
         ClientProviderInterface $clientProvider,
         WorldlineConfig $worldlineConfig,
+        LoggerInterface $logger,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->paymentIconProvider = $paymentIconProvider;
         $this->paymentInfoBuilder = $paymentInfoBuilder;
         $this->infoFormatter = $infoFormatter;
         $this->clientProvider = $clientProvider;
         $this->worldlineConfig = $worldlineConfig;
+        $this->logger = $logger;
     }
 
     public function getSpecificInformation(): array
@@ -107,8 +117,7 @@ class Info extends Template
                 PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID &&
                 $this->getPaymentInformation()->getPaymentProductId() !==
                 PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
-            )
-        ) {
+            )) {
             $this->isSplitPayment = true;
             $specificInformation[] = array_merge(
                 $specificInformation,
@@ -120,7 +129,9 @@ class Info extends Template
         if ($this->isSplitPayment) {
             $formattedSplitPaymentAmount = $this->paymentInfoBuilder->
             getFormattedSplitPaymentAmount((int)$this->splitPaymentAmount, $paymentInformation->getCurrency());
-            $paymentInformation->setAuthorizedAmount($paymentInformation->getAuthorizedAmount() - $formattedSplitPaymentAmount);
+            $paymentInformation->setAuthorizedAmount(
+                $paymentInformation->getAuthorizedAmount() - $formattedSplitPaymentAmount
+            );
         }
         $specificInformation[] = array_merge(
             $specificInformation,
@@ -205,8 +216,11 @@ class Info extends Template
             $this->paymentDetails = $this->clientProvider->getClient($storeId)
                 ->merchant($this->worldlineConfig->getMerchantId($storeId))
                 ->payments()
-                ->getPaymentDetails($this->paymentInfoBuilder->getPaymentByOrderId(
-                    $this->getInfo()->getOrder()));
+                ->getPaymentDetails(
+                    $this->paymentInfoBuilder->getPaymentByOrderId(
+                        $this->getInfo()->getOrder()
+                    )
+                );
         }
         $this->splitPayment = ['payment' => null];
 
@@ -223,13 +237,13 @@ class Info extends Template
                 $paymentProductId = $redirectPaymentMethodSpecificOutput ?
                     $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
 
-                if (
-                    $paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID
-                    || $paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
+                if ($paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID ||
+                    $paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
                 ) {
                     $this->splitPayment['payment'] = $payment;
                 }
             } catch (\Exception $e) {
+                $this->logger->error($e->getMessage());
             }
         }
         $payment = $this->splitPayment['payment'];
@@ -237,7 +251,9 @@ class Info extends Template
             return null;
         }
         $this->setSplitPaymentFinalStatus($payment);
-        $this->splitPaymentAmount = $payment->getPaymentOutput()->getAmountOfMoney()->getAmount() - $paymentDetail->getAmountOfMoney()->getAmount();
+        $this->splitPaymentAmount =
+            $payment->getPaymentOutput()->getAmountOfMoney()->getAmount() -
+            $paymentDetail->getAmountOfMoney()->getAmount();
 
         return $this->paymentInfoBuilder->buildSplitTransaction($payment, (int) $this->splitPaymentAmount);
     }

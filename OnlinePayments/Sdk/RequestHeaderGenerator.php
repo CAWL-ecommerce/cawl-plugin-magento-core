@@ -17,7 +17,7 @@ class RequestHeaderGenerator extends MetadataProvider
         $this->trackerData = $trackerData;
     }
 
-    public  function getServerMetaInfoValue(): string
+    public function getServerMetaInfoValue(): string
     {
         $serverMetaInfo = $this->trackerData;
 
