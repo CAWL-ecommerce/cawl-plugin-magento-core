@@ -12,7 +12,7 @@ $cardNumbers = $block->getPaymentInformation()->getCardLastNumbers();
 <?php if ($block->getIconUrl()): ?>
     <img src="<?= $block->escapeUrl($block->getIconUrl()) ?>"
          style="max-height: <?= $block->escapeHtmlAttr($block->getMaxHeight()) ?>;
-                aspect-ratio: <?= $block->escapeHtml($block->getAspectRatio()) ?>;"
+                 aspect-ratio: <?= $block->escapeHtml($block->getAspectRatio()) ?>;"
          alt="<?= $block->escapeHtmlAttr($block->escapeHtml($block->getIconTitle())) ?>"
     >
 <?php endif; ?>
@@ -26,8 +26,8 @@ $cardNumbers = $block->getPaymentInformation()->getCardLastNumbers();
             ?>
             <?php if ($label !== '' || $value !== ''): ?>
                 <tr>
-                    <th><?= $label ?><?= $label !== '' ? ':' : '' ?></th>
-                    <td><?= $value ?></td>
+                    <th><?= $block->escapeHtml($label) ?><?= $label !== '' ? ':' : '' ?></th>
+                    <td><?= $block->escapeHtml($value) ?></td>
                 </tr>
             <?php endif; ?>
         <?php endforeach; ?>

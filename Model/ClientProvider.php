@@ -71,7 +71,6 @@ class ClientProvider implements ClientProviderInterface
             'integrator' => 'Ingenico',
         ]);
 
-
         $authenticator = new V1HmacAuthenticator($communicatorConfiguration);
 
         return $this->communicatorFactory->create(
