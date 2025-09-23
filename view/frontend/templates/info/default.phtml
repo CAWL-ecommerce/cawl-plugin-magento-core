@@ -132,7 +132,6 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
 }
 </script>
 
-<!-- RequireJS confirm for Accept Order button -->
 <script>
     require([
         'jquery',
@@ -157,7 +156,6 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
                             },
                             success: function (response) {
                                 if (response.success) {
-                                    alert(response.message);
                                     location.reload();
                                 }
                             },
@@ -171,7 +169,6 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
             });
         });
 
-        // Optional: add similar confirm for Cancel & Refund button
         $('#cancel-order-btn').on('click', function () {
             confirm({
                 title: "<?= $block->escapeJs(__('Cancel & Refund Order')) ?>",

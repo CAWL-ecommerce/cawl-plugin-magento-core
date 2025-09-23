@@ -161,10 +161,6 @@ class Info extends Template
         if (!$order) {
             return;
         }
-        $discrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
-        if ($order->getState() !== $discrepancyStatus && !$this->isOrderDiscrepancyAccepted() && !$this->isOrderDiscrepancyRefunded()) {
-            $order->setState($discrepancyStatus)->setStatus($discrepancyStatus);
-        }
 
         $paymentInfo = $this->getPaymentInformation();
         $paymentAmount = (float)$paymentInfo->getAuthorizedAmount();
@@ -172,6 +168,11 @@ class Info extends Template
         $orderTotal = (float)$order->getGrandTotal();
         $isDiscrepancyOrder = $orderTotal !== $paymentAmount;
         $currency =  $order->getOrderCurrency()->getCurrencySymbol();
+
+        $discrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
+        if ($isDiscrepancyOrder && $order->getState() !== $discrepancyStatus && !$this->isOrderDiscrepancyAccepted() && !$this->isOrderDiscrepancyRefunded()) {
+            $order->setState($discrepancyStatus)->setStatus($discrepancyStatus);
+        }
 
         return [
             'isDiscrepancyOrder' => $isDiscrepancyOrder,
@@ -222,6 +223,16 @@ class Info extends Template
         }
 
         return $accepted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentOrderId()
+    {
+        $order = $this->registry->registry('current_order');
+
+        return $order->getId();
     }
 
     public function getPaymentTitle(array $paymentInformation = []): string
