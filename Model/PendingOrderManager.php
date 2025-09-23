@@ -3,9 +3,12 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Model;
 
+use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
+use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
 use Exception;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Quote\Model\QuoteManagement;
+use Magento\Sales\Model\Order\Payment;
 use Magento\Sales\Model\OrderFactory;
 use Psr\Log\LoggerInterface;
 use Cawl\PaymentCore\Api\PaymentDataManagerInterface;
@@ -16,6 +19,7 @@ use Cawl\PaymentCore\Api\SurchargingQuoteManagerInterface;
 use Cawl\PaymentCore\Model\Order\CanPlaceOrderContextManager;
 use Cawl\PaymentCore\Model\PaymentOrderManager\PaymentService;
 use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
+use Magento\Sales\Api\Data\OrderInterface;
 
 /**
  * Validate payment information and create an order
@@ -81,6 +85,16 @@ class PendingOrderManager implements PendingOrderManagerInterface
      */
     private $logger;
 
+    /**
+     * @var PaymentRepositoryInterface
+     */
+    private $wlPaymentRepository;
+
+    /**
+     * @var GeneralSettingsConfigInterface
+     */
+    private $generalSettings;
+
     public function __construct(
         SessionDataManagerInterface $sessionDataManager,
         OrderFactory $orderFactory,
@@ -92,7 +106,9 @@ class PendingOrderManager implements PendingOrderManagerInterface
         PaymentDataManagerInterface $paymentDataManager,
         SurchargingQuoteManagerInterface $surchargingQuoteManager,
         EventManager $eventManager,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        PaymentRepositoryInterface $wlPaymentRepository,
+        GeneralSettingsConfigInterface $generalSettings
     ) {
         $this->sessionDataManager = $sessionDataManager;
         $this->orderFactory = $orderFactory;
@@ -105,6 +121,8 @@ class PendingOrderManager implements PendingOrderManagerInterface
         $this->surchargingQuoteManager = $surchargingQuoteManager;
         $this->eventManager = $eventManager;
         $this->logger = $logger;
+        $this->wlPaymentRepository = $wlPaymentRepository;
+        $this->generalSettings = $generalSettings;
     }
 
     public function processPendingOrder(string $incrementId): bool
@@ -153,6 +171,12 @@ class PendingOrderManager implements PendingOrderManagerInterface
 
             try {
                 $order = $this->quoteManagement->submit($quote);
+                if ($order && $this->isOrderWithDiscrepancy($order)) {
+                    $orderDiscrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
+
+                    $order->setState($orderDiscrepancyStatus)->setStatus($orderDiscrepancyStatus);
+                    $order->save();
+                }
                 if (!$order) {
                     $this->refusedStatusProcessor->process($quote, $statusCode);
                     return false;
@@ -173,5 +197,30 @@ class PendingOrderManager implements PendingOrderManagerInterface
         $this->refusedStatusProcessor->process($quote, $statusCode);
 
         return false;
+    }
+
+    /**
+     * @param OrderInterface $order
+     *
+     * @return bool
+     */
+    private function isOrderWithDiscrepancy(OrderInterface $order): bool
+    {
+        $wlPayment = $this->wlPaymentRepository->get($order->getIncrementId());
+
+        return $this->compareAmounts($order, $wlPayment);
+    }
+
+    /**
+     * @param \Magento\Sales\Model\Order\Interceptor $order
+     * @param PaymentInterface $payment
+     *
+     * @return bool
+     */
+    private function compareAmounts(\Magento\Sales\Model\Order\Interceptor $order, $payment): bool
+    {
+        $paidAmount = (float)$payment->getAmount()/100;
+
+        return $order->getGrandTotal() !== $paidAmount;
     }
 }

@@ -2,34 +2,187 @@
 /** @var Cawl\PaymentCore\Block\Info $block */
 $specificInfo = $block->getSpecificInformation();
 $cardNumbers = $block->getPaymentInformation()->getCardLastNumbers();
+$orderDiscrepancy = $block->getOrderDiscrepancy();
+$discrepanyAccepted = $block->isOrderDiscrepancyAccepted();
+$discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
 ?>
-<?= $block->escapeHtml($block->getPaymentTitle()) ?>
-
-<?php if ($cardNumbers): ?>
-    <span><?= $block->escapeHtml(__('ending')) ?></span> <?= $block->escapeHtml($cardNumbers) ?>
-<?php endif; ?>
-
-<?php if ($block->getIconUrl()): ?>
-    <img src="<?= $block->escapeUrl($block->getIconUrl()) ?>"
-         style="max-height: <?= $block->escapeHtmlAttr($block->getMaxHeight()) ?>;
-                 aspect-ratio: <?= $block->escapeHtml($block->getAspectRatio()) ?>;"
-         alt="<?= $block->escapeHtmlAttr($block->escapeHtml($block->getIconTitle())) ?>"
-    >
-<?php endif; ?>
 
 <?php if (!empty($specificInfo)): ?>
-    <table class="data-table admin__table-secondary">
-        <?php foreach ($specificInfo as $item): ?>
-            <?php
-            $label = isset($item['label']) ? $block->escapeHtml($item['label']) : '';
-            $value = isset($item['value']) ? $block->escapeHtml($item['value']) : '';
-            ?>
-            <?php if ($label !== '' || $value !== ''): ?>
-                <tr>
-                    <th><?= $block->escapeHtml($label) ?><?= $label !== '' ? ':' : '' ?></th>
-                    <td><?= $block->escapeHtml($value) ?></td>
-                </tr>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </table>
+    <?php if ($orderDiscrepancy['isDiscrepancyOrder']): ?>
+        <?php if (!$discrepanyAccepted && !$discrepancyRefunded): ?>
+            <div class="message message-warning discrepancy-message">
+                <h4><?= $block->escapeHtml(__('Amount discrepancy review required')) ?></h4>
+                <p><?= $block->escapeHtml(__('This order was created with discrepancy between the order total and the amount paid. Please review the details below and choose an action.')) ?></p>
+
+                <div class="discrepancy-row">
+                    <strong><?= $block->escapeHtml(__('Order total:')) ?></strong>
+                    <span><?= $orderDiscrepancy['currency'] ?>&nbsp;<?= $orderDiscrepancy['orderTotal'] ?></span>
+                </div>
+
+                <div class="discrepancy-row">
+                    <strong><?= $block->escapeHtml(__('Amount paid:')) ?></strong>
+                    <span><?= $orderDiscrepancy['currency'] ?>&nbsp;<?= $orderDiscrepancy['paymentAmount'] ?></span>
+                </div>
+
+                <div class="discrepancy-row">
+                    <strong><?= $block->escapeHtml(__('Difference:')) ?></strong>
+                    <span>&nbsp;<?= $orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount'] ?> <?= $orderDiscrepancy['currency'] ?></span>
+                </div>
+
+                <div class="discrepancy-actions">
+                    <button id="accept-order-btn" class="action-scalable primary">
+                        <?= $block->escapeHtml(__('Accept Order')) ?>
+                    </button>
+                    <button id="cancel-order-btn" class="action-secondary">
+                        <?= $block->escapeHtml(__('Cancel & Refund Order')) ?>
+                    </button>
+                </div>
+            </div>
+        <?php elseif ($discrepanyAccepted): ?>
+            <div class="message message-info discrepancy-message">
+                <h4><?= $block->escapeHtml(__('Amount Discrepancy Accepted')) ?></h4>
+                <p><?= $block->escapeHtml(__('This order was reviewed and accepted with an amount discrepancy.')) ?></p>
+
+                <div class="discrepancy-row">
+                    <strong><?= $block->escapeHtml(__('Order total:')) ?></strong>
+                    <span><?= $orderDiscrepancy['currency'] ?>&nbsp;<?= $orderDiscrepancy['orderTotal'] ?></span>
+                </div>
+
+                <div class="discrepancy-row">
+                    <strong><?= $block->escapeHtml(__('Amount paid:')) ?></strong>
+                    <span><?= $orderDiscrepancy['currency'] ?>&nbsp;<?= $orderDiscrepancy['paymentAmount'] ?></span>
+                </div>
+
+                <div class="discrepancy-row">
+                    <strong><?= $block->escapeHtml(__('Difference:')) ?></strong>
+                    <span>&nbsp;<?= $orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount'] ?> <?= $orderDiscrepancy['currency'] ?></span>
+                </div>
+            </div>
+        <?php elseif ($discrepancyRefunded): ?>
+            <p>Hello</p>
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <?php foreach ($specificInfo as $info): ?>
+        <?= $block->escapeHtml($block->getPaymentTitle($info)) ?>
+
+        <?php if ($cardNumbers): ?>
+            <span><?= $block->escapeHtml(__('ending')) ?></span> <?= $block->escapeHtml($cardNumbers) ?>
+        <?php endif; ?>
+
+        <?php if ($block->getIconUrl($info)): ?>
+            <img src="<?= $block->escapeUrl($block->getIconUrl($info)) ?>"
+                 style="max-height: <?= $block->escapeHtmlAttr($block->getMaxHeight()) ?>;
+                         aspect-ratio: <?= $block->escapeHtml($block->getAspectRatio()) ?>;"
+                 alt="<?= $block->escapeHtmlAttr($block->escapeHtml($block->getIconTitle($info))) ?>"
+            >
+        <?php endif; ?>
+        <table class="data-table admin__table-secondary">
+            <?php foreach ($specificInfo as $item): ?>
+                <?php
+                $label = isset($item['label']) ? $block->escapeHtml($item['label']) : '';
+                $value = isset($item['value']) ? $block->escapeHtml($item['value']) : '';
+                ?>
+                <?php if ($label !== '' || $value !== ''): ?>
+                    <tr>
+                        <th><?= $block->escapeHtml($label) ?><?= $label !== '' ? ':' : '' ?></th>
+                        <td><?= $block->escapeHtml($value) ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </table>
+    <?php endforeach; ?>
 <?php endif; ?>
+
+<div data-bind="scope: 'update-payment-details'"><!-- ko template: getTemplate() --><!-- /ko --></div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "update-payment-details": {
+                        "component": "Cawl_PaymentCore/js/model/update-payment-details",
+                        "template": "Cawl_PaymentCore/order/update-payment-details",
+                        "storeId": "<?= $block->escapeHtml($block->getInfo()->getOrder()->getStoreId()) ?>",
+                    "incrementId": "<?= $block->escapeHtml($block->getInfo()->getOrder()->getIncrementId()) ?>",
+                    "updateUrl": "<?= $block->escapeUrl($block->getUrl('worldline/PaymentDetails/update')) ?>"
+                }
+            }
+        }
+    }
+}
+</script>
+
+<!-- RequireJS confirm for Accept Order button -->
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm',
+        'mage/translate'
+    ], function ($, confirm) {
+        $('#accept-order-btn').on('click', function () {
+            confirm({
+                title: "<?= $block->escapeJs(__('Confirm Action')) ?>",
+                content: "<?= $block->escapeJs(__('Are you sure you want to accept this order and proceed with fulfillment? The amount discrepancy will be noted.')) ?>",
+                actions: {
+                    confirm: function () {
+                        $.ajax({
+                            url: "<?= $block->escapeUrl($block->getUrl('worldline/order/accept')) ?>",
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                order_id: "<?= (int)$block->getCurrentOrderId() ?>",
+                                paid_amount: "<?= $orderDiscrepancy['paymentAmount'] ?>",
+                                status_code: "<?= $orderDiscrepancy['statusCode'] ?>",
+                                transaction_id: "<?= $orderDiscrepancy['transactionId'] ?>",
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    alert(response.message);
+                                    location.reload();
+                                }
+                            },
+                            error: function () {}
+                        });
+                    },
+                    cancel: function () {
+                        console.log("Accept order cancelled.");
+                    }
+                }
+            });
+        });
+
+        // Optional: add similar confirm for Cancel & Refund button
+        $('#cancel-order-btn').on('click', function () {
+            confirm({
+                title: "<?= $block->escapeJs(__('Cancel & Refund Order')) ?>",
+                content: "<?= $block->escapeJs(__('Are you sure you want to cancel this order? This will issue a full refund to the customer and cannot be undone')) ?>",
+                actions: {
+                    confirm: function () {
+                        $.ajax({
+                            url: "<?= $block->escapeUrl($block->getUrl('worldline/order/cancelrefund')) ?>",
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                order_id: "<?= (int)$block->getCurrentOrderId() ?>",
+                                paid_amount: "<?= $orderDiscrepancy['paymentAmount'] ?>",
+                                currency: "<?= $orderDiscrepancy['currencyName'] ?>",
+                                transaction_id: "<?= $orderDiscrepancy['transactionId'] ?>"
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    location.reload();
+                                }
+                            },
+                            error: function () {}
+                        });
+                    },
+                    cancel: function () {
+                        console.log("Cancel & Refund cancelled.");
+                    }
+                }
+            });
+        });
+    });
+</script>

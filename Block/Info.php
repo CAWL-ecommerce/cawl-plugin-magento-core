@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Block;
 
+use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
+use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Payment\Model\MethodInterface;
@@ -88,6 +90,11 @@ class Info extends Template
      */
     protected $_template = 'Cawl_PaymentCore::info/default.phtml';
 
+    /**
+     * @var GeneralSettingsConfigInterface
+     */
+    private $generalSettings;
+
     public function __construct(
         Context $context,
         PaymentIconsProviderInterface $paymentIconProvider,
@@ -96,6 +103,8 @@ class Info extends Template
         ClientProviderInterface $clientProvider,
         WorldlineConfig $worldlineConfig,
         LoggerInterface $logger,
+        Registry $registry,
+        GeneralSettingsConfigInterface $generalSettings,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -105,6 +114,8 @@ class Info extends Template
         $this->clientProvider = $clientProvider;
         $this->worldlineConfig = $worldlineConfig;
         $this->logger = $logger;
+        $this->registry = $registry;
+        $this->generalSettings = $generalSettings;
     }
 
     public function getSpecificInformation(): array
@@ -139,6 +150,78 @@ class Info extends Template
         );
 
         return $specificInformation;
+    }
+
+    /**
+     * @return array|void
+     */
+    public function getOrderDiscrepancy()
+    {
+        $order = $this->registry->registry('current_order');
+        if (!$order) {
+            return;
+        }
+        $discrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
+        if ($order->getState() !== $discrepancyStatus && !$this->isOrderDiscrepancyAccepted() && !$this->isOrderDiscrepancyRefunded()) {
+            $order->setState($discrepancyStatus)->setStatus($discrepancyStatus);
+        }
+
+        $paymentInfo = $this->getPaymentInformation();
+        $paymentAmount = (float)$paymentInfo->getAuthorizedAmount();
+        $statusCode = $paymentInfo->getStatusCode();
+        $orderTotal = (float)$order->getGrandTotal();
+        $isDiscrepancyOrder = $orderTotal !== $paymentAmount;
+        $currency =  $order->getOrderCurrency()->getCurrencySymbol();
+
+        return [
+            'isDiscrepancyOrder' => $isDiscrepancyOrder,
+            'orderTotal' => $orderTotal,
+            'currency' => $currency,
+            'paymentAmount' => $paymentAmount,
+            'statusCode' => $statusCode,
+            'transactionId' => $paymentInfo->getLastTransactionNumber(),
+            'currencyName' => $paymentInfo->getCurrency()
+        ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOrderDiscrepancyAccepted(): bool
+    {
+        $order = $this->registry->registry('current_order');
+        $accepted = false;
+
+        if ($order && $order->getStatusHistories()) {
+            foreach ($order->getStatusHistories() as $history) {
+                if (strpos($history->getComment(), '[DISCREPANCY_ACCEPTED]') !== false) {
+                    $accepted = true;
+                    break;
+                }
+            }
+        }
+
+        return $accepted;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOrderDiscrepancyRefunded(): bool
+    {
+        $order = $this->registry->registry('current_order');
+        $accepted = false;
+
+        if ($order && $order->getStatusHistories()) {
+            foreach ($order->getStatusHistories() as $history) {
+                if (strpos($history->getComment(), '[DISCREPANCY_REFUNDED]') !== false) {
+                    $accepted = true;
+                    break;
+                }
+            }
+        }
+
+        return $accepted;
     }
 
     public function getPaymentTitle(array $paymentInformation = []): string
