@@ -5,6 +5,7 @@ namespace Cawl\PaymentCore\Model;
 
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
+use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Exception;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Quote\Model\QuoteManagement;
@@ -95,6 +96,11 @@ class PendingOrderManager implements PendingOrderManagerInterface
      */
     private $generalSettings;
 
+    /**
+     * @var DiscrepancyValidator
+     */
+    private $discrepancyValidator;
+
     public function __construct(
         SessionDataManagerInterface $sessionDataManager,
         OrderFactory $orderFactory,
@@ -108,7 +114,8 @@ class PendingOrderManager implements PendingOrderManagerInterface
         EventManager $eventManager,
         LoggerInterface $logger,
         PaymentRepositoryInterface $wlPaymentRepository,
-        GeneralSettingsConfigInterface $generalSettings
+        GeneralSettingsConfigInterface $generalSettings,
+        DiscrepancyValidator $discrepancyValidator
     ) {
         $this->sessionDataManager = $sessionDataManager;
         $this->orderFactory = $orderFactory;
@@ -123,6 +130,7 @@ class PendingOrderManager implements PendingOrderManagerInterface
         $this->logger = $logger;
         $this->wlPaymentRepository = $wlPaymentRepository;
         $this->generalSettings = $generalSettings;
+        $this->discrepancyValidator = $discrepancyValidator;
     }
 
     public function processPendingOrder(string $incrementId): bool
@@ -208,19 +216,6 @@ class PendingOrderManager implements PendingOrderManagerInterface
     {
         $wlPayment = $this->wlPaymentRepository->get($order->getIncrementId());
 
-        return $this->compareAmounts($order, $wlPayment);
-    }
-
-    /**
-     * @param \Magento\Sales\Model\Order\Interceptor $order
-     * @param PaymentInterface $payment
-     *
-     * @return bool
-     */
-    private function compareAmounts(\Magento\Sales\Model\Order\Interceptor $order, $payment): bool
-    {
-        $paidAmount = (float)$payment->getAmount()/100;
-
-        return $order->getGrandTotal() !== $paidAmount;
+        return $this->discrepancyValidator->compareAmounts($order->getGrandTotal(), $wlPayment);
     }
 }
