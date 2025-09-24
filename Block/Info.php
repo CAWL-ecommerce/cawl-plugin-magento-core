@@ -191,6 +191,9 @@ class Info extends Template
     public function isOrderDiscrepancyAccepted(): bool
     {
         $order = $this->registry->registry('current_order');
+        if (!$order) {
+            return false;
+        }
 
         return (bool)$order->getData('discrepancy_accepted');
     }
@@ -201,6 +204,9 @@ class Info extends Template
     public function isOrderDiscrepancyRefunded(): bool
     {
         $order = $this->registry->registry('current_order');
+        if (!$order) {
+            return false;
+        }
 
         return (bool)$order->getData('discrepancy_rejected');
     }
