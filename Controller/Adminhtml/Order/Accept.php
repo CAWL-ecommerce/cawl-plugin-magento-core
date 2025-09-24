@@ -6,6 +6,7 @@ use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
+use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Service\InvoiceService;
 use Magento\Framework\DB\Transaction;
 use Magento\Sales\Model\Order\Payment\Transaction as PaymentTransaction;
@@ -30,11 +31,11 @@ class Accept extends Action
     protected $transaction;
 
     public function __construct(
-        Action\Context           $context,
-        JsonFactory              $resultJsonFactory,
+        Action\Context $context,
+        JsonFactory $resultJsonFactory,
         OrderRepositoryInterface $orderRepository,
-        InvoiceService           $invoiceService,
-        Transaction              $transaction
+        InvoiceService $invoiceService,
+        Transaction $transaction
     ) {
         parent::__construct($context);
         $this->resultJsonFactory = $resultJsonFactory;
@@ -91,11 +92,14 @@ class Accept extends Action
 
             // Add order comment about the discrepancy
             $order->addCommentToStatusHistory(
-                __("Order review accepted. Amount discrepancy acknowledged.", $paidAmount) . ' [DISCREPANCY_ACCEPTED]'
+                __("Order review accepted. Amount discrepancy acknowledged.", $paidAmount)
             )->setIsCustomerNotified(false);
 
-            $order->setState(\Magento\Sales\Model\Order::STATE_PROCESSING)
-                ->setStatus(\Magento\Sales\Model\Order::STATE_PROCESSING);
+            $order->setState(Order::STATE_PROCESSING)
+                ->setStatus(Order::STATE_PROCESSING);
+
+            // Add discrepancy accepted flag to the order
+            $order->setData('discrepancy_accepted', 1);
 
             // Save order (and invoice/payment) in transaction
             $this->transaction

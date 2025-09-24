@@ -71,9 +71,14 @@ class CancelRefund extends Action
 
             // Cancel the order
             $order->cancel();
+
+            // Add order comment about the discrepancy rejection
             $order->addCommentToStatusHistory(
-                __("Order cancelled and fully refunded due to amount discrepancy.") . ' [DISCREPANCY_REFUNDED]'
+                __("Order cancelled and fully refunded due to amount discrepancy.")
             )->setIsCustomerNotified(false);
+
+            // Add discrepancy rejected flag to the order
+            $order->setData('discrepancy_rejected', 1);
 
             $this->transaction->addObject($order)->save();
 

@@ -191,18 +191,8 @@ class Info extends Template
     public function isOrderDiscrepancyAccepted(): bool
     {
         $order = $this->registry->registry('current_order');
-        $accepted = false;
 
-        if ($order && $order->getStatusHistories()) {
-            foreach ($order->getStatusHistories() as $history) {
-                if (strpos($history->getComment(), '[DISCREPANCY_ACCEPTED]') !== false) {
-                    $accepted = true;
-                    break;
-                }
-            }
-        }
-
-        return $accepted;
+        return (bool)$order->getData('discrepancy_accepted');
     }
 
     /**
@@ -211,18 +201,8 @@ class Info extends Template
     public function isOrderDiscrepancyRefunded(): bool
     {
         $order = $this->registry->registry('current_order');
-        $accepted = false;
 
-        if ($order && $order->getStatusHistories()) {
-            foreach ($order->getStatusHistories() as $history) {
-                if (strpos($history->getComment(), '[DISCREPANCY_REFUNDED]') !== false) {
-                    $accepted = true;
-                    break;
-                }
-            }
-        }
-
-        return $accepted;
+        return (bool)$order->getData('discrepancy_rejected');
     }
 
     /**
