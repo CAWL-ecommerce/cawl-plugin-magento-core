@@ -59,25 +59,7 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
                 </div>
             </div>
         <?php elseif ($discrepancyRefunded): ?>
-            <div class="message message-info discrepancy-message">
-                <h4><?= $block->escapeHtml(__('Amount Discrepancy Rejected')) ?></h4>
-                <p><?= $block->escapeHtml(__('This order was reviewed and rejected with an amount discrepancy.')) ?></p>
-
-                <div class="discrepancy-row">
-                    <strong><?= $block->escapeHtml(__('Order total:')) ?></strong>
-                    <span><?= $orderDiscrepancy['currency'] ?>&nbsp;<?= $orderDiscrepancy['orderTotal'] ?></span>
-                </div>
-
-                <div class="discrepancy-row">
-                    <strong><?= $block->escapeHtml(__('Amount paid:')) ?></strong>
-                    <span><?= $orderDiscrepancy['currency'] ?>&nbsp;<?= $orderDiscrepancy['paymentAmount'] ?></span>
-                </div>
-
-                <div class="discrepancy-row">
-                    <strong><?= $block->escapeHtml(__('Difference:')) ?></strong>
-                    <span>&nbsp;<?= $orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount'] ?> <?= $orderDiscrepancy['currency'] ?></span>
-                </div>
-            </div>
+            <p>Hello</p>
         <?php endif; ?>
     <?php endif; ?>
 

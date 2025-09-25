@@ -2,12 +2,16 @@
 
 namespace Cawl\PaymentCore\Controller\Adminhtml\Order;
 
+use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
+use Cawl\PaymentCore\Service\Payment\CancelPaymentService;
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Framework\DB\Transaction;
 use Cawl\PaymentCore\Service\Refund\CreateRefundService;
 use OnlinePayments\Sdk\Domain\AmountOfMoney;
+use OnlinePayments\Sdk\Domain\PaymentOutput;
+use OnlinePayments\Sdk\Domain\PaymentResponse;
 use OnlinePayments\Sdk\Domain\RefundRequest;
 
 class CancelRefund extends Action
@@ -28,19 +32,31 @@ class CancelRefund extends Action
      * @var CreateRefundService
      */
     protected $createRefundService;
+    /**
+     * @var CancelPaymentService
+     */
+    protected $cancelPaymentService;
+    /**
+     * @var CurrencyAmountNormalizer
+     */
+    protected $currencyNormalizer;
 
     public function __construct(
         Action\Context $context,
         JsonFactory $resultJsonFactory,
         OrderRepositoryInterface $orderRepository,
         Transaction $transaction,
-        CreateRefundService $createRefundService
+        CreateRefundService $createRefundService,
+        CancelPaymentService $cancelPaymentService,
+        CurrencyAmountNormalizer $currencyNormalizer
     ) {
         parent::__construct($context);
         $this->resultJsonFactory = $resultJsonFactory;
         $this->orderRepository = $orderRepository;
         $this->transaction = $transaction;
         $this->createRefundService = $createRefundService;
+        $this->cancelPaymentService = $cancelPaymentService;
+        $this->currencyNormalizer = $currencyNormalizer;
     }
 
     public function execute()
@@ -61,16 +77,17 @@ class CancelRefund extends Action
                 ]);
             }
 
-            $refundRequest = new RefundRequest();
-            $amountOfMoney = new AmountOfMoney();
-            $amountOfMoney->setAmount($paidAmount * 100);
-            $amountOfMoney->setCurrencyCode($currency);
-            $refundRequest->setAmountOfMoney($amountOfMoney);
+            // Attempt to cancel the payment. If cancellation fails, try to refund it instead.
+            try {
+                $cancelRequest = $this->createCancelRequest($transactionId, $paidAmount, $currency);
+                $this->cancelPaymentService->execute($cancelRequest, $order->getStoreId());
+            } catch (\Exception $exception) {
+                $refundRequest = $this->createRefundRequest($paidAmount, $currency);
+                $this->createRefundService->execute($transactionId, $refundRequest, $order->getStoreId());
+            }
 
-            $this->createRefundService->execute($transactionId, $refundRequest, $order->getStoreId());
-
-            // Cancel the order
-            $order->cancel();
+            $order->setState(\Magento\Sales\Model\Order::STATE_CANCELED)
+                ->setStatus(\Magento\Sales\Model\Order::STATE_CANCELED);
 
             // Add order comment about the discrepancy rejection
             $order->addCommentToStatusHistory(
@@ -93,5 +110,43 @@ class CancelRefund extends Action
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    /**
+     * @param float $paidAmount
+     * @param string $currency
+     *
+     * @return RefundRequest
+     */
+    private function createRefundRequest($paidAmount, $currency)
+    {
+        $refundRequest = new RefundRequest();
+        $amountOfMoney = new AmountOfMoney();
+        $amountOfMoney->setAmount($this->currencyNormalizer->normalize((float)$paidAmount, $currency, true));
+        $amountOfMoney->setCurrencyCode($currency);
+        $refundRequest->setAmountOfMoney($amountOfMoney);
+
+        return $refundRequest;
+    }
+
+    /**
+     * @param string $paymentId
+     * @param float $paidAmount
+     * @param string $currency
+     *
+     * @return PaymentResponse
+     */
+    private function createCancelRequest($paymentId, $paidAmount, $currency)
+    {
+        $paymentResponse = new PaymentResponse();
+        $paymentOutput = new PaymentOutput();
+        $amountOfMoney = new AmountOfMoney();
+        $amountOfMoney->setAmount($this->currencyNormalizer->normalize((float)$paidAmount, $currency, true));
+        $amountOfMoney->setCurrencyCode($currency);
+        $paymentOutput->setAmountOfMoney($amountOfMoney);
+        $paymentResponse->setPaymentOutput($paymentOutput);
+        $paymentResponse->setId($paymentId);
+
+        return $paymentResponse;
     }
 }

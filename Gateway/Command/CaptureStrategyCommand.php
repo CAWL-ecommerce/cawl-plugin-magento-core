@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Cawl\PaymentCore\Gateway\Command;
 
 use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
+use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
@@ -76,6 +77,11 @@ class CaptureStrategyCommand implements CommandInterface
      */
     private $discrepancyValidator;
 
+    /**
+     * @var CurrencyAmountNormalizer
+     */
+    private $currencyNormalizer;
+
     public function __construct(
         CommandPoolInterface $commandPool,
         TransactionRepositoryInterface $repository,
@@ -84,7 +90,8 @@ class CaptureStrategyCommand implements CommandInterface
         SubjectReader $subjectReader,
         SurchargingQuoteRepositoryInterface $surchargingQuoteRepository,
         PaymentRepositoryInterface $wlPaymentRepository,
-        DiscrepancyValidator $discrepancyValidator
+        DiscrepancyValidator $discrepancyValidator,
+        CurrencyAmountNormalizer $currencyNormalizer
     ) {
         $this->commandPool = $commandPool;
         $this->transactionRepository = $repository;
@@ -94,6 +101,7 @@ class CaptureStrategyCommand implements CommandInterface
         $this->surchargingQuoteRepository = $surchargingQuoteRepository;
         $this->wlPaymentRepository = $wlPaymentRepository;
         $this->discrepancyValidator = $discrepancyValidator;
+        $this->currencyNormalizer = $currencyNormalizer;
     }
 
     /**
@@ -110,7 +118,7 @@ class CaptureStrategyCommand implements CommandInterface
 
         if ($wlPayment = $this->wlPaymentRepository->get($paymentDO->getOrder()->getOrderIncrementId())) {
             if ($this->isOrderWithDiscrepancy($paymentDO->getOrder(), $wlPayment)) {
-                $commandSubject['amount'] = (float) $wlPayment->getAmount() / 100;
+                $commandSubject['amount'] = $this->currencyNormalizer->normalize((float) $wlPayment->getAmount(), $wlPayment->getCurrency());
             }
         }
 

@@ -39,10 +39,11 @@ class CurrencyAmountNormalizer
      *
      * @param float $amount
      * @param string $currency
+     * @param bool $multiply
      *
      * @return float
      */
-    public function normalize(float $amount, string $currency): float
+    public function normalize(float $amount, string $currency, $multiply = false): float
     {
         $decimals = self::$map[$currency] ?? 2;
 
@@ -50,6 +51,6 @@ class CurrencyAmountNormalizer
             return (float)$amount;
         }
 
-        return (float)$amount / (10 ** $decimals);
+        return $multiply ?  (float)$amount * (10 ** $decimals) : (float)$amount / (10 ** $decimals);
     }
 }
