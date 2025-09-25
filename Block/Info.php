@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Cawl\PaymentCore\Block;
 
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
+use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
 use Magento\Framework\Registry;
@@ -95,6 +96,11 @@ class Info extends Template
      */
     private $generalSettings;
 
+    /**
+     * @var DiscrepancyValidator
+     */
+    private $discrepancyValidator;
+
     public function __construct(
         Context $context,
         PaymentIconsProviderInterface $paymentIconProvider,
@@ -105,6 +111,7 @@ class Info extends Template
         LoggerInterface $logger,
         Registry $registry,
         GeneralSettingsConfigInterface $generalSettings,
+        DiscrepancyValidator $discrepancyValidator,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -116,6 +123,7 @@ class Info extends Template
         $this->logger = $logger;
         $this->registry = $registry;
         $this->generalSettings = $generalSettings;
+        $this->discrepancyValidator = $discrepancyValidator;
     }
 
     public function getSpecificInformation(): array
@@ -163,7 +171,7 @@ class Info extends Template
         }
 
         $paymentInfo = $this->getPaymentInformation();
-        $paymentAmount = (float)$paymentInfo->getAuthorizedAmount();
+        $paymentAmount = (float)$this->discrepancyValidator->getWlPayment($order->getIncrementId());
         $statusCode = $paymentInfo->getStatusCode();
         $orderTotal = (float)$order->getGrandTotal();
         $isDiscrepancyOrder = $orderTotal !== $paymentAmount;
@@ -292,50 +300,56 @@ class Info extends Template
     {
         $storeId = (int)$this->getInfo()->getOrder()->getStoreId();
 
-        if (null === $this->paymentDetails) {
-            $this->paymentDetails = $this->clientProvider->getClient($storeId)
-                ->merchant($this->worldlineConfig->getMerchantId($storeId))
-                ->payments()
-                ->getPaymentDetails(
-                    $this->paymentInfoBuilder->getPaymentByOrderId(
-                        $this->getInfo()->getOrder()
-                    )
-                );
-        }
-        $this->splitPayment = ['payment' => null];
-
-        foreach ($this->paymentDetails->getOperations() as $paymentDetail) {
-            try {
-                $payment = $this->clientProvider->getClient($storeId)
+        try {
+            if (null === $this->paymentDetails) {
+                $this->paymentDetails = $this->clientProvider->getClient($storeId)
                     ->merchant($this->worldlineConfig->getMerchantId($storeId))
                     ->payments()
-                    ->getPayment($paymentDetail->getId());
-
-                $paymentOutput = $this->getOutput($payment);
-                $redirectPaymentMethodSpecificOutput = $paymentOutput ?
-                    $paymentOutput->getRedirectPaymentMethodSpecificOutput() : null;
-                $paymentProductId = $redirectPaymentMethodSpecificOutput ?
-                    $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
-
-                if ($paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID ||
-                    $paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
-                ) {
-                    $this->splitPayment['payment'] = $payment;
-                }
-            } catch (\Exception $e) {
-                $this->logger->error($e->getMessage());
+                    ->getPaymentDetails(
+                        $this->paymentInfoBuilder->getPaymentByOrderId(
+                            $this->getInfo()->getOrder()
+                        )
+                    );
             }
-        }
-        $payment = $this->splitPayment['payment'];
-        if (!$payment) {
-            return null;
-        }
-        $this->setSplitPaymentFinalStatus($payment);
-        $this->splitPaymentAmount =
-            $payment->getPaymentOutput()->getAmountOfMoney()->getAmount() -
-            $paymentDetail->getAmountOfMoney()->getAmount();
+            $this->splitPayment = ['payment' => null];
 
-        return $this->paymentInfoBuilder->buildSplitTransaction($payment, (int) $this->splitPaymentAmount);
+            foreach ($this->paymentDetails->getOperations() as $paymentDetail) {
+                try {
+                    $payment = $this->clientProvider->getClient($storeId)
+                        ->merchant($this->worldlineConfig->getMerchantId($storeId))
+                        ->payments()
+                        ->getPayment($paymentDetail->getId());
+
+                    $paymentOutput = $this->getOutput($payment);
+                    $redirectPaymentMethodSpecificOutput = $paymentOutput ?
+                        $paymentOutput->getRedirectPaymentMethodSpecificOutput() : null;
+                    $paymentProductId = $redirectPaymentMethodSpecificOutput ?
+                        $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
+
+                    if ($paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID ||
+                        $paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
+                    ) {
+                        $this->splitPayment['payment'] = $payment;
+                    }
+                } catch (\Exception $e) {
+                    $this->logger->error($e->getMessage());
+                }
+            }
+            $payment = $this->splitPayment['payment'];
+            if (!$payment) {
+                return null;
+            }
+            $this->setSplitPaymentFinalStatus($payment);
+            $this->splitPaymentAmount =
+                $payment->getPaymentOutput()->getAmountOfMoney()->getAmount() -
+                $paymentDetail->getAmountOfMoney()->getAmount();
+
+            return $this->paymentInfoBuilder->buildSplitTransaction($payment, (int) $this->splitPaymentAmount);
+        } catch (\Exception $exception) {
+            $this->logger->error($exception->getMessage());
+        }
+
+        return null;
     }
 
     public function getMethod(): MethodInterface

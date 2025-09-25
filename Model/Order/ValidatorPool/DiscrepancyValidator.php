@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace Cawl\PaymentCore\Model\Order\ValidatorPool;
 
 use Cawl\PaymentCore\Api\Data\PaymentInterface as WlPaymentInterface;
-use Magento\Sales\Api\Data\OrderInterface;
+use Cawl\PaymentCore\Api\Data\TransactionInterface;
+use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
 use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
+use Cawl\PaymentCore\Api\TransactionRepositoryInterface;
 
 class DiscrepancyValidator
 {
@@ -13,22 +15,52 @@ class DiscrepancyValidator
      * @var CurrencyAmountNormalizer
      */
     private $normalizer;
+    /**
+     * @var PaymentRepositoryInterface
+     */
+    private $wlPaymentRepository;
+    /**
+     * @var TransactionRepositoryInterface
+     */
+    private $transactionRepository;
 
-    public function __construct(CurrencyAmountNormalizer $normalizer)
+    public function __construct(
+        CurrencyAmountNormalizer $normalizer,
+        PaymentRepositoryInterface $wlPaymentRepository,
+        TransactionRepositoryInterface $transactionRepository
+    )
     {
         $this->normalizer = $normalizer;
+        $this->wlPaymentRepository = $wlPaymentRepository;
+        $this->transactionRepository = $transactionRepository;
     }
 
     /**
      * @param float $orderTotal
-     * @param WlPaymentInterface $payment
+     * @param string $incrementId
      *
      * @return bool
      */
-    public function compareAmounts(float $orderTotal, WlPaymentInterface $payment): bool
+    public function compareAmounts(float $orderTotal, string $incrementId): bool
     {
-        $paidAmount = $this->normalizer->normalize((float)$payment->getAmount(), $payment->getCurrency());
+        $wlPayment = $this->getWlPayment($incrementId);
+        if (!$wlPayment->getAmount() ||!$wlPayment->getCurrency()) {
+            return false;
+        }
+        $paidAmount = $this->normalizer->normalize((float)$wlPayment->getAmount(), $wlPayment->getCurrency());
 
         return $orderTotal !== $paidAmount;
+    }
+
+    /**
+     * @param string $incrementId
+     *
+     * @return WlPaymentInterface|TransactionInterface|null
+     */
+    public function getWlPayment(string $incrementId)
+    {
+        $wlPayment = $this->wlPaymentRepository->get($incrementId);
+
+        return $wlPayment->getPaymentId() ? $wlPayment : $this->transactionRepository->getLastTransaction($incrementId);
     }
 }

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Gateway\Command;
 
-use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
 use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Api\FilterBuilder;
@@ -68,11 +67,6 @@ class CaptureStrategyCommand implements CommandInterface
     private $surchargingQuoteRepository;
 
     /**
-     * @var PaymentRepositoryInterface
-     */
-    private $wlPaymentRepository;
-
-    /**
      * @var DiscrepancyValidator
      */
     private $discrepancyValidator;
@@ -89,7 +83,6 @@ class CaptureStrategyCommand implements CommandInterface
         SearchCriteriaBuilder $searchCriteriaBuilder,
         SubjectReader $subjectReader,
         SurchargingQuoteRepositoryInterface $surchargingQuoteRepository,
-        PaymentRepositoryInterface $wlPaymentRepository,
         DiscrepancyValidator $discrepancyValidator,
         CurrencyAmountNormalizer $currencyNormalizer
     ) {
@@ -99,7 +92,6 @@ class CaptureStrategyCommand implements CommandInterface
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->subjectReader = $subjectReader;
         $this->surchargingQuoteRepository = $surchargingQuoteRepository;
-        $this->wlPaymentRepository = $wlPaymentRepository;
         $this->discrepancyValidator = $discrepancyValidator;
         $this->currencyNormalizer = $currencyNormalizer;
     }
@@ -116,10 +108,9 @@ class CaptureStrategyCommand implements CommandInterface
     {
         $paymentDO = $this->subjectReader->readPayment($commandSubject);
 
-        if ($wlPayment = $this->wlPaymentRepository->get($paymentDO->getOrder()->getOrderIncrementId())) {
-            if ($this->isOrderWithDiscrepancy($paymentDO->getOrder(), $wlPayment)) {
-                $commandSubject['amount'] = $this->currencyNormalizer->normalize((float) $wlPayment->getAmount(), $wlPayment->getCurrency());
-            }
+        if ($this->isOrderWithDiscrepancy($paymentDO->getOrder())) {
+            $wlPayment = $this->discrepancyValidator->getWlPayment($paymentDO->getOrder()->getOrderIncrementId());
+            $commandSubject['amount'] = $this->currencyNormalizer->normalize((float)$wlPayment->getAmount(), $wlPayment->getCurrency());
         }
 
         if ($orderId = (int)$paymentDO->getOrder()->getId()) {
@@ -182,17 +173,16 @@ class CaptureStrategyCommand implements CommandInterface
         $searchCriteria = $this->searchCriteriaBuilder->create();
 
         $count = $this->transactionRepository->getList($searchCriteria)->getTotalCount();
-        return (bool) $count;
+        return (bool)$count;
     }
 
     /**
      * @param OrderAdapterInterface $order
-     * @param Payment $wlPayment
      *
      * @return bool
      */
-    private function isOrderWithDiscrepancy(OrderAdapterInterface $order, Payment $wlPayment): bool
+    private function isOrderWithDiscrepancy(OrderAdapterInterface $order): bool
     {
-        return $this->discrepancyValidator->compareAmounts($order->getGrandTotalAmount(), $wlPayment);
+        return $this->discrepancyValidator->compareAmounts((float)$order->getGrandTotalAmount(), $order->getOrderIncrementId());
     }
 }

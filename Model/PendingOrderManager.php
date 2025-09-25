@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Cawl\PaymentCore\Model;
 
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
-use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
+use Cawl\PaymentCore\Model\AmountDiscrepancy\AmountDiscrepancyNotification;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Exception;
 use Magento\Framework\Event\ManagerInterface as EventManager;
@@ -87,11 +87,6 @@ class PendingOrderManager implements PendingOrderManagerInterface
     private $logger;
 
     /**
-     * @var PaymentRepositoryInterface
-     */
-    private $wlPaymentRepository;
-
-    /**
      * @var GeneralSettingsConfigInterface
      */
     private $generalSettings;
@@ -100,6 +95,11 @@ class PendingOrderManager implements PendingOrderManagerInterface
      * @var DiscrepancyValidator
      */
     private $discrepancyValidator;
+
+    /**
+     * @var AmountDiscrepancyNotification
+     */
+    private $amountDiscrepancyNotification;
 
     public function __construct(
         SessionDataManagerInterface $sessionDataManager,
@@ -113,9 +113,9 @@ class PendingOrderManager implements PendingOrderManagerInterface
         SurchargingQuoteManagerInterface $surchargingQuoteManager,
         EventManager $eventManager,
         LoggerInterface $logger,
-        PaymentRepositoryInterface $wlPaymentRepository,
         GeneralSettingsConfigInterface $generalSettings,
-        DiscrepancyValidator $discrepancyValidator
+        DiscrepancyValidator $discrepancyValidator,
+        AmountDiscrepancyNotification $amountDiscrepancyNotification
     ) {
         $this->sessionDataManager = $sessionDataManager;
         $this->orderFactory = $orderFactory;
@@ -128,9 +128,9 @@ class PendingOrderManager implements PendingOrderManagerInterface
         $this->surchargingQuoteManager = $surchargingQuoteManager;
         $this->eventManager = $eventManager;
         $this->logger = $logger;
-        $this->wlPaymentRepository = $wlPaymentRepository;
         $this->generalSettings = $generalSettings;
         $this->discrepancyValidator = $discrepancyValidator;
+        $this->amountDiscrepancyNotification = $amountDiscrepancyNotification;
     }
 
     public function processPendingOrder(string $incrementId): bool
@@ -184,6 +184,10 @@ class PendingOrderManager implements PendingOrderManagerInterface
 
                     $order->setState($orderDiscrepancyStatus)->setStatus($orderDiscrepancyStatus);
                     $order->save();
+
+                    // send discrepancy email
+                    $wlPayment = $this->discrepancyValidator->getWlPayment($incrementId);
+                    $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
                 }
                 if (!$order) {
                     $this->refusedStatusProcessor->process($quote, $statusCode);
@@ -214,8 +218,6 @@ class PendingOrderManager implements PendingOrderManagerInterface
      */
     private function isOrderWithDiscrepancy(OrderInterface $order): bool
     {
-        $wlPayment = $this->wlPaymentRepository->get($order->getIncrementId());
-
-        return $this->discrepancyValidator->compareAmounts($order->getGrandTotal(), $wlPayment);
+        return $this->discrepancyValidator->compareAmounts((float)$order->getGrandTotal(), $order->getIncrementId());
     }
 }

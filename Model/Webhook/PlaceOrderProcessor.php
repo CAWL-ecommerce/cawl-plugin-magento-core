@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Model\Webhook;
 
-use Cawl\PaymentCore\Api\Data\PaymentInterface;
-use Cawl\PaymentCore\Api\PaymentRepositoryInterface;
 use Cawl\PaymentCore\Model\AmountDiscrepancy\AmountDiscrepancyNotification;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Event\ManagerInterface as EventManager;
@@ -76,10 +74,6 @@ class PlaceOrderProcessor implements ProcessorInterface
      */
     private $discrepancyValidator;
 
-    /**
-     * @var PaymentRepositoryInterface
-     */
-    private $wlPaymentRepository;
 
     /**
      * @var AmountDiscrepancyNotification
@@ -97,7 +91,6 @@ class PlaceOrderProcessor implements ProcessorInterface
         EventManager $eventManager,
         SessionDataManagerInterface $sessionDataManager,
         DiscrepancyValidator $discrepancyValidator,
-        PaymentRepositoryInterface $wlPaymentRepository,
         AmountDiscrepancyNotification $amountDiscrepancyNotification
     ) {
         $this->logger = $logger;
@@ -110,7 +103,6 @@ class PlaceOrderProcessor implements ProcessorInterface
         $this->eventManager = $eventManager;
         $this->sessionDataManager = $sessionDataManager;
         $this->discrepancyValidator = $discrepancyValidator;
-        $this->wlPaymentRepository = $wlPaymentRepository;
         $this->amountDiscrepancyNotification = $amountDiscrepancyNotification;
     }
 
@@ -146,8 +138,8 @@ class PlaceOrderProcessor implements ProcessorInterface
             $this->sessionDataManager->setOrderCreationFlag($incrementId);
 
             $order = $this->quoteManagement->submit($quote);
-            $wlPayment = $this->wlPaymentRepository->get($order->getIncrementId());
-            if ($wlPayment && $this->isOrderWithDiscrepancy($order, $wlPayment)) {
+            $wlPayment = $this->discrepancyValidator->getWlPayment($order->getIncrementId());
+            if ($wlPayment && $this->isOrderWithDiscrepancy($order)) {
                 $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
             }
 
@@ -260,12 +252,11 @@ class PlaceOrderProcessor implements ProcessorInterface
 
     /**
      * @param OrderInterface $order
-     * @param PaymentInterface $wlPayment
      *
      * @return bool
      */
-    private function isOrderWithDiscrepancy(OrderInterface $order, $wlPayment): bool
+    private function isOrderWithDiscrepancy(OrderInterface $order): bool
     {
-        return $this->discrepancyValidator->compareAmounts($order->getGrandTotal(), $wlPayment);
+        return $this->discrepancyValidator->compareAmounts((float)$order->getGrandTotal(), $order->getIncrementId());
     }
 }
