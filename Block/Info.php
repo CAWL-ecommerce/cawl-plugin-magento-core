@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Cawl\PaymentCore\Block;
 
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
+use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
@@ -101,6 +102,11 @@ class Info extends Template
      */
     private $discrepancyValidator;
 
+    /**
+     * @var CurrencyAmountNormalizer
+     */
+    private $currencyAmountNormalizer;
+
     public function __construct(
         Context $context,
         PaymentIconsProviderInterface $paymentIconProvider,
@@ -112,6 +118,7 @@ class Info extends Template
         Registry $registry,
         GeneralSettingsConfigInterface $generalSettings,
         DiscrepancyValidator $discrepancyValidator,
+        CurrencyAmountNormalizer $currencyAmountNormalizer,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -124,6 +131,7 @@ class Info extends Template
         $this->registry = $registry;
         $this->generalSettings = $generalSettings;
         $this->discrepancyValidator = $discrepancyValidator;
+        $this->currencyAmountNormalizer = $currencyAmountNormalizer;
     }
 
     public function getSpecificInformation(): array
@@ -171,11 +179,12 @@ class Info extends Template
         }
 
         $paymentInfo = $this->getPaymentInformation();
-        $paymentAmount = (float)$this->discrepancyValidator->getWlPayment($order->getIncrementId());
+        $wlPayment = $this->discrepancyValidator->getWlPayment($order->getIncrementId());
+        $currency = $wlPayment->getCurrency();
+        $paymentAmount = (float)$this->currencyAmountNormalizer->normalize((float) $wlPayment->getAmount(), $currency);
         $statusCode = $paymentInfo->getStatusCode();
         $orderTotal = (float)$order->getGrandTotal();
         $isDiscrepancyOrder = $orderTotal !== $paymentAmount;
-        $currency =  $order->getOrderCurrency()->getCurrencySymbol();
 
         $discrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
         if ($isDiscrepancyOrder && $order->getState() !== $discrepancyStatus && !$this->isOrderDiscrepancyAccepted() && !$this->isOrderDiscrepancyRefunded()) {
@@ -185,11 +194,11 @@ class Info extends Template
         return [
             'isDiscrepancyOrder' => $isDiscrepancyOrder,
             'orderTotal' => $orderTotal,
-            'currency' => $currency,
+            'currency' => $order->getOrderCurrency()->getCurrencySymbol(),
             'paymentAmount' => $paymentAmount,
             'statusCode' => $statusCode,
             'transactionId' => $paymentInfo->getLastTransactionNumber(),
-            'currencyName' => $paymentInfo->getCurrency()
+            'currencyName' => $currency
         ];
     }
 
