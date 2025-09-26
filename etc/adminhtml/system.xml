@@ -215,6 +215,85 @@
                     <comment><![CDATA[Default value: every minute. <a href='http://crontab.guru/' target='_blank'>Need help?</a>]]></comment>
                 </field>
             </group>
+
+            <group id="amount_discrepancy" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Order Creation on Amount Discrepancy</label>
+
+                <!-- Enable toggle -->
+                <field id="enable_amount_discrepancy" translate="label tooltip" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <tooltip>If set to 'Yes', orders will be created even if the paid amount doesn't match the order total. The order will be placed in a review status.</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <!-- Order status selector, only visible if enabled -->
+                <field id="review_status" translate="label tooltip" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order Status for Review</label>
+                    <tooltip>Select the status for orders created with an amount discrepancy. These orders will require manual review.</tooltip>
+                    <source_model>Cawl\PaymentCore\Model\Config\Source\OrderStatus</source_model>
+                    <depends>
+                        <field id="enable_amount_discrepancy">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="amount_discrepancy_notifications" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Order Amount Discrepancy Notifications</label>
+                <depends>
+                    <field id="enable_amount_discrepancy">1</field>
+                </depends>
+
+                <!-- Enable -->
+                <field id="sending_amount_discrepancy_emails" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <!-- Sender -->
+                <field id="amount_discrepancy_sender" translate="label" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="sending_amount_discrepancy_emails">1</field>
+                    </depends>
+                </field>
+
+                <!-- Recipient -->
+                <field id="amount_discrepancy_recipient" translate="label" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Recipient</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="sending_amount_discrepancy_emails">1</field>
+                    </depends>
+                </field>
+
+                <!-- Copy To -->
+                <field id="amount_discrepancy_copy_to" translate="label" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Email Copy To</label>
+                    <comment>Comma-separated.</comment>
+                    <validate>validate-multiple-emails</validate>
+                    <depends>
+                        <field id="sending_amount_discrepancy_emails">1</field>
+                    </depends>
+                </field>
+
+                <!-- Email Template -->
+                <field id="amount_discrepancy_template" translate="label" type="select" sortOrder="50"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="sending_amount_discrepancy_emails">1</field>
+                    </depends>
+                </field>
+            </group>
+
             <group id="refused_notification" translate="label" type="text" sortOrder="20" showInDefault="1">
                 <label>Payment Refused Notifications</label>
                 <field id="sending_payment_refused_emails" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">

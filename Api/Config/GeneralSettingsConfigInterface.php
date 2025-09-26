@@ -26,4 +26,8 @@ interface GeneralSettingsConfigInterface
     public function isApplySurcharge(?int $scopeCode = null): bool;
 
     public function getValue(string $path, ?int $scopeCode = null): string;
+
+    public function isAmountDiscrepancyEnabled(): bool;
+
+    public function getOrderDiscrepancyStatus(): ?string;
 }

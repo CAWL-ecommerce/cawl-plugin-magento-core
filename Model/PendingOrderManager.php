@@ -3,9 +3,13 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Model;
 
+use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
+use Cawl\PaymentCore\Model\AmountDiscrepancy\AmountDiscrepancyNotification;
+use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Exception;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Quote\Model\QuoteManagement;
+use Magento\Sales\Model\Order\Payment;
 use Magento\Sales\Model\OrderFactory;
 use Psr\Log\LoggerInterface;
 use Cawl\PaymentCore\Api\PaymentDataManagerInterface;
@@ -16,6 +20,7 @@ use Cawl\PaymentCore\Api\SurchargingQuoteManagerInterface;
 use Cawl\PaymentCore\Model\Order\CanPlaceOrderContextManager;
 use Cawl\PaymentCore\Model\PaymentOrderManager\PaymentService;
 use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
+use Magento\Sales\Api\Data\OrderInterface;
 
 /**
  * Validate payment information and create an order
@@ -81,6 +86,21 @@ class PendingOrderManager implements PendingOrderManagerInterface
      */
     private $logger;
 
+    /**
+     * @var GeneralSettingsConfigInterface
+     */
+    private $generalSettings;
+
+    /**
+     * @var DiscrepancyValidator
+     */
+    private $discrepancyValidator;
+
+    /**
+     * @var AmountDiscrepancyNotification
+     */
+    private $amountDiscrepancyNotification;
+
     public function __construct(
         SessionDataManagerInterface $sessionDataManager,
         OrderFactory $orderFactory,
@@ -92,7 +112,10 @@ class PendingOrderManager implements PendingOrderManagerInterface
         PaymentDataManagerInterface $paymentDataManager,
         SurchargingQuoteManagerInterface $surchargingQuoteManager,
         EventManager $eventManager,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        GeneralSettingsConfigInterface $generalSettings,
+        DiscrepancyValidator $discrepancyValidator,
+        AmountDiscrepancyNotification $amountDiscrepancyNotification
     ) {
         $this->sessionDataManager = $sessionDataManager;
         $this->orderFactory = $orderFactory;
@@ -105,6 +128,9 @@ class PendingOrderManager implements PendingOrderManagerInterface
         $this->surchargingQuoteManager = $surchargingQuoteManager;
         $this->eventManager = $eventManager;
         $this->logger = $logger;
+        $this->generalSettings = $generalSettings;
+        $this->discrepancyValidator = $discrepancyValidator;
+        $this->amountDiscrepancyNotification = $amountDiscrepancyNotification;
     }
 
     public function processPendingOrder(string $incrementId): bool
@@ -153,6 +179,16 @@ class PendingOrderManager implements PendingOrderManagerInterface
 
             try {
                 $order = $this->quoteManagement->submit($quote);
+                if ($order && $this->isOrderWithDiscrepancy($order)) {
+                    $orderDiscrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
+
+                    $order->setState($orderDiscrepancyStatus)->setStatus($orderDiscrepancyStatus);
+                    $order->save();
+
+                    // send discrepancy email
+                    $wlPayment = $this->discrepancyValidator->getWlPayment($incrementId);
+                    $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
+                }
                 if (!$order) {
                     $this->refusedStatusProcessor->process($quote, $statusCode);
                     return false;
@@ -173,5 +209,15 @@ class PendingOrderManager implements PendingOrderManagerInterface
         $this->refusedStatusProcessor->process($quote, $statusCode);
 
         return false;
+    }
+
+    /**
+     * @param OrderInterface $order
+     *
+     * @return bool
+     */
+    private function isOrderWithDiscrepancy(OrderInterface $order): bool
+    {
+        return $this->discrepancyValidator->compareAmounts((float)$order->getGrandTotal(), $order->getIncrementId());
     }
 }

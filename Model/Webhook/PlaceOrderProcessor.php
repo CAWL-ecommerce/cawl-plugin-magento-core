@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Model\Webhook;
 
+use Cawl\PaymentCore\Model\AmountDiscrepancy\AmountDiscrepancyNotification;
+use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Quote\Model\QuoteManagement;
+use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\OrderFactory;
 use OnlinePayments\Sdk\Domain\WebhooksEvent;
 use Psr\Log\LoggerInterface;
@@ -66,6 +69,17 @@ class PlaceOrderProcessor implements ProcessorInterface
      */
     private $sessionDataManager;
 
+    /**
+     * @var DiscrepancyValidator
+     */
+    private $discrepancyValidator;
+
+
+    /**
+     * @var AmountDiscrepancyNotification
+     */
+    private $amountDiscrepancyNotification;
+
     public function __construct(
         LoggerInterface $logger,
         QuoteManagement $quoteManagement,
@@ -75,7 +89,9 @@ class PlaceOrderProcessor implements ProcessorInterface
         PlaceOrderManagerInterface $placeOrderManager,
         SurchargingQuoteManagerInterface $surchargingQuoteManager,
         EventManager $eventManager,
-        SessionDataManagerInterface $sessionDataManager
+        SessionDataManagerInterface $sessionDataManager,
+        DiscrepancyValidator $discrepancyValidator,
+        AmountDiscrepancyNotification $amountDiscrepancyNotification
     ) {
         $this->logger = $logger;
         $this->quoteManagement = $quoteManagement;
@@ -86,6 +102,8 @@ class PlaceOrderProcessor implements ProcessorInterface
         $this->surchargingQuoteManager = $surchargingQuoteManager;
         $this->eventManager = $eventManager;
         $this->sessionDataManager = $sessionDataManager;
+        $this->discrepancyValidator = $discrepancyValidator;
+        $this->amountDiscrepancyNotification = $amountDiscrepancyNotification;
     }
 
     public function process(WebhooksEvent $webhookEvent): void
@@ -120,6 +138,11 @@ class PlaceOrderProcessor implements ProcessorInterface
             $this->sessionDataManager->setOrderCreationFlag($incrementId);
 
             $order = $this->quoteManagement->submit($quote);
+            $wlPayment = $this->discrepancyValidator->getWlPayment($order->getIncrementId());
+            if ($wlPayment && $this->isOrderWithDiscrepancy($order)) {
+                $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
+            }
+
             if (!$order) {
                 return;
             }
@@ -225,5 +248,15 @@ class PlaceOrderProcessor implements ProcessorInterface
             PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID,
             PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID
         ], true);
+    }
+
+    /**
+     * @param OrderInterface $order
+     *
+     * @return bool
+     */
+    private function isOrderWithDiscrepancy(OrderInterface $order): bool
+    {
+        return $this->discrepancyValidator->compareAmounts((float)$order->getGrandTotal(), $order->getIncrementId());
     }
 }

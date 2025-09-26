@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Gateway\Command;
 
+use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
+use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Exception\NotFoundException;
 use Magento\Payment\Gateway\Command\CommandException;
 use Magento\Payment\Gateway\Command\CommandPoolInterface;
 use Magento\Payment\Gateway\CommandInterface;
+use Magento\Payment\Gateway\Data\OrderAdapterInterface;
 use Magento\Payment\Gateway\Data\PaymentDataObjectInterface;
 use Magento\Payment\Gateway\Helper\ContextHelper;
 use Magento\Sales\Api\Data\OrderPaymentInterface;
@@ -16,6 +19,7 @@ use Magento\Sales\Api\Data\TransactionInterface;
 use Magento\Sales\Api\TransactionRepositoryInterface;
 use Cawl\PaymentCore\Api\SurchargingQuoteRepositoryInterface;
 use Cawl\PaymentCore\Gateway\SubjectReader;
+use Cawl\PaymentCore\Model\Payment\Payment;
 
 /**
  * Used for Magento 2.3.7
@@ -62,13 +66,25 @@ class CaptureStrategyCommand implements CommandInterface
      */
     private $surchargingQuoteRepository;
 
+    /**
+     * @var DiscrepancyValidator
+     */
+    private $discrepancyValidator;
+
+    /**
+     * @var CurrencyAmountNormalizer
+     */
+    private $currencyNormalizer;
+
     public function __construct(
         CommandPoolInterface $commandPool,
         TransactionRepositoryInterface $repository,
         FilterBuilder $filterBuilder,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         SubjectReader $subjectReader,
-        SurchargingQuoteRepositoryInterface $surchargingQuoteRepository
+        SurchargingQuoteRepositoryInterface $surchargingQuoteRepository,
+        DiscrepancyValidator $discrepancyValidator,
+        CurrencyAmountNormalizer $currencyNormalizer
     ) {
         $this->commandPool = $commandPool;
         $this->transactionRepository = $repository;
@@ -76,6 +92,8 @@ class CaptureStrategyCommand implements CommandInterface
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->subjectReader = $subjectReader;
         $this->surchargingQuoteRepository = $surchargingQuoteRepository;
+        $this->discrepancyValidator = $discrepancyValidator;
+        $this->currencyNormalizer = $currencyNormalizer;
     }
 
     /**
@@ -89,6 +107,11 @@ class CaptureStrategyCommand implements CommandInterface
     public function execute(array $commandSubject): void
     {
         $paymentDO = $this->subjectReader->readPayment($commandSubject);
+
+        if ($this->isOrderWithDiscrepancy($paymentDO->getOrder())) {
+            $wlPayment = $this->discrepancyValidator->getWlPayment($paymentDO->getOrder()->getOrderIncrementId());
+            $commandSubject['amount'] = $this->currencyNormalizer->normalize((float)$wlPayment->getAmount(), $wlPayment->getCurrency());
+        }
 
         if ($orderId = (int)$paymentDO->getOrder()->getId()) {
             $surchargingQuote = $this->surchargingQuoteRepository->getByOrderId($orderId);
@@ -150,6 +173,16 @@ class CaptureStrategyCommand implements CommandInterface
         $searchCriteria = $this->searchCriteriaBuilder->create();
 
         $count = $this->transactionRepository->getList($searchCriteria)->getTotalCount();
-        return (bool) $count;
+        return (bool)$count;
+    }
+
+    /**
+     * @param OrderAdapterInterface $order
+     *
+     * @return bool
+     */
+    private function isOrderWithDiscrepancy(OrderAdapterInterface $order): bool
+    {
+        return $this->discrepancyValidator->compareAmounts((float)$order->getGrandTotalAmount(), $order->getOrderIncrementId());
     }
 }

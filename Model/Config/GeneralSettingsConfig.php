@@ -10,6 +10,7 @@ use Magento\Framework\UrlInterface;
 use Magento\Store\Model\ScopeInterface;
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface;
+use Magento\Sales\Model\Order;
 
 class GeneralSettingsConfig implements GeneralSettingsConfigInterface
 {
@@ -22,6 +23,8 @@ class GeneralSettingsConfig implements GeneralSettingsConfigInterface
         'worldline_payment/general_settings/authentication_exemption_limit_100';
     public const PWA_ROUTE = 'worldline_payment/general_settings/pwa_route';
     public const APPLY_SURCHARGE = 'worldline_payment/general_settings/apply_surcharge';
+    public const ENABLE_AMOUNT_DISCREPANCY = 'worldline_order_creator/amount_discrepancy/enable_amount_discrepancy';
+    public const ORDER_DISCREPANCY_STATUS = 'worldline_order_creator/amount_discrepancy/review_status';
 
     /**
      * @var State
@@ -121,5 +124,20 @@ class GeneralSettingsConfig implements GeneralSettingsConfigInterface
     public function getValue(string $path, ?int $scopeCode = null): string
     {
         return (string)$this->scopeConfig->getValue($path, ScopeInterface::SCOPE_STORE, $scopeCode);
+    }
+
+    public function isAmountDiscrepancyEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(self::ENABLE_AMOUNT_DISCREPANCY);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderDiscrepancyStatus(): ?string
+    {
+        $orderDiscrepancyStatus = $this->scopeConfig->getValue(self::ORDER_DISCREPANCY_STATUS);
+
+        return $orderDiscrepancyStatus ? $orderDiscrepancyStatus : Order::STATE_HOLDED;
     }
 }
