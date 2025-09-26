@@ -271,3 +271,5 @@ Result,Resultaat
 "Admin Link", "Link :",
 "Discrepancy Details", "Gegevens van het verschil"
 "Please review the order in the Magento Admin to either accept it or cancel and refund the payment.", "Controleer de bestelling in de Magento Admin om deze te accepteren of te annuleren en de betaling terug te betalen."
+"View Order in Admin", "Bestelling bekijken in beheer"
+"Amount Discrepancy", "Bedragsverschil"

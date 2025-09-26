@@ -267,3 +267,5 @@ Result,Ergebnis
 "Admin Link", "Link :",
 "Discrepancy Details", "Details zur Abweichung"
 "Please review the order in the Magento Admin to either accept it or cancel and refund the payment.", "Bitte überprüfen Sie die Bestellung im Magento Admin, um sie entweder anzunehmen oder zu stornieren und die Zahlung zu erstatten."
+"View Order in Admin", "Bestellung im Admin anzeigen"
+"Amount Discrepancy", "Betragsabweichung"
