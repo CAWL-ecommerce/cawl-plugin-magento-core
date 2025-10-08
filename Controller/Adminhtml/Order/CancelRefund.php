@@ -2,6 +2,7 @@
 
 namespace Cawl\PaymentCore\Controller\Adminhtml\Order;
 
+use Psr\Log\LoggerInterface;
 use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Service\Payment\CancelPaymentService;
 use Magento\Backend\App\Action;
@@ -40,6 +41,10 @@ class CancelRefund extends Action
      * @var CurrencyAmountNormalizer
      */
     protected $currencyNormalizer;
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     public function __construct(
         Action\Context $context,
@@ -48,7 +53,8 @@ class CancelRefund extends Action
         Transaction $transaction,
         CreateRefundService $createRefundService,
         CancelPaymentService $cancelPaymentService,
-        CurrencyAmountNormalizer $currencyNormalizer
+        CurrencyAmountNormalizer $currencyNormalizer,
+        LoggerInterface $logger
     ) {
         parent::__construct($context);
         $this->resultJsonFactory = $resultJsonFactory;
@@ -57,6 +63,7 @@ class CancelRefund extends Action
         $this->createRefundService = $createRefundService;
         $this->cancelPaymentService = $cancelPaymentService;
         $this->currencyNormalizer = $currencyNormalizer;
+        $this->logger = $logger;
     }
 
     public function execute()
@@ -66,6 +73,11 @@ class CancelRefund extends Action
         $paidAmount = (float)$this->getRequest()->getParam('paid_amount');
         $currency = $this->getRequest()->getParam('currency');
         $transactionId = $this->getRequest()->getParam('transaction_id');
+
+        $this->logger->info('Order with amount discrepancy cancelled and refunded', [
+            'order_id' => $orderId,
+            'refunded_amount' => $paidAmount
+        ]);
 
         try {
             $order = $this->orderRepository->get($orderId);
