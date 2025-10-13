@@ -24,6 +24,9 @@ use Magento\Sales\Api\OrderRepositoryInterface;
 
 /**
  * Identify if a webhook can trigger the order placement process, place an order and save payment information
+ *
+ * @SuppressWarnings(PHPMD.TooManyArguments)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class PlaceOrderProcessor implements ProcessorInterface
 {
@@ -76,7 +79,6 @@ class PlaceOrderProcessor implements ProcessorInterface
      * @var DiscrepancyValidator
      */
     private $discrepancyValidator;
-
 
     /**
      * @var AmountDiscrepancyNotification
@@ -135,6 +137,7 @@ class PlaceOrderProcessor implements ProcessorInterface
         if (!$this->shouldHandleEvent($webhookEvent)) {
             return;
         }
+
         $quote = $this->placeOrderManager->getValidatedQuote($webhookEvent);
         if (!$quote) {
             return;
@@ -142,53 +145,93 @@ class PlaceOrderProcessor implements ProcessorInterface
 
         $incrementId = (string)$quote->getReservedOrderId();
         $order = $this->orderFactory->create()->loadByIncrementId($incrementId);
+
         $this->paymentDataManager->savePaymentData($webhookEvent->getPayment());
 
         if ($order->getId() || !$webhookEvent->getPayment()) {
             return;
         }
 
-        if ($surchargeSO = $webhookEvent->getPayment()->getPaymentOutput()->getSurchargeSpecificOutput()) {
-            $this->surchargingQuoteManager->formatAndSaveSurchargingQuote($quote, $surchargeSO);
-        }
-
-        $quote->setTotalsCollectedFlag(false);
-        $quote->collectTotals();
+        $this->handleSurcharge($quote, $webhookEvent);
+        $this->recalculateQuoteTotals($quote);
 
         try {
             if ($this->sessionDataManager->hasOrderCreationFlag($incrementId)) {
                 return;
             }
+
             $this->sessionDataManager->setOrderCreationFlag($incrementId);
-
             $order = $this->quoteManagement->submit($quote);
-            $wlPayment = $this->discrepancyValidator->getWlPayment($order->getIncrementId());
-            if ($wlPayment && $this->isOrderWithDiscrepancy($order)) {
-                $orderDiscrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
 
-                $order->setState($orderDiscrepancyStatus)->setStatus($orderDiscrepancyStatus);
-                $this->orderRepository->save($order);
-
-                $this->updateOrderGridStatus((int)$order->getId(), $orderDiscrepancyStatus);
-
-                $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
-            }
-
-            if (!$order) {
-                return;
-            }
-
-            $this->eventManager->dispatch('checkout_submit_all_after', ['order' => $order, 'quote' => $quote]);
-            $this->sessionDataManager->setOrderCreationFlag(null);
+            $this->handleDiscrepancy($order);
+            $this->finalizeOrderCreation($order, $quote);
         } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['reserved_order_id' => $incrementId]);
-            $this->sessionDataManager->setOrderCreationFlag(null);
-            $this->failedOrderCreationNotification->notify(
-                $quote->getReservedOrderId(),
-                $e->getMessage(),
-                FailedOrderCreationNotification::WEBHOOK_SPACE
-            );
+            $this->handleOrderCreationFailure($e, $quote, $incrementId);
         }
+    }
+
+    private function handleSurcharge($quote, WebhooksEvent $webhookEvent): void
+    {
+        $payment = $webhookEvent->getPayment();
+        if (!$payment) {
+            return;
+        }
+
+        $surchargeSO = $payment->getPaymentOutput()->getSurchargeSpecificOutput();
+        if ($surchargeSO) {
+            $this->surchargingQuoteManager->formatAndSaveSurchargingQuote($quote, $surchargeSO);
+        }
+    }
+
+    private function recalculateQuoteTotals($quote): void
+    {
+        $quote->setTotalsCollectedFlag(false);
+        $quote->collectTotals();
+    }
+
+    private function handleDiscrepancy($order): void
+    {
+        if (!$order) {
+            return;
+        }
+
+        $wlPayment = $this->discrepancyValidator->getWlPayment($order->getIncrementId());
+        if (!$wlPayment || !$this->isOrderWithDiscrepancy($order)) {
+            return;
+        }
+
+        $status = $this->generalSettings->getOrderDiscrepancyStatus();
+
+        $order->setState($status)->setStatus($status);
+        $this->orderRepository->save($order);
+
+        $this->updateOrderGridStatus((int)$order->getId(), $status);
+        $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
+    }
+
+    private function finalizeOrderCreation($order, $quote): void
+    {
+        if (!$order) {
+            return;
+        }
+
+        $this->eventManager->dispatch('checkout_submit_all_after', [
+            'order' => $order,
+            'quote' => $quote,
+        ]);
+
+        $this->sessionDataManager->setOrderCreationFlag(null);
+    }
+
+    private function handleOrderCreationFailure(\Exception $e, $quote, string $incrementId): void
+    {
+        $this->logger->error($e->getMessage(), ['reserved_order_id' => $incrementId]);
+        $this->sessionDataManager->setOrderCreationFlag(null);
+        $this->failedOrderCreationNotification->notify(
+            $quote->getReservedOrderId(),
+            $e->getMessage(),
+            FailedOrderCreationNotification::WEBHOOK_SPACE
+        );
     }
 
     /**

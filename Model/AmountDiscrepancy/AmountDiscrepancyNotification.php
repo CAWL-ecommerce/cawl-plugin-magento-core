@@ -78,7 +78,10 @@ class AmountDiscrepancyNotification
      */
     private function getVariables(OrderInterface $order, $paidAmount): array
     {
-        $formattedPaidAmount = $this->currencyAmountNormalizer->normalize((float)$paidAmount, $order->getOrderCurrencyCode());
+        $formattedPaidAmount = $this->currencyAmountNormalizer->normalize(
+            (float)$paidAmount,
+            $order->getOrderCurrencyCode()
+        );
 
         return [
             'increment_id' => $order->getIncrementId(),
@@ -86,9 +89,7 @@ class AmountDiscrepancyNotification
             'order_grand_total' => $order->getGrandTotal(),
             'payment_amount' => $formattedPaidAmount,
             'discrepancy_amount' => $order->getGrandTotal() - $formattedPaidAmount,
-            'admin_order_url' => $this->urlInterface->getUrl(
-                'sales/order/view',
-                ['order_id' => $order->getId()])
+            'admin_order_url' => $this->urlInterface->getUrl('sales/order/view', ['order_id' => $order->getId()])
         ];
     }
 }

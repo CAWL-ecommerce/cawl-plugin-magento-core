@@ -15,6 +15,9 @@ use OnlinePayments\Sdk\Domain\PaymentOutput;
 use OnlinePayments\Sdk\Domain\PaymentResponse;
 use OnlinePayments\Sdk\Domain\RefundRequest;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class CancelRefund extends Action
 {
     /**

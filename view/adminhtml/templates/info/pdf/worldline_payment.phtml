@@ -10,7 +10,7 @@ $cardNumbers = $block->getPaymentInformation()->getCardLastNumbers();
     {{pdf_row_separator}}
 
 <?php if ($specificInfo): ?>
-        <?php foreach ($specificInfo as $item): ?>
+    <?php foreach ($specificInfo as $item): ?>
         <?php if (isset($item['label'], $item['value'])): ?>
             <?= $block->escapeHtml(__($item['label'])) ?>
             <?= $block->escapeHtml(__(':')) ?>
