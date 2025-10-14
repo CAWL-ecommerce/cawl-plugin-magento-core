@@ -2,6 +2,8 @@
 
 namespace Cawl\PaymentCore\Controller\Adminhtml\Order;
 
+use Psr\Log\LoggerInterface;
+use Worldline\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\Result\JsonFactory;
@@ -29,19 +31,31 @@ class Accept extends Action
      * @var Transaction
      */
     protected $transaction;
+    /**
+     * @var CurrencyAmountNormalizer
+     */
+    private $currencyAmountNormalizer;
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     public function __construct(
         Action\Context $context,
         JsonFactory $resultJsonFactory,
         OrderRepositoryInterface $orderRepository,
         InvoiceService $invoiceService,
-        Transaction $transaction
+        Transaction $transaction,
+        CurrencyAmountNormalizer $currencyAmountNormalizer,
+        LoggerInterface $logger
     ) {
         parent::__construct($context);
         $this->resultJsonFactory = $resultJsonFactory;
         $this->orderRepository = $orderRepository;
         $this->invoiceService = $invoiceService;
         $this->transaction = $transaction;
+        $this->currencyAmountNormalizer = $currencyAmountNormalizer;
+        $this->logger = $logger;
     }
 
     public function execute()
@@ -51,6 +65,10 @@ class Accept extends Action
         $paidAmount = (float)$this->getRequest()->getParam('paid_amount');
         $statusCode = $this->getRequest()->getParam('status_code');
         $transactionId = $this->getRequest()->getParam('transaction_id');
+
+        $this->logger->info('Order with amount discrepancy accepted', [
+            'order_id' => $orderId
+        ]);
 
         try {
             $order = $this->orderRepository->get($orderId);
@@ -72,10 +90,13 @@ class Accept extends Action
                 $invoice = $this->invoiceService->prepareInvoice($order);
 
                 // Override invoice totals to match paid amount
+                $shippingAmount = (float)$order->getShippingAmount();
+                $subtotal = $paidAmount - $shippingAmount;
+
                 $invoice->setGrandTotal($paidAmount);
                 $invoice->setBaseGrandTotal($paidAmount);
-                $invoice->setSubtotal($paidAmount);
-                $invoice->setBaseSubtotal($paidAmount);
+                $invoice->setSubtotal($subtotal);
+                $invoice->setBaseSubtotal($subtotal);
 
                 $invoice->register();
                 $invoice->pay();

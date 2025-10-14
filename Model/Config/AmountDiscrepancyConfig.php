@@ -7,11 +7,13 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class AmountDiscrepancyConfig
 {
-    public const IS_ENABLED = 'worldline_order_creator/amount_discrepancy_notifications/sending_amount_discrepancy_emails';
+    public const IS_ENABLED =
+        'worldline_order_creator/amount_discrepancy_notifications/sending_amount_discrepancy_emails';
     public const SENDER = 'worldline_order_creator/amount_discrepancy_notifications/amount_discrepancy_sender';
     public const RECIPIENT = 'worldline_order_creator/amount_discrepancy_notifications/amount_discrepancy_recipient';
     public const EMAIL_COPY_TO = 'worldline_order_creator/amount_discrepancy_notifications/amount_discrepancy_copy_to';
-    public const EMAIL_TEMPLATE = 'worldline_order_creator/amount_discrepancy_notifications/amount_discrepancy_template';
+    public const EMAIL_TEMPLATE =
+        'worldline_order_creator/amount_discrepancy_notifications/amount_discrepancy_template';
 
     /**
      * @var ScopeConfigInterface

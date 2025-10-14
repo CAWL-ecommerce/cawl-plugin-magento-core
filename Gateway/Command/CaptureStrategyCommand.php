@@ -23,6 +23,7 @@ use Cawl\PaymentCore\Model\Payment\Payment;
 
 /**
  * Used for Magento 2.3.7
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class CaptureStrategyCommand implements CommandInterface
 {
@@ -110,7 +111,10 @@ class CaptureStrategyCommand implements CommandInterface
 
         if ($this->isOrderWithDiscrepancy($paymentDO->getOrder())) {
             $wlPayment = $this->discrepancyValidator->getWlPayment($paymentDO->getOrder()->getOrderIncrementId());
-            $commandSubject['amount'] = $this->currencyNormalizer->normalize((float)$wlPayment->getAmount(), $wlPayment->getCurrency());
+            $commandSubject['amount'] = $this->currencyNormalizer->normalize(
+                (float)$wlPayment->getAmount(),
+                $wlPayment->getCurrency()
+            );
         }
 
         if ($orderId = (int)$paymentDO->getOrder()->getId()) {
@@ -183,6 +187,9 @@ class CaptureStrategyCommand implements CommandInterface
      */
     private function isOrderWithDiscrepancy(OrderAdapterInterface $order): bool
     {
-        return $this->discrepancyValidator->compareAmounts((float)$order->getGrandTotalAmount(), $order->getOrderIncrementId());
+        return $this->discrepancyValidator->compareAmounts(
+            (float)$order->getGrandTotalAmount(),
+            $order->getOrderIncrementId()
+        );
     }
 }

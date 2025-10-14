@@ -187,7 +187,8 @@ class Info extends Template
         $isDiscrepancyOrder = $orderTotal !== $paymentAmount;
 
         $discrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
-        if ($isDiscrepancyOrder && $order->getState() !== $discrepancyStatus && !$this->isOrderDiscrepancyAccepted() && !$this->isOrderDiscrepancyRefunded()) {
+        if ($isDiscrepancyOrder && $order->getState() !== $discrepancyStatus &&
+            !$this->isOrderDiscrepancyAccepted() && !$this->isOrderDiscrepancyRefunded()) {
             $order->setState($discrepancyStatus)->setStatus($discrepancyStatus);
         }
 

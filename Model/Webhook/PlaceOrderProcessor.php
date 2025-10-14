@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Model\Webhook;
 
+use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 use Cawl\PaymentCore\Model\AmountDiscrepancy\AmountDiscrepancyNotification;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Event\ManagerInterface as EventManager;
@@ -18,9 +19,14 @@ use Cawl\PaymentCore\Api\Webhook\ProcessorInterface;
 use Cawl\PaymentCore\Model\Order\FailedOrderCreationNotification;
 use Cawl\PaymentCore\Api\Webhook\PlaceOrderManagerInterface;
 use Cawl\PaymentCore\Api\Data\PaymentProductsDetailsInterface;
+use Magento\Framework\App\ResourceConnection;
+use Magento\Sales\Api\OrderRepositoryInterface;
 
 /**
  * Identify if a webhook can trigger the order placement process, place an order and save payment information
+ *
+ * @SuppressWarnings(PHPMD.TooManyArguments)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class PlaceOrderProcessor implements ProcessorInterface
 {
@@ -74,11 +80,25 @@ class PlaceOrderProcessor implements ProcessorInterface
      */
     private $discrepancyValidator;
 
-
     /**
      * @var AmountDiscrepancyNotification
      */
     private $amountDiscrepancyNotification;
+
+    /**
+     * @var GeneralSettingsConfigInterface
+     */
+    private $generalSettings;
+
+    /**
+     * @var ResourceConnection
+     */
+    private $resourceConnection;
+
+    /**
+     * @var OrderRepositoryInterface
+     */
+    private $orderRepository;
 
     public function __construct(
         LoggerInterface $logger,
@@ -91,7 +111,10 @@ class PlaceOrderProcessor implements ProcessorInterface
         EventManager $eventManager,
         SessionDataManagerInterface $sessionDataManager,
         DiscrepancyValidator $discrepancyValidator,
-        AmountDiscrepancyNotification $amountDiscrepancyNotification
+        AmountDiscrepancyNotification $amountDiscrepancyNotification,
+        GeneralSettingsConfigInterface $generalSettings,
+        ResourceConnection $resourceConnection,
+        OrderRepositoryInterface $orderRepository
     ) {
         $this->logger = $logger;
         $this->quoteManagement = $quoteManagement;
@@ -104,6 +127,9 @@ class PlaceOrderProcessor implements ProcessorInterface
         $this->sessionDataManager = $sessionDataManager;
         $this->discrepancyValidator = $discrepancyValidator;
         $this->amountDiscrepancyNotification = $amountDiscrepancyNotification;
+        $this->generalSettings = $generalSettings;
+        $this->resourceConnection = $resourceConnection;
+        $this->orderRepository = $orderRepository;
     }
 
     public function process(WebhooksEvent $webhookEvent): void
@@ -111,6 +137,7 @@ class PlaceOrderProcessor implements ProcessorInterface
         if (!$this->shouldHandleEvent($webhookEvent)) {
             return;
         }
+
         $quote = $this->placeOrderManager->getValidatedQuote($webhookEvent);
         if (!$quote) {
             return;
@@ -118,46 +145,93 @@ class PlaceOrderProcessor implements ProcessorInterface
 
         $incrementId = (string)$quote->getReservedOrderId();
         $order = $this->orderFactory->create()->loadByIncrementId($incrementId);
+
         $this->paymentDataManager->savePaymentData($webhookEvent->getPayment());
 
         if ($order->getId() || !$webhookEvent->getPayment()) {
             return;
         }
 
-        if ($surchargeSO = $webhookEvent->getPayment()->getPaymentOutput()->getSurchargeSpecificOutput()) {
-            $this->surchargingQuoteManager->formatAndSaveSurchargingQuote($quote, $surchargeSO);
-        }
-
-        $quote->setTotalsCollectedFlag(false);
-        $quote->collectTotals();
+        $this->handleSurcharge($quote, $webhookEvent);
+        $this->recalculateQuoteTotals($quote);
 
         try {
             if ($this->sessionDataManager->hasOrderCreationFlag($incrementId)) {
                 return;
             }
+
             $this->sessionDataManager->setOrderCreationFlag($incrementId);
-
             $order = $this->quoteManagement->submit($quote);
-            $wlPayment = $this->discrepancyValidator->getWlPayment($order->getIncrementId());
-            if ($wlPayment && $this->isOrderWithDiscrepancy($order)) {
-                $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
-            }
 
-            if (!$order) {
-                return;
-            }
-
-            $this->eventManager->dispatch('checkout_submit_all_after', ['order' => $order, 'quote' => $quote]);
-            $this->sessionDataManager->setOrderCreationFlag(null);
+            $this->handleDiscrepancy($order);
+            $this->finalizeOrderCreation($order, $quote);
         } catch (\Exception $e) {
-            $this->logger->error($e->getMessage(), ['reserved_order_id' => $incrementId]);
-            $this->sessionDataManager->setOrderCreationFlag(null);
-            $this->failedOrderCreationNotification->notify(
-                $quote->getReservedOrderId(),
-                $e->getMessage(),
-                FailedOrderCreationNotification::WEBHOOK_SPACE
-            );
+            $this->handleOrderCreationFailure($e, $quote, $incrementId);
         }
+    }
+
+    private function handleSurcharge($quote, WebhooksEvent $webhookEvent): void
+    {
+        $payment = $webhookEvent->getPayment();
+        if (!$payment) {
+            return;
+        }
+
+        $surchargeSO = $payment->getPaymentOutput()->getSurchargeSpecificOutput();
+        if ($surchargeSO) {
+            $this->surchargingQuoteManager->formatAndSaveSurchargingQuote($quote, $surchargeSO);
+        }
+    }
+
+    private function recalculateQuoteTotals($quote): void
+    {
+        $quote->setTotalsCollectedFlag(false);
+        $quote->collectTotals();
+    }
+
+    private function handleDiscrepancy($order): void
+    {
+        if (!$order) {
+            return;
+        }
+
+        $wlPayment = $this->discrepancyValidator->getWlPayment($order->getIncrementId());
+        if (!$wlPayment || !$this->isOrderWithDiscrepancy($order)) {
+            return;
+        }
+
+        $status = $this->generalSettings->getOrderDiscrepancyStatus();
+
+        $order->setState($status)->setStatus($status);
+        $this->orderRepository->save($order);
+
+        $this->updateOrderGridStatus((int)$order->getId(), $status);
+        $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
+    }
+
+    private function finalizeOrderCreation($order, $quote): void
+    {
+        if (!$order) {
+            return;
+        }
+
+        $this->eventManager->dispatch('checkout_submit_all_after', [
+            'order' => $order,
+            'quote' => $quote,
+        ]);
+
+        $this->sessionDataManager->setOrderCreationFlag(null);
+    }
+
+    private function handleOrderCreationFailure(\Exception $e, $quote, string $incrementId): void
+    {
+        $this->logger->error($e->getMessage(), ['reserved_order_id' => $incrementId]);
+        $this->sessionDataManager->setOrderCreationFlag(null);
+        $this->failedOrderCreationNotification->notify(
+            $quote->getReservedOrderId(),
+            $e->getMessage(),
+            FailedOrderCreationNotification::WEBHOOK_SPACE
+        );
     }
 
     /**
@@ -258,5 +332,30 @@ class PlaceOrderProcessor implements ProcessorInterface
     private function isOrderWithDiscrepancy(OrderInterface $order): bool
     {
         return $this->discrepancyValidator->compareAmounts((float)$order->getGrandTotal(), $order->getIncrementId());
+    }
+
+    /**
+     * @param int $orderId
+     * @param string $status
+     *
+     * @return void
+     */
+    private function updateOrderGridStatus(int $orderId, string $status): void
+    {
+        try {
+            $connection = $this->resourceConnection->getConnection();
+            $tableName = $this->resourceConnection->getTableName('sales_order_grid');
+
+            $connection->update(
+                $tableName,
+                ['status' => $status],
+                ['entity_id = ?' => $orderId]
+            );
+        } catch (\Exception $e) {
+            $this->logger->error('Failed to update sales_order_grid status', [
+                'entity_id' => $orderId,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }

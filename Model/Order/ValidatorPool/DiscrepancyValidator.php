@@ -28,8 +28,7 @@ class DiscrepancyValidator
         CurrencyAmountNormalizer $normalizer,
         PaymentRepositoryInterface $wlPaymentRepository,
         TransactionRepositoryInterface $transactionRepository
-    )
-    {
+    ) {
         $this->normalizer = $normalizer;
         $this->wlPaymentRepository = $wlPaymentRepository;
         $this->transactionRepository = $transactionRepository;
@@ -44,7 +43,7 @@ class DiscrepancyValidator
     public function compareAmounts(float $orderTotal, string $incrementId): bool
     {
         $wlPayment = $this->getWlPayment($incrementId);
-        if (!$wlPayment->getAmount() ||!$wlPayment->getCurrency()) {
+        if (!$wlPayment->getAmount() || !$wlPayment->getCurrency()) {
             return false;
         }
         $paidAmount = $this->normalizer->normalize((float)$wlPayment->getAmount(), $wlPayment->getCurrency());
