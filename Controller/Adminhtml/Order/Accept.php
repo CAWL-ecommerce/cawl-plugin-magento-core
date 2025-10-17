@@ -3,7 +3,7 @@
 namespace Cawl\PaymentCore\Controller\Adminhtml\Order;
 
 use Psr\Log\LoggerInterface;
-use Worldline\PaymentCore\Model\Order\CurrencyAmountNormalizer;
+use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Transaction\TransactionStatusInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\Result\JsonFactory;
