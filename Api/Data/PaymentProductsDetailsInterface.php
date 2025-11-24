@@ -36,6 +36,7 @@ interface PaymentProductsDetailsInterface
     public const CPAY_PRODUCT_ID = 5100;
     public const ONEY_3X_4X_PRODUCT_ID = 5110;
     public const ONEY_FINANCEMENT_LONG_PRODUCT_ID = 5125;
+    public const PLEDG_PRODUCT_ID = 5300;
     public const MEALVOUCHERS_PRODUCT_ID = 5402;
     public const CHEQUE_VACANCES_CONNECT_PRODUCT_ID = 5403;
     public const WECHAT_PAY_PRODUCT_ID = 5404;
@@ -172,6 +173,10 @@ interface PaymentProductsDetailsInterface
         self::ONEY_FINANCEMENT_LONG_PRODUCT_ID => [
             'group' => self::PAYMENT_GROUP_INSTALMENT,
             'label' => 'Oney Financement Long'
+        ],
+        self::PLEDG_PRODUCT_ID => [
+            'group' => self::PAYMENT_GROUP_INSTALMENT,
+            'label' => 'Pledg'
         ],
         self::MEALVOUCHERS_PRODUCT_ID => [
             'group' => self::PAYMENT_GROUP_PREPAID,
