@@ -1,6 +1,6 @@
 <?php
 /** @var Cawl\PaymentCore\Block\Info $block */
-$specificInfo = $block->getSpecificInformation();
+$specificInfo = $block->getTransactionInfo();
 $cardNumbers = $block->getPaymentInformation()->getCardLastNumbers();
 $orderDiscrepancy = $block->getOrderDiscrepancy();
 $discrepanyAccepted = $block->isOrderDiscrepancyAccepted();
