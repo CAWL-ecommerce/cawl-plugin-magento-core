@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.19
+- Manage exemptions for french markets
+
 #### 1.1.18
 - Add new payment method: Pledg
 
