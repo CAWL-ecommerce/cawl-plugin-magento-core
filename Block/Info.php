@@ -26,6 +26,7 @@ use Cawl\PaymentCore\Model\Transaction\PaymentInfoBuilder;
 use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
 
 /**
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Info extends Template

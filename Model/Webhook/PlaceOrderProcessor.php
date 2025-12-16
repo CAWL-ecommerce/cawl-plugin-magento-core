@@ -25,7 +25,7 @@ use Magento\Sales\Api\OrderRepositoryInterface;
 /**
  * Identify if a webhook can trigger the order placement process, place an order and save payment information
  *
- * @SuppressWarnings(PHPMD.TooManyArguments)
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class PlaceOrderProcessor implements ProcessorInterface
