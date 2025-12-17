@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Worldline\PaymentCore\Setup\Patch\Data;
+namespace Cawl\PaymentCore\Setup\Patch\Data;
 
 use Magento\Framework\App\Config\Storage\WriterInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
-use Worldline\PaymentCore\Model\Config\WorldlineConfig;
-use Worldline\PaymentCore\Model\WebhookConfig;
+use Cawl\PaymentCore\Model\Config\WorldlineConfig;
+use Cawl\PaymentCore\Model\WebhookConfig;
 
 class SetDefaultWebhookMode implements DataPatchInterface
 {
