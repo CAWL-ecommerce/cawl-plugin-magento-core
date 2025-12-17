@@ -73,6 +73,10 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+#### 1.1.20
+- Add configuration for automatic registration of webhook URLs
+- Fix compatibility issue for info block
+
 #### 1.1.19
 - Manage exemptions for french markets
 

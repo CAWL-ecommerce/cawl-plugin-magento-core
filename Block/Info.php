@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Block;
 
+use Magento\Payment\Block\Info as MagentoInfo;
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
 use Magento\Framework\Registry;
-use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Payment\Model\MethodInterface;
 use OnlinePayments\Sdk\Domain\DataObject;
@@ -26,9 +26,10 @@ use Cawl\PaymentCore\Model\Transaction\PaymentInfoBuilder;
 use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
 
 /**
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class Info extends Template
+class Info extends MagentoInfo
 {
     public const MAX_HEIGHT = '25px';
 
@@ -134,7 +135,7 @@ class Info extends Template
         $this->currencyAmountNormalizer = $currencyAmountNormalizer;
     }
 
-    public function getSpecificInformation(): array
+    public function getTransactionInfo(): array
     {
         $specificInformation = [];
         $splitPaymentInfo = $this->getSplitPaymentInformation();
@@ -236,7 +237,7 @@ class Info extends Template
     {
         $order = $this->registry->registry('current_order');
 
-        return $order->getId();
+        return $order ? $order->getId() : '';
     }
 
     public function getPaymentTitle(array $paymentInformation = []): string
@@ -311,16 +312,7 @@ class Info extends Template
         $storeId = (int)$this->getInfo()->getOrder()->getStoreId();
 
         try {
-            if (null === $this->paymentDetails) {
-                $this->paymentDetails = $this->clientProvider->getClient($storeId)
-                    ->merchant($this->worldlineConfig->getMerchantId($storeId))
-                    ->payments()
-                    ->getPaymentDetails(
-                        $this->paymentInfoBuilder->getPaymentByOrderId(
-                            $this->getInfo()->getOrder()
-                        )
-                    );
-            }
+            $this->getPaymentDetails($storeId);
             $this->splitPayment = ['payment' => null];
 
             foreach ($this->paymentDetails->getOperations() as $paymentDetail) {
@@ -360,6 +352,22 @@ class Info extends Template
         }
 
         return null;
+    }
+
+    private function getPaymentDetails(int $storeId): void
+    {
+        if (null !== $this->paymentDetails) {
+            return;
+        }
+
+        $this->paymentDetails = $this->clientProvider->getClient($storeId)
+            ->merchant($this->worldlineConfig->getMerchantId($storeId))
+            ->payments()
+            ->getPaymentDetails(
+                $this->paymentInfoBuilder->getPaymentByOrderId(
+                    $this->getInfo()->getOrder()
+                )
+            );
     }
 
     public function getMethod(): MethodInterface
