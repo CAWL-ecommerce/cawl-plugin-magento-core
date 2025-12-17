@@ -312,16 +312,7 @@ class Info extends Template
         $storeId = (int)$this->getInfo()->getOrder()->getStoreId();
 
         try {
-            if (null === $this->paymentDetails) {
-                $this->paymentDetails = $this->clientProvider->getClient($storeId)
-                    ->merchant($this->worldlineConfig->getMerchantId($storeId))
-                    ->payments()
-                    ->getPaymentDetails(
-                        $this->paymentInfoBuilder->getPaymentByOrderId(
-                            $this->getInfo()->getOrder()
-                        )
-                    );
-            }
+            $this->getPaymentDetails($storeId);
             $this->splitPayment = ['payment' => null];
 
             foreach ($this->paymentDetails->getOperations() as $paymentDetail) {
@@ -361,6 +352,22 @@ class Info extends Template
         }
 
         return null;
+    }
+
+    private function getPaymentDetails(int $storeId): void
+    {
+        if (null !== $this->paymentDetails) {
+            return;
+        }
+
+        $this->paymentDetails = $this->clientProvider->getClient($storeId)
+            ->merchant($this->worldlineConfig->getMerchantId($storeId))
+            ->payments()
+            ->getPaymentDetails(
+                $this->paymentInfoBuilder->getPaymentByOrderId(
+                    $this->getInfo()->getOrder()
+                )
+            );
     }
 
     public function getMethod(): MethodInterface

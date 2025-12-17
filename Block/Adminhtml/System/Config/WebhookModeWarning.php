@@ -18,7 +18,7 @@ class WebhookModeWarning extends Field
         $message .= '<br>';
         $message .= '<strong>' . __('Manual:') . '</strong> ';
         $message .= __('You are fully responsible for adding your store webhook URL in the merchant portal.');
-        $message .= '<strong>' . __('Failure to do so could result in missing or incomplete orders!') . '</strong>';
+        $message .= ' <strong>' . __('Failure to do so could result in missing or incomplete orders!') . '</strong>';
 
         return <<<HTML
 <tr id="$elementId">
