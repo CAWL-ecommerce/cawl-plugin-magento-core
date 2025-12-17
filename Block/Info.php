@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace Cawl\PaymentCore\Block;
 
+use Magento\Payment\Block\Info as MagentoInfo;
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
 use Magento\Framework\Registry;
-use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Payment\Model\MethodInterface;
 use OnlinePayments\Sdk\Domain\DataObject;
@@ -29,7 +29,7 @@ use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
  * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class Info extends Template
+class Info extends MagentoInfo
 {
     public const MAX_HEIGHT = '25px';
 
@@ -135,7 +135,7 @@ class Info extends Template
         $this->currencyAmountNormalizer = $currencyAmountNormalizer;
     }
 
-    public function getSpecificInformation(): array
+    public function getTransactionInfo(): array
     {
         $specificInformation = [];
         $splitPaymentInfo = $this->getSplitPaymentInformation();
@@ -237,7 +237,7 @@ class Info extends Template
     {
         $order = $this->registry->registry('current_order');
 
-        return $order->getId();
+        return $order ? $order->getId() : '';
     }
 
     public function getPaymentTitle(array $paymentInformation = []): string
