@@ -83,6 +83,7 @@
     <preference type="Cawl\PaymentCore\Service\CreateRequest\Order\ShippingAddressDataBuilder" for="Cawl\PaymentCore\Api\Service\CreateRequest\Order\ShippingAddressDataBuilderInterface" />
     <preference type="Cawl\PaymentCore\Service\CreateRequest\Order\SurchargeDataBuilder" for="Cawl\PaymentCore\Api\Service\CreateRequest\Order\SurchargeDataBuilderInterface" />
     <preference type="Cawl\PaymentCore\Service\CreateRequest\ThreeDSecureDataBuilder" for="Cawl\PaymentCore\Api\Service\CreateRequest\ThreeDSecureDataBuilderInterface" />
+    <preference type="Cawl\PaymentCore\Service\CreateRequest\ThreeDSecureQtyCalculator" for="Cawl\PaymentCore\Api\Service\CreateRequest\ThreeDSecureQtyCalculatorInterface" />
     <preference type="Cawl\PaymentCore\Service\CreateRequest\FeedbacksDataBuilder" for="Cawl\PaymentCore\Api\Service\CreateRequest\FeedbacksDataBuilderInterface" />
 
     <preference type="Cawl\PaymentCore\Infrastructure\ServiceStubSwitcher" for="Cawl\PaymentCore\Api\Test\Infrastructure\ServiceStubSwitcherInterface" />
