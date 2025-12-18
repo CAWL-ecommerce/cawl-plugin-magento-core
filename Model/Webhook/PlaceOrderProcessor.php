@@ -191,6 +191,7 @@ class PlaceOrderProcessor implements ProcessorInterface
 
     private function handleDiscrepancy($order): void
     {
+        sleep(1);
         if (!$order) {
             return;
         }

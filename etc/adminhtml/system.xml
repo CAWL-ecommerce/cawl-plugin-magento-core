@@ -265,7 +265,7 @@
             <group id="amount_discrepancy_notifications" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>Order Amount Discrepancy Notifications</label>
                 <depends>
-                    <field id="enable_amount_discrepancy">1</field>
+                    <field id="worldline_order_creator/amount_discrepancy/enable_amount_discrepancy">1</field>
                 </depends>
 
                 <!-- Enable -->
