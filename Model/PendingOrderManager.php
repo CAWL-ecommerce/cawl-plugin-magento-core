@@ -5,7 +5,9 @@ namespace Cawl\PaymentCore\Model;
 
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 use Cawl\PaymentCore\Model\AmountDiscrepancy\AmountDiscrepancyNotification;
+use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
+use Cawl\PaymentCore\Model\OrderState\OrderStateHelper;
 use Exception;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Quote\Model\QuoteManagement;
@@ -101,6 +103,16 @@ class PendingOrderManager implements PendingOrderManagerInterface
      */
     private $amountDiscrepancyNotification;
 
+    /**
+     * @var OrderStateHelper
+     */
+    private $statusHelper;
+
+    /**
+     * @var CurrencyAmountNormalizer
+     */
+    private $normalizer;
+
     public function __construct(
         SessionDataManagerInterface $sessionDataManager,
         OrderFactory $orderFactory,
@@ -115,7 +127,9 @@ class PendingOrderManager implements PendingOrderManagerInterface
         LoggerInterface $logger,
         GeneralSettingsConfigInterface $generalSettings,
         DiscrepancyValidator $discrepancyValidator,
-        AmountDiscrepancyNotification $amountDiscrepancyNotification
+        AmountDiscrepancyNotification $amountDiscrepancyNotification,
+        OrderStateHelper $statusHelper,
+        CurrencyAmountNormalizer $normalizer
     ) {
         $this->sessionDataManager = $sessionDataManager;
         $this->orderFactory = $orderFactory;
@@ -131,6 +145,8 @@ class PendingOrderManager implements PendingOrderManagerInterface
         $this->generalSettings = $generalSettings;
         $this->discrepancyValidator = $discrepancyValidator;
         $this->amountDiscrepancyNotification = $amountDiscrepancyNotification;
+        $this->statusHelper = $statusHelper;
+        $this->normalizer = $normalizer;
     }
 
     public function processPendingOrder(string $incrementId): bool
@@ -181,12 +197,24 @@ class PendingOrderManager implements PendingOrderManagerInterface
                 $order = $this->quoteManagement->submit($quote);
                 if ($order && $this->isOrderWithDiscrepancy($order)) {
                     $orderDiscrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
+                    $orderDiscrepancyState = $this->statusHelper->getStateByStatus($orderDiscrepancyStatus);
+                    $order->setState($orderDiscrepancyState)->setStatus($orderDiscrepancyStatus);
 
-                    $order->setState($orderDiscrepancyStatus)->setStatus($orderDiscrepancyStatus);
+                    //add message
+                    $wlPayment = $this->discrepancyValidator->getWlPayment($incrementId);
+                    $orderTotals = (float)$order->getGrandTotal();
+                    $wlPaid = $this->normalizer->normalize((float)$wlPayment->getAmount(), $wlPayment->getCurrency());
+                    $difference = $orderTotals - $wlPaid;
+                    $currency = $order->getOrderCurrency()->getCurrencySymbol();
+                    $order->addCommentToStatusHistory(
+                        __("Warning: Order created with an amount discrepancy, order requires manual review.
+                        Order Total: $orderTotals $currency,
+                        Amount Paid: $wlPaid $currency,
+                        Difference: $difference $currency"),
+                    )->setIsCustomerNotified(false);
                     $order->save();
 
                     // send discrepancy email
-                    $wlPayment = $this->discrepancyValidator->getWlPayment($incrementId);
                     $this->amountDiscrepancyNotification->notify($order, $wlPayment->getAmount());
                 }
                 if (!$order) {
