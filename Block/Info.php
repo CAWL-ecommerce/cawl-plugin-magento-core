@@ -7,6 +7,7 @@ use Magento\Payment\Block\Info as MagentoInfo;
 use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 use Cawl\PaymentCore\Model\Order\CurrencyAmountNormalizer;
 use Cawl\PaymentCore\Model\Order\ValidatorPool\DiscrepancyValidator;
+use Cawl\PaymentCore\Model\OrderState\OrderStateHelper;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
 use Magento\Framework\Registry;
@@ -108,6 +109,11 @@ class Info extends MagentoInfo
      */
     private $currencyAmountNormalizer;
 
+    /**
+     * @var OrderStateHelper
+     */
+    private $orderStateHelper;
+
     public function __construct(
         Context $context,
         PaymentIconsProviderInterface $paymentIconProvider,
@@ -120,6 +126,7 @@ class Info extends MagentoInfo
         GeneralSettingsConfigInterface $generalSettings,
         DiscrepancyValidator $discrepancyValidator,
         CurrencyAmountNormalizer $currencyAmountNormalizer,
+        OrderStateHelper $orderStateHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -133,6 +140,7 @@ class Info extends MagentoInfo
         $this->generalSettings = $generalSettings;
         $this->discrepancyValidator = $discrepancyValidator;
         $this->currencyAmountNormalizer = $currencyAmountNormalizer;
+        $this->orderStateHelper = $orderStateHelper;
     }
 
     public function getTransactionInfo(): array
@@ -184,13 +192,15 @@ class Info extends MagentoInfo
         $currency = $wlPayment->getCurrency();
         $paymentAmount = (float)$this->currencyAmountNormalizer->normalize((float) $wlPayment->getAmount(), $currency);
         $statusCode = $paymentInfo->getStatusCode();
-        $orderTotal = (float)$order->getGrandTotal();
+        $orderTotal = round((float)$order->getGrandTotal(), 2);
         $isDiscrepancyOrder = $orderTotal !== $paymentAmount;
 
         $discrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
-        if ($isDiscrepancyOrder && $order->getState() !== $discrepancyStatus &&
+        $discrepancyState = $this->orderStateHelper->getStateByStatus($discrepancyStatus);
+
+        if ($isDiscrepancyOrder && $order->getState() !== $discrepancyState &&
             !$this->isOrderDiscrepancyAccepted() && !$this->isOrderDiscrepancyRefunded()) {
-            $order->setState($discrepancyStatus)->setStatus($discrepancyStatus);
+            $order->setState($discrepancyState)->setStatus($discrepancyStatus);
         }
 
         return [
