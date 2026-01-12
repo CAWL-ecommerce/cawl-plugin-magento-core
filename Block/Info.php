@@ -29,6 +29,7 @@ use Cawl\PaymentCore\Api\Ui\PaymentIconsProviderInterface;
 /**
  * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class Info extends MagentoInfo
 {
