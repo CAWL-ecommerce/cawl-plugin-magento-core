@@ -26,10 +26,12 @@ use Magento\Sales\Api\Data\OrderInterface;
 
 /**
  * Validate payment information and create an order
+ *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  * @SuppressWarnings(PHPMD.NPathComplexity)
+ * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class PendingOrderManager implements PendingOrderManagerInterface
 {
