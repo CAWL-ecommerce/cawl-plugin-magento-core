@@ -5,7 +5,10 @@ use Magento\Framework\App\ResourceConnection;
 
 class OrderStateHelper
 {
-    private ResourceConnection $resource;
+    /**
+     * @var ResourceConnection
+     */
+    private $resource;
 
     public function __construct(ResourceConnection $resource)
     {
