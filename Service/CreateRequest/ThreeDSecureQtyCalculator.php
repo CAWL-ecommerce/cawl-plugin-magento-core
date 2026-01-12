@@ -30,7 +30,7 @@ class ThreeDSecureQtyCalculator implements ThreeDSecureQtyCalculatorInterface
             if ($qty == (int)$qty) {
                 $numberOfItems += (int)$qty;
             } else {
-                $numberOfItems += 1;
+                ++$numberOfItems;
             }
         }
 

@@ -191,7 +191,9 @@ class PlaceOrderProcessor implements ProcessorInterface
 
     private function handleDiscrepancy($order): void
     {
+        // phpcs:ignore Magento2.Functions.DiscouragedFunction.Discouraged
         sleep(1);
+
         if (!$order) {
             return;
         }
