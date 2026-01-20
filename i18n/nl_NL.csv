@@ -290,3 +290,5 @@ Result,Resultaat
 "You can add up to 4 additional webhook URLs.","U kunt tot 4 extra webhook-URL's toevoegen"
 "Specify up to four additional URLs to receive a copy of every webhook event. This is an advanced feature for synchronizing payment data across multiple platforms (e.g., accounting software, fulfillment services). Each URL must be a valid and accessible HTTPS URL capable of receiving POST requests.","Geef tot vier extra URL's op om een kopie van elk webhook-evenement te ontvangen. Dit is een geavanceerde functie voor het synchroniseren van betalingsgegevens over meerdere platforms (bv. boekhoudsoftware, fulfillmentdiensten).<br/>Elke URL moet een geldige en toegankelijke HTTPS-URL zijn die POST-verzoeken kan ontvangen."
 "Optional","Optioneel"
+"Unsupported or missing country code for %1.","Niet-ondersteunde of ontbrekende landcode voor %1."
+"Invalid phone number for %1. Expected %2-%3 characters.","Ongeldig telefoonnummer voor %1. Verwachte tekens: %2-%3."

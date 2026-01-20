@@ -277,3 +277,5 @@ Yes,Yes
 "You can add up to 4 additional webhook URLs.","You can add up to 4 additional webhook URLs"
 "Specify up to four additional URLs to receive a copy of every webhook event. This is an advanced feature for synchronizing payment data across multiple platforms (e.g., accounting software, fulfillment services). Each URL must be a valid and accessible HTTPS URL capable of receiving POST requests.","Specify up to four additional URLs to receive a copy of every webhook event. This is an advanced feature for synchronizing payment data across multiple platforms (e.g., accounting software, fulfillment services).<br/>Each URL must be a valid and accessible HTTPS URL capable of receiving POST requests."
 "Optional","Optional"
+"Unsupported or missing country code for %1.","Unsupported or missing country code for %1."
+"Invalid phone number for %1. Expected %2-%3 characters.","Invalid phone number for %1. Expected %2-%3 ABC characters."
