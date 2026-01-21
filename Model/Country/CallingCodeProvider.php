@@ -6,7 +6,7 @@ use Magento\Framework\Exception\LocalizedException;
 
 class CallingCodeProvider
 {
-    private const MIN_LENGTH = 5;
+    private const MIN_LENGTH = 6;
     private const MAX_LENGTH = 15;
     /**
      * @var array|null
@@ -43,17 +43,20 @@ class CallingCodeProvider
             throw new LocalizedException(__('Unsupported or missing country code for %1.', $countryCode));
         }
 
-        $digits = preg_replace('/\D+/', '', $phoneNumber);
+        $trimmed = trim($phoneNumber);
+        $digits = preg_replace('/\D+/', '', $trimmed);
 
-        if (strpos($digits, $callingCode) === 0) {
-            return '+' . $digits;
+        if (strpos($trimmed, '+') === 0) {
+            $formattedNumber = '+' . $digits;
+        }
+        elseif (strpos($digits, '00') === 0) {
+            $formattedNumber = '+' . substr($digits, 2);
+        }
+        else {
+            $formattedNumber = '+' . $callingCode . ltrim($digits, '0');
         }
 
-        $digits = ltrim($digits, '0');
-
-        $isValid = $this->isValidPhoneNumberE164($digits);
-
-        if ($isValid === false) {
+        if (!$this->isValidPhoneNumberE164($formattedNumber)) {
             throw new LocalizedException(
                 __(
                     'Invalid phone number for %1. Expected %2-%3 characters.',
@@ -64,7 +67,7 @@ class CallingCodeProvider
             );
         }
 
-        return '+' . $callingCode . $digits;
+        return $formattedNumber;
     }
 
     /**
@@ -76,7 +79,8 @@ class CallingCodeProvider
      */
     public function isValidPhoneNumberE164(string $phoneNumber): bool
     {
-        $numericOnly = preg_replace('/[^0-9]/', '', $phoneNumber);
+        $numericOnly = ltrim($phoneNumber, '+');
+        $numericOnly = preg_replace('/[^0-9]/', '', $numericOnly);
         $length = strlen($numericOnly);
 
         return $length >= self::MIN_LENGTH && $length <= self::MAX_LENGTH;
