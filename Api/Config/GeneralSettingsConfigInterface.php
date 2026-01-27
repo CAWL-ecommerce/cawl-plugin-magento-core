@@ -13,9 +13,11 @@ interface GeneralSettingsConfigInterface
 
     public function getAuthExemptionType(?int $scopeCode = null): ?string;
 
-    public function getAuthLowValueAmount(?int $scopeCode = null): ?string;
-
     public function saveAuthExemptionType(string $type): void;
+
+    public function getAuthNoChallengeAmount(?int $scopeCode = null): ?string;
+
+    public function getAuthLowValueAmount(?int $scopeCode = null): ?string;
 
     public function saveAuthLowValueAmount(string $amount): void;
 

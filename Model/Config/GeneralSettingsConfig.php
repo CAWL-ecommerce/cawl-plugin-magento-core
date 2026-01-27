@@ -18,6 +18,7 @@ class GeneralSettingsConfig implements GeneralSettingsConfigInterface
     public const ENFORCE_AUTH = 'worldline_payment/general_settings/enforce_authentication';
     public const AUTH_EXEMPTION = 'worldline_payment/general_settings/authentication_exemption';
     public const AUTH_EXEMPTION_TYPE = 'worldline_payment/general_settings/authentication_exemption_type';
+    public const AUTH_NO_CHALLENGE_AMOUNT = 'worldline_payment/general_settings/authentication_exemption_limit_no_challenge';
     public const AUTH_LOW_VALUE_AMOUNT = 'worldline_payment/general_settings/authentication_exemption_limit_30';
     public const AUTH_TRANSACTION_RISK_ANALYSIS_AMOUNT =
         'worldline_payment/general_settings/authentication_exemption_limit_100';
@@ -78,14 +79,19 @@ class GeneralSettingsConfig implements GeneralSettingsConfigInterface
         return $this->scopeConfig->getValue(self::AUTH_EXEMPTION_TYPE, ScopeInterface::SCOPE_STORE, $scopeCode);
     }
 
-    public function getAuthLowValueAmount(?int $scopeCode = null): ?string
-    {
-        return $this->scopeConfig->getValue(self::AUTH_LOW_VALUE_AMOUNT, ScopeInterface::SCOPE_STORE, $scopeCode);
-    }
-
     public function saveAuthExemptionType(string $type): void
     {
         $this->configWriter->save(self::AUTH_EXEMPTION_TYPE, $type, ScopeInterface::SCOPE_STORE);
+    }
+
+    public function getAuthNoChallengeAmount(?int $scopeCode = null): ?string
+    {
+        return $this->scopeConfig->getValue(self::AUTH_NO_CHALLENGE_AMOUNT, ScopeInterface::SCOPE_STORE, $scopeCode);
+    }
+
+    public function getAuthLowValueAmount(?int $scopeCode = null): ?string
+    {
+        return $this->scopeConfig->getValue(self::AUTH_LOW_VALUE_AMOUNT, ScopeInterface::SCOPE_STORE, $scopeCode);
     }
 
     public function saveAuthLowValueAmount(string $amount): void

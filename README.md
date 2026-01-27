@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.25
+- Improved exemptions capabilities related to exemption types (added: No challenge request)
+
 ### 1.1.24
 - Remove Mealvouchers logo from checkout page when using "Hosted Checkout (redirect to Worldline)"
 - Version 1.1.23 is skipped to make the Core version equal to the CAWL module version

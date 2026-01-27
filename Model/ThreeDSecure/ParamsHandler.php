@@ -8,6 +8,7 @@ use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 
 class ParamsHandler
 {
+    public const NONE_EXEMPTION_TYPE = 'none';
     public const LOW_VALUE_EXEMPTION_TYPE = 'low-value';
     public const TRANSACTION_RISK_ANALYSIS_EXEMPTION_TYPE = 'transaction-risk-analysis';
     public const ANALYSIS_PERFORMED_CHALLENGE_INDICATOR = 'no-challenge-requested-risk-analysis-performed';
@@ -37,9 +38,19 @@ class ParamsHandler
         if ($isAuthExemptionEnabled) {
             $threeDSExemptedType = $this->generalSettings->getAuthExemptionType($storeId)
                 ?? self::LOW_VALUE_EXEMPTION_TYPE;
-            $threeDSExemptedAmount = $threeDSExemptedType === self::LOW_VALUE_EXEMPTION_TYPE
-                ? $this->generalSettings->getAuthLowValueAmount($storeId)
-                : $this->generalSettings->getAuthTransactionRiskAnalysisAmount($storeId);
+            $threeDSExemptedAmount = 0;
+
+            if ($threeDSExemptedType === self::NONE_EXEMPTION_TYPE) {
+                $threeDSExemptedAmount = $this->generalSettings->getAuthNoChallengeAmount($storeId);
+            }
+
+            if ($threeDSExemptedType === self::LOW_VALUE_EXEMPTION_TYPE) {
+                $threeDSExemptedAmount = $this->generalSettings->getAuthLowValueAmount($storeId);
+            }
+
+            if ($threeDSExemptedType === self::TRANSACTION_RISK_ANALYSIS_EXEMPTION_TYPE) {
+                $threeDSExemptedAmount = $this->generalSettings->getAuthTransactionRiskAnalysisAmount($storeId);
+            }
 
             if ((float)$threeDSExemptedAmount >= $baseSubtotal) {
                 $threeDSecure->setSkipAuthentication(false);
@@ -50,6 +61,10 @@ class ParamsHandler
                         ? self::ANALYSIS_PERFORMED_CHALLENGE_INDICATOR
                         : self::NO_CHALLENGE_REQUESTED_CHALLENGE_INDICATOR
                 );
+            }
+
+            if ($threeDSExemptedType === self::NONE_EXEMPTION_TYPE) {
+                $threeDSecure->setChallengeIndicator(self::NO_CHALLENGE_REQUESTED_CHALLENGE_INDICATOR);
             }
         }
 
