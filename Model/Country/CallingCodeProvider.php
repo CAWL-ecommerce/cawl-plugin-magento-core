@@ -48,11 +48,9 @@ class CallingCodeProvider
 
         if (strpos($trimmed, '+') === 0) {
             $formattedNumber = '+' . $digits;
-        }
-        elseif (strpos($digits, '00') === 0) {
+        } elseif (strpos($digits, '00') === 0) {
             $formattedNumber = '+' . substr($digits, 2);
-        }
-        else {
+        } else {
             $formattedNumber = '+' . $callingCode . ltrim($digits, '0');
         }
 
