@@ -8,6 +8,7 @@ use Cawl\PaymentCore\Api\Config\GeneralSettingsConfigInterface;
 
 class ParamsHandler
 {
+    public const NONE_EXEMPTION_TYPE = 'none';
     public const LOW_VALUE_EXEMPTION_TYPE = 'low-value';
     public const TRANSACTION_RISK_ANALYSIS_EXEMPTION_TYPE = 'transaction-risk-analysis';
     public const ANALYSIS_PERFORMED_CHALLENGE_INDICATOR = 'no-challenge-requested-risk-analysis-performed';
@@ -26,7 +27,6 @@ class ParamsHandler
     public function handle(ThreeDSecure $threeDSecure, float $baseSubtotal, int $storeId): void
     {
         $isThreeDEnabled = $this->generalSettings->isThreeDEnabled($storeId);
-        $isAuthExemptionEnabled = $this->generalSettings->isAuthExemptionEnabled($storeId);
 
         $threeDSecure->setSkipAuthentication(!$isThreeDEnabled);
 
@@ -34,27 +34,45 @@ class ParamsHandler
             return;
         }
 
-        if ($isAuthExemptionEnabled) {
-            $threeDSExemptedType = $this->generalSettings->getAuthExemptionType($storeId)
-                ?? self::LOW_VALUE_EXEMPTION_TYPE;
-            $threeDSExemptedAmount = $threeDSExemptedType === self::LOW_VALUE_EXEMPTION_TYPE
-                ? $this->generalSettings->getAuthLowValueAmount($storeId)
-                : $this->generalSettings->getAuthTransactionRiskAnalysisAmount($storeId);
+        $isAuthExemptionEnabled = $this->generalSettings->isAuthExemptionEnabled($storeId);
+        $threeDSExemptedType = $this->generalSettings->getAuthExemptionType($storeId)
+            ?? self::LOW_VALUE_EXEMPTION_TYPE;
+        $threeDSExemptedAmount = $this->getExemptedAmount($threeDSExemptedType, $storeId);
 
-            if ((float)$threeDSExemptedAmount >= $baseSubtotal) {
-                $threeDSecure->setSkipAuthentication(false);
-                $threeDSecure->setExemptionRequest($threeDSExemptedType);
-                $threeDSecure->setSkipSoftDecline(false);
-                $threeDSecure->setChallengeIndicator(
-                    $threeDSExemptedType === self::TRANSACTION_RISK_ANALYSIS_EXEMPTION_TYPE
-                        ? self::ANALYSIS_PERFORMED_CHALLENGE_INDICATOR
-                        : self::NO_CHALLENGE_REQUESTED_CHALLENGE_INDICATOR
-                );
-            }
+        if ($isAuthExemptionEnabled && (float)$threeDSExemptedAmount >= $baseSubtotal) {
+            $threeDSecure->setSkipAuthentication(false);
+            $threeDSecure->setExemptionRequest($threeDSExemptedType);
+            $threeDSecure->setSkipSoftDecline(false);
+            $threeDSecure->setChallengeIndicator($this->resolveChallengeIndicator($threeDSExemptedType));
+        }
+
+        if ($isAuthExemptionEnabled && $threeDSExemptedType === self::NONE_EXEMPTION_TYPE) {
+            $threeDSecure->setChallengeIndicator(self::NO_CHALLENGE_REQUESTED_CHALLENGE_INDICATOR);
         }
 
         if ($this->generalSettings->isEnforceAuthEnabled($storeId)) {
             $threeDSecure->setChallengeIndicator('challenge-required');
         }
+    }
+
+    private function getExemptedAmount(string $type, int $storeId): string
+    {
+        switch ($type) {
+            case self::NONE_EXEMPTION_TYPE:
+                return $this->generalSettings->getAuthNoChallengeAmount($storeId);
+            case self::LOW_VALUE_EXEMPTION_TYPE:
+                return $this->generalSettings->getAuthLowValueAmount($storeId);
+            case self::TRANSACTION_RISK_ANALYSIS_EXEMPTION_TYPE:
+                return $this->generalSettings->getAuthTransactionRiskAnalysisAmount($storeId);
+            default:
+                return "0";
+        }
+    }
+
+    private function resolveChallengeIndicator(string $type): string
+    {
+        return $type === self::TRANSACTION_RISK_ANALYSIS_EXEMPTION_TYPE
+            ? self::ANALYSIS_PERFORMED_CHALLENGE_INDICATOR
+            : self::NO_CHALLENGE_REQUESTED_CHALLENGE_INDICATOR;
     }
 }
