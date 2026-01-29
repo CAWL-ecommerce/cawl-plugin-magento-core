@@ -180,7 +180,7 @@
                     </depends>
                 </field>
                 <field id="transaction_risk_analysis_warning" translate="label" type="text" sortOrder="32" showInDefault="1" showInWebsite="1">
-                    <frontend_model>Worldline\PaymentCore\Block\Adminhtml\System\Config\TransactionRiskAnalysisWarning</frontend_model>
+                    <frontend_model>Cawl\PaymentCore\Block\Adminhtml\System\Config\TransactionRiskAnalysisWarning</frontend_model>
                     <depends>
                         <field id="enable_3d">1</field>
                         <field id="enforce_authentication">0</field>
