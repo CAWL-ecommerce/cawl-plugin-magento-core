@@ -179,8 +179,7 @@ class PendingOrderManager implements PendingOrderManagerInterface
             $this->surchargingQuoteManager->formatAndSaveSurchargingQuote($quote, $surchargeSO);
         }
 
-        $quote->setTotalsCollectedFlag(false);
-        $quote->collectTotals();
+        $quote->setTotalsCollectedFlag(false)->collectTotals();
 
         $statusCode = (int)$paymentResponse->getStatusOutput()->getStatusCode();
         if ($statusCode === TransactionStatusInterface::WAITING_AUTHENTICATION) {
