@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.26
+- Changed the initial status for Magento order creation to payment review
+
 ### 1.1.25
 - Improved exemptions capabilities related to 3DS exemption types
 - Added phone number formatter for sending API requests
