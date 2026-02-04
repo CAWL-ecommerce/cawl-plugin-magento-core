@@ -55,12 +55,10 @@
                 <logging_lifetime>14</logging_lifetime>
             </general>
         </worldline_debug>
-
         <worldline_order_creator>
             <amount_discrepancy>
                 <review_status>payment_review</review_status>
             </amount_discrepancy>
         </worldline_order_creator>
-
     </default>
 </config>

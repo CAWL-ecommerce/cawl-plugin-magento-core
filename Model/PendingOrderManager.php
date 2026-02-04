@@ -108,7 +108,7 @@ class PendingOrderManager implements PendingOrderManagerInterface
     /**
      * @var OrderStateHelper
      */
-    private $statusHelper;
+    private $stateHelper;
 
     /**
      * @var CurrencyAmountNormalizer
@@ -130,7 +130,7 @@ class PendingOrderManager implements PendingOrderManagerInterface
         GeneralSettingsConfigInterface $generalSettings,
         DiscrepancyValidator $discrepancyValidator,
         AmountDiscrepancyNotification $amountDiscrepancyNotification,
-        OrderStateHelper $statusHelper,
+        OrderStateHelper $stateHelper,
         CurrencyAmountNormalizer $normalizer
     ) {
         $this->sessionDataManager = $sessionDataManager;
@@ -147,7 +147,7 @@ class PendingOrderManager implements PendingOrderManagerInterface
         $this->generalSettings = $generalSettings;
         $this->discrepancyValidator = $discrepancyValidator;
         $this->amountDiscrepancyNotification = $amountDiscrepancyNotification;
-        $this->statusHelper = $statusHelper;
+        $this->stateHelper = $stateHelper;
         $this->normalizer = $normalizer;
     }
 
@@ -198,7 +198,7 @@ class PendingOrderManager implements PendingOrderManagerInterface
                 $order = $this->quoteManagement->submit($quote);
                 if ($order && $this->isOrderWithDiscrepancy($order)) {
                     $orderDiscrepancyStatus = $this->generalSettings->getOrderDiscrepancyStatus();
-                    $orderDiscrepancyState = $this->statusHelper->getStateByStatus($orderDiscrepancyStatus);
+                    $orderDiscrepancyState = $this->stateHelper->getStateByStatus($orderDiscrepancyStatus);
                     $order->setState($orderDiscrepancyState)->setStatus($orderDiscrepancyStatus);
 
                     //add message
