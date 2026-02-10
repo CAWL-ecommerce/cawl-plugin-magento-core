@@ -207,9 +207,6 @@ class PlaceOrderProcessor implements ProcessorInterface
 
     private function handleDiscrepancy($order): void
     {
-        // phpcs:ignore Magento2.Functions.DiscouragedFunction.Discouraged
-        sleep(1);
-
         if (!$order) {
             return;
         }
@@ -225,7 +222,7 @@ class PlaceOrderProcessor implements ProcessorInterface
 
         $orderTotals = (float)$order->getGrandTotal();
         $wlPaid = $this->normalizer->normalize((float)$wlPayment->getAmount(), $wlPayment->getCurrency());
-        $difference = $orderTotals - $wlPaid;
+        $difference = round($orderTotals - $wlPaid, 2);
         $currency = $order->getOrderCurrency()->getCurrencySymbol();
         $order->addCommentToStatusHistory(
             __("Warning: Order created with an amount discrepancy, order requires manual review.

@@ -205,7 +205,7 @@ class PendingOrderManager implements PendingOrderManagerInterface
                     $wlPayment = $this->discrepancyValidator->getWlPayment($incrementId);
                     $orderTotals = (float)$order->getGrandTotal();
                     $wlPaid = $this->normalizer->normalize((float)$wlPayment->getAmount(), $wlPayment->getCurrency());
-                    $difference = $orderTotals - $wlPaid;
+                    $difference = round($orderTotals - $wlPaid, 2);
                     $currency = $order->getOrderCurrency()->getCurrencySymbol();
                     $order->addCommentToStatusHistory(
                         __("Warning: Order created with an amount discrepancy, order requires manual review.
