@@ -76,6 +76,8 @@ To install these solutions from the GitHub:
 ### 1.1.27
 - Improved order creation process when there is an amount discrepancy 
 
+### 1.1.26
+- Added: new 3-D Secure exemption flow (preferrence for no challenge)
 ### 1.1.25
 - Improved exemptions capabilities related to 3DS exemption types
 - Added phone number formatter for sending API requests
