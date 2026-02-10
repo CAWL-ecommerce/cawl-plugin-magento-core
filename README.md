@@ -77,10 +77,10 @@ To install these solutions from the GitHub:
 - Improved order creation process when there is an amount discrepancy 
 
 ### 1.1.26
-- Added: new 3-D Secure exemption flow (preferrence for no challenge)
+- Added: new 3-D Secure exemption flow (preference for no challenge)
+
 ### 1.1.25
-- Improved exemptions capabilities related to 3DS exemption types
-- Added phone number formatter for sending API requests
+- Added: Phone number formatter used when sending API requests to use the international format.
 
 ### 1.1.24
 - Remove Mealvouchers logo from checkout page when using "Hosted Checkout (redirect to Worldline)"
