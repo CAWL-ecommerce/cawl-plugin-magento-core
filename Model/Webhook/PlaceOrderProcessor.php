@@ -29,6 +29,7 @@ use Cawl\PaymentCore\Model\OrderState\OrderStateHelper;
  *
  * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class PlaceOrderProcessor implements ProcessorInterface
 {
