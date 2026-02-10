@@ -3,18 +3,18 @@
 $specificInfo = $block->getTransactionInfo();
 $cardNumbers = $block->getPaymentInformation()->getCardLastNumbers();
 $orderDiscrepancy = $block->getOrderDiscrepancy();
-$discrepanyAccepted = $block->isOrderDiscrepancyAccepted();
+$discrepancyAccepted = $block->isOrderDiscrepancyAccepted();
 $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
 ?>
 
 <?php if ($specificInfo): ?>
-    <?php if ($orderDiscrepancy['isDiscrepancyOrder']): ?>
-        <?php if (!$discrepanyAccepted && !$discrepancyRefunded): ?>
+    <?php if (!empty($orderDiscrepancy) && $orderDiscrepancy['isDiscrepancyOrder']): ?>
+        <?php if (!$discrepancyAccepted && !$discrepancyRefunded): ?>
             <div class="message message-warning discrepancy-message">
                 <h4><?= $block->escapeHtml(__('Amount discrepancy review required')) ?></h4>
                 <p>
                     <?= $block->escapeHtml(
-                        __('This order was created with discrepancy between the order total and the amount paid. 
+                        __('This order was created with discrepancy between the order total and the amount paid.
                         Please review the details below and choose an action.')
                     ) ?>
                 </p>
@@ -37,8 +37,11 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
 
                 <div class="discrepancy-row">
                     <strong><?= $block->escapeHtml(__('Difference:')) ?></strong>
+                    <?php
+                    $difference = $orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount'];
+                    ?>
                     <span>&nbsp;
-                        <?= $block->escapeHtml($orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount']) ?>
+                        <?= $block->escapeHtml(number_format($difference, 2)) ?>
                         <?= $block->escapeHtml($orderDiscrepancy['currency']) ?>
                     </span>
                 </div>
@@ -52,7 +55,7 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
                     </button>
                 </div>
             </div>
-        <?php elseif ($discrepanyAccepted): ?>
+        <?php elseif ($discrepancyAccepted): ?>
             <div class="message message-info discrepancy-message">
                 <h4><?= $block->escapeHtml(__('Amount Discrepancy Accepted')) ?></h4>
                 <p><?= $block->escapeHtml(__('This order was reviewed and accepted with an amount discrepancy.')) ?></p>
@@ -75,8 +78,11 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
 
                 <div class="discrepancy-row">
                     <strong><?= $block->escapeHtml(__('Difference:')) ?></strong>
+                    <?php
+                    $difference = $orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount'];
+                    ?>
                     <span>&nbsp;
-                        <?= $block->escapeHtml($orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount']) ?>
+                        <?= $block->escapeHtml(number_format($difference, 2)) ?>
                         <?= $block->escapeHtml($orderDiscrepancy['currency']) ?>
                     </span>
                 </div>
@@ -104,8 +110,11 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
 
                 <div class="discrepancy-row">
                     <strong><?= $block->escapeHtml(__('Difference:')) ?></strong>
+                    <?php
+                    $difference = $orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount'];
+                    ?>
                     <span>&nbsp;
-                        <?= $block->escapeHtml($orderDiscrepancy['orderTotal'] - $orderDiscrepancy['paymentAmount']) ?>
+                        <?= $block->escapeHtml(number_format($difference, 2)) ?>
                         <?= $block->escapeHtml($orderDiscrepancy['currency']) ?>
                     </span>
                 </div>
@@ -170,7 +179,7 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
             confirm({
                 title: "<?= $block->escapeJs(__('Confirm Action')) ?>",
                 content: "<?= $block->escapeJs(
-                    __('Are you sure you want to accept this order and proceed with fulfillment? 
+                    __('Are you sure you want to accept this order and proceed with fulfillment?
                         The amount discrepancy will be noted.')
                 ) ?>",
                 actions: {
@@ -181,9 +190,9 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
                             dataType: "json",
                             data: {
                                 order_id: "<?= (int)$block->getCurrentOrderId() ?>",
-                                paid_amount: "<?= $block->escapeHtml($orderDiscrepancy['paymentAmount']) ?>",
-                                status_code: "<?= $block->escapeHtml($orderDiscrepancy['statusCode']) ?>",
-                                transaction_id: "<?= $block->escapeHtml($orderDiscrepancy['transactionId']) ?>",
+                                paid_amount: "<?= $block->escapeHtml($orderDiscrepancy['paymentAmount'] ?? '') ?>",
+                                status_code: "<?= $block->escapeHtml($orderDiscrepancy['statusCode'] ?? '') ?>",
+                                transaction_id: "<?= $block->escapeHtml($orderDiscrepancy['transactionId'] ?? '') ?>",
                             },
                             success: function (response) {
                                 if (response.success) {
@@ -208,7 +217,7 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
             confirm({
                 title: "<?= $block->escapeJs(__('Cancel & Refund Order')) ?>",
                 content: "<?= $block->escapeJs(
-                    __('Are you sure you want to cancel this order? 
+                    __('Are you sure you want to cancel this order?
                         This will issue a full refund to the customer and cannot be undone')
                 ) ?>",
                 actions: {
@@ -219,9 +228,9 @@ $discrepancyRefunded = $block->isOrderDiscrepancyRefunded();
                             dataType: "json",
                             data: {
                                 order_id: "<?= (int)$block->getCurrentOrderId() ?>",
-                                paid_amount: "<?= $block->escapeHtml($orderDiscrepancy['paymentAmount']) ?>",
-                                currency: "<?= $block->escapeHtml($orderDiscrepancy['currencyName']) ?>",
-                                transaction_id: "<?= $block->escapeHtml($orderDiscrepancy['transactionId']) ?>"
+                                paid_amount: "<?= $block->escapeHtml($orderDiscrepancy['paymentAmount'] ?? '') ?>",
+                                currency: "<?= $block->escapeHtml($orderDiscrepancy['currencyName'] ?? '') ?>",
+                                transaction_id: "<?= $block->escapeHtml($orderDiscrepancy['transactionId'] ?? '') ?>"
                             },
                             success: function (response) {
                                 if (response.success) {
