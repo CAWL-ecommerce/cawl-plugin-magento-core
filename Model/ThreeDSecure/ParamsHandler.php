@@ -35,8 +35,7 @@ class ParamsHandler
         }
 
         $isAuthExemptionEnabled = $this->generalSettings->isAuthExemptionEnabled($storeId);
-        $threeDSExemptedType = $this->generalSettings->getAuthExemptionType($storeId)
-            ?? self::LOW_VALUE_EXEMPTION_TYPE;
+        $threeDSExemptedType = $this->generalSettings->getAuthExemptionType($storeId);
         $threeDSExemptedAmount = $this->getExemptedAmount($threeDSExemptedType, $storeId);
 
         if ($isAuthExemptionEnabled && (float)$threeDSExemptedAmount >= $baseSubtotal) {
@@ -51,7 +50,13 @@ class ParamsHandler
         }
     }
 
-    private function getExemptedAmount(string $type, int $storeId): string
+    /**
+     * @param string|null $type
+     * @param int $storeId
+     *
+     * @return string
+     */
+    private function getExemptedAmount(?string $type, int $storeId): string
     {
         switch ($type) {
             case self::NONE_EXEMPTION_TYPE:

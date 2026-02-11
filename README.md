@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.28
+- Fix order creation when 3DS exemption configuration is disabled
+
 ### 1.1.27
 - Improved order creation process when there is an amount discrepancy 
 
