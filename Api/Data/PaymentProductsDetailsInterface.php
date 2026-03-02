@@ -176,7 +176,7 @@ interface PaymentProductsDetailsInterface
         ],
         self::PLEDG_PRODUCT_ID => [
             'group' => self::PAYMENT_GROUP_INSTALMENT,
-            'label' => 'Pledg'
+            'label' => 'Sofinco'
         ],
         self::MEALVOUCHERS_PRODUCT_ID => [
             'group' => self::PAYMENT_GROUP_PREPAID,
