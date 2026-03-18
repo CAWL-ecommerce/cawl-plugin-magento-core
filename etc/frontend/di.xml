@@ -8,4 +8,8 @@
             </argument>
         </arguments>
     </type>
+    <type name = "Magento\Vault\Controller\Cards\DeleteAction">
+        <plugin name="Cawl_PaymentCore::delete_token_on_cawl"
+                type="Cawl\PaymentCore\Plugin\Magento\Vault\Controller\Cards\DeleteAction"/>
+    </type>
 </config>
