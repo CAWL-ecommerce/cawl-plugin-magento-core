@@ -73,6 +73,16 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.32
+- Fixed: Creating an online invoice for orders
+- Fixed: Amount discrepancy check for non-worldline methods
+- Added: Debug log for API call when the Worldline stored card is deleted
+- Fixed: Magento order display for transactions created with other WL account
+- Fixed: Create Magento order for GooglePay transaction
+
+### 1.1.31
+- Fixed: Prevented cart loss after cancelled or declined payments on the Hosted payment page
+
 ### 1.1.30
 - Added: Deleting a consumer’s stored token from their account now also deletes the token on the payment platform
 

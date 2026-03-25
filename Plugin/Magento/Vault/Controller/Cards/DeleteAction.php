@@ -8,6 +8,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 use Magento\Vault\Controller\Cards\DeleteAction as MagentoDeleteAction;
 use Magento\Vault\Model\PaymentTokenManagement;
+use Psr\Log\LoggerInterface;
 use Cawl\PaymentCore\Api\Service\Token\DeleteTokenServiceInterface;
 
 class DeleteAction
@@ -34,16 +35,23 @@ class DeleteAction
      */
     private $storeManager;
 
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     public function __construct(
         PaymentTokenManagement $paymentTokenManagement,
         Session $customerSession,
         DeleteTokenServiceInterface $deleteTokenService,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        LoggerInterface $logger
     ) {
         $this->paymentTokenManagement = $paymentTokenManagement;
         $this->customerSession = $customerSession;
         $this->deleteTokenService = $deleteTokenService;
         $this->storeManager = $storeManager;
+        $this->logger = $logger;
     }
 
     public function beforeExecute(MagentoDeleteAction $subject): void
@@ -69,6 +77,13 @@ class DeleteAction
 
         $gatewayToken = $paymentToken->getGatewayToken();
         $storeId = (int) $this->storeManager->getStore()->getId();
+
+        $tokenDetails = json_decode($paymentToken->getTokenDetails() ?? '{}', true);
+        $maskedCC = $tokenDetails['maskedCC'] ?? 'unknown';
+        $this->logger->debug(
+            'Cawl stored card is being deleted.',
+            ['masked_cc' => $maskedCC]
+        );
 
         $this->deleteTokenService->execute($gatewayToken, $storeId);
     }
