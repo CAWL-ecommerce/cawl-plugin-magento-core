@@ -13,7 +13,7 @@ class VersionProvider
 {
     private const EXTENSION_NAME = 'Cawl_PaymentCore';
     private const GITHUB_API =
-        'https://api.github.com/Worldline-Plugins/cawl-plugin-magento/releases/latest';
+        'https://api.github.com/repos/CAWL-ecommerce/cawl-plugin-magento/releases/latest';
 
     /**
      * @var PackageInfo
@@ -58,7 +58,7 @@ class VersionProvider
             $this->curlClient->addHeader('user-agent', 'php');
             $this->curlClient->get(self::GITHUB_API);
             $response = $this->json->unserialize($this->curlClient->getBody());
-            return $response['tag_name'] ?? null;
+            return $response['name'] ?? null;
         } catch (LocalizedException $e) {
             $this->logger->warning($e->getMessage(), $e->getTrace());
             return null;

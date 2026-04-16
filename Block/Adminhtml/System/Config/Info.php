@@ -19,7 +19,7 @@ class Info extends Field
     private const SUPPORT_TEAM_LINK = 'https://docs.ecommerce.cawl-solutions.fr/en/about/contact/index';
     private const MAGENTO_DOC_LINK
         = 'https://docs.ecommerce.cawl-solutions.fr/en/integration/how-to-integrate/plugins/magento';
-    private const GITHUB_LINK = 'https://github.com/Worldline-Plugins/cawl-plugin-magento/releases/latest';
+    private const GITHUB_LINK = 'https://github.com/CAWL-ecommerce/cawl-plugin-magento/releases/latest';
 
     /**
      * @var VersionProvider

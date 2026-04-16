@@ -49,6 +49,7 @@ interface PaymentProductsDetailsInterface
     public const INTERSOLVE_PRODUCT_ID = 5700;
     public const INTERSOLVE_AKTIESPORT_E_GIFTCARD_PRODUCT_ID = 5701;
     public const INTERSOLVE_AKTIESPORT_PRODUCT_ID = 5702;
+    public const LINXO_CONNECT_PRODUCT_ID = 5003;
 
     public const PAYMENT_GROUP_MOBILE = 'Mobile';
     public const PAYMENT_GROUP_CARD = 'Cards (debit & credit)';
@@ -217,6 +218,10 @@ interface PaymentProductsDetailsInterface
         self::BANK_TRANSFER_PRODUCT_ID => [
             'group' => self::PAYMENT_GROUP_REALTIME_BANKING,
             'label' => 'Bank Transfer by Cawl'
+        ],
+        self::LINXO_CONNECT_PRODUCT_ID => [
+            'group' => self::PAYMENT_GROUP_REALTIME_BANKING,
+            'label' => 'Linxo Connect'
         ]
     ];
 }
