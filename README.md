@@ -73,6 +73,14 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.36
+- Added: Configuration option to skip the CAWL payment confirmation page
+- Fixed: Mealvouchers product type mapping and line item adjustments
+
+### 1.1.35
+- Added: Support of Illicado payment method
+- Upgrade PHP SDK to 8.3 version
+
 ### 1.1.34
 - Added: Linxo Connect payment method
 

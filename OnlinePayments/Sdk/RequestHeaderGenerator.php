@@ -4,13 +4,25 @@ declare(strict_types=1);
 namespace Cawl\PaymentCore\OnlinePayments\Sdk;
 
 use OnlinePayments\Sdk\Communication\MetadataProvider;
+use OnlinePayments\Sdk\CommunicatorConfiguration;
 
 class RequestHeaderGenerator extends MetadataProvider
 {
     /**
+     * @var CommunicatorConfiguration
+     */
+    private $communicatorConfig;
+
+    /**
      * @var array
      */
     private $trackerData = [];
+
+    public function __construct(CommunicatorConfiguration $communicatorConfiguration)
+    {
+        parent::__construct($communicatorConfiguration);
+        $this->communicatorConfig = $communicatorConfiguration;
+    }
 
     public function setTrackerData(array $trackerData): void
     {
@@ -25,12 +37,12 @@ class RequestHeaderGenerator extends MetadataProvider
         $serverMetaInfo['sdkIdentifier'] = 'PHPServerSDK/v' . static::SDK_VERSION;
         $serverMetaInfo['sdkCreator'] = 'Ingenico';
 
-        $integrator = $this->communicatorConfiguration->getIntegrator();
+        $integrator = $this->communicatorConfig->getIntegrator();
         if ($integrator) {
             $serverMetaInfo['integrator'] = $integrator;
         }
 
-        $shoppingCartExtension = $this->communicatorConfiguration->getShoppingCartExtension();
+        $shoppingCartExtension = $this->communicatorConfig->getShoppingCartExtension();
         if ($shoppingCartExtension) {
             $serverMetaInfo['shoppingCartExtension'] = $shoppingCartExtension->toObject();
         }

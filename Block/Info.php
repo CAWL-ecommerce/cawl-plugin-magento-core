@@ -35,6 +35,16 @@ class Info extends MagentoInfo
 {
     public const MAX_HEIGHT = '25px';
 
+    private const STATUS_CODE_CAPTURED = 9;
+    private const STATUS_CODE_REFUNDED = 8;
+    private const STATUS_CODE_PENDING_REFUND = 81;
+
+    private const STATUS_AMOUNT_MAP = [
+        self::STATUS_CODE_CAPTURED => 'captured',
+        self::STATUS_CODE_REFUNDED => 'refunded',
+        self::STATUS_CODE_PENDING_REFUND => 'pending_refund',
+    ];
+
     /**
      * @var PaymentIconsProviderInterface
      */
@@ -73,7 +83,7 @@ class Info extends MagentoInfo
     /**
      * @var array
      */
-    private $splitPayment;
+    private $splitPayments = [];
 
     /**
      * @var bool
@@ -81,9 +91,19 @@ class Info extends MagentoInfo
     private $isSplitPayment = false;
 
     /**
-     * @var string
+     * @var object|null
      */
-    private $splitPaymentAmount;
+    private $mainPaymentResponse;
+
+    /**
+     * @var int
+     */
+    private $totalSplitPaymentAmountCents = 0;
+
+    /**
+     * @var array|null
+     */
+    private $operationAnalysis;
 
     /**
      * @var LoggerInterface
@@ -147,8 +167,8 @@ class Info extends MagentoInfo
     public function getTransactionInfo(): array
     {
         $specificInformation = [];
-        $splitPaymentInfo = $this->getSplitPaymentInformation();
-        if ($splitPaymentInfo &&
+        $splitPaymentInfos = $this->getSplitPaymentsInformation();
+        if (!empty($splitPaymentInfos) &&
             (
                 $this->getPaymentInformation()->getPaymentProductId() !==
                 PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID &&
@@ -156,19 +176,23 @@ class Info extends MagentoInfo
                 PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
             )) {
             $this->isSplitPayment = true;
-            $specificInformation[] = array_merge(
-                $specificInformation,
-                $this->infoFormatter->format($splitPaymentInfo)
-            );
+            foreach ($splitPaymentInfos as $splitPaymentInfo) {
+                $specificInformation[] = array_merge(
+                    $specificInformation,
+                    $this->infoFormatter->format($splitPaymentInfo)
+                );
+            }
         }
         $paymentInformation = $this->getPaymentInformation();
 
         if ($this->isSplitPayment) {
-            $formattedSplitPaymentAmount = $this->paymentInfoBuilder->
-            getFormattedSplitPaymentAmount((int)$this->splitPaymentAmount, $paymentInformation->getCurrency());
-            $paymentInformation->setAuthorizedAmount(
-                $paymentInformation->getAuthorizedAmount() - $formattedSplitPaymentAmount
-            );
+            $this->applyMainPaymentDetails($paymentInformation);
+            $analysis = $this->analyzeOperationsByMethod();
+            $cardData = $analysis['card'] ?? null;
+            if (!$cardData || $cardData['captured'] <= 0) {
+                return $specificInformation;
+            }
+            $this->applyMainPaymentRefundData($paymentInformation);
         }
         $specificInformation[] = array_merge(
             $specificInformation,
@@ -314,69 +338,284 @@ class Info extends MagentoInfo
     }
 
     /**
-     * @return PaymentInfoInterface|null
+     * @return PaymentInfoInterface[]
      */
-    public function getSplitPaymentInformation(): ?PaymentInfoInterface
+    public function getSplitPaymentsInformation(): array
     {
         $storeId = (int)$this->getInfo()->getOrder()->getStoreId();
 
         try {
-            $this->getPaymentDetails($storeId);
-            $this->splitPayment = ['payment' => null];
-
-            foreach ($this->paymentDetails->getOperations() as $paymentDetail) {
-                try {
-                    $payment = $this->clientProvider->getClient($storeId)
-                        ->merchant($this->worldlineConfig->getMerchantId($storeId))
-                        ->payments()
-                        ->getPayment($paymentDetail->getId());
-
-                    $paymentOutput = $this->getOutput($payment);
-                    $redirectPaymentMethodSpecificOutput = $paymentOutput ?
-                        $paymentOutput->getRedirectPaymentMethodSpecificOutput() : null;
-                    $paymentProductId = $redirectPaymentMethodSpecificOutput ?
-                        $redirectPaymentMethodSpecificOutput->getPaymentProductId() : null;
-
-                    if ($paymentProductId === PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID ||
-                        $paymentProductId === PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID
-                    ) {
-                        $this->splitPayment['payment'] = $payment;
-                    }
-                } catch (\Exception $e) {
-                    $this->logger->error($e->getMessage());
-                }
+            $this->loadPaymentDetails($storeId);
+            $splitPayments = $this->findSplitPayments($storeId);
+            if (empty($splitPayments)) {
+                return [];
             }
-            $payment = $this->splitPayment['payment'];
-            if (!$payment) {
-                return null;
-            }
-            $this->setSplitPaymentFinalStatus($payment);
-            $this->splitPaymentAmount =
-                $payment->getPaymentOutput()->getAmountOfMoney()->getAmount() -
-                $paymentDetail->getAmountOfMoney()->getAmount();
 
-            return $this->paymentInfoBuilder->buildSplitTransaction($payment, (int) $this->splitPaymentAmount);
+            $result = [];
+            $this->totalSplitPaymentAmountCents = 0;
+            foreach ($splitPayments as $splitPaymentData) {
+                $payment = $splitPaymentData['payment'];
+                $operationAmountCents = $splitPaymentData['operationAmount'];
+                $this->totalSplitPaymentAmountCents += $operationAmountCents;
+
+                $paymentInfo = $this->paymentInfoBuilder->buildSplitTransaction(
+                    $payment,
+                    $operationAmountCents
+                );
+                $this->applySplitRefundData($paymentInfo, $operationAmountCents);
+                $result[] = $paymentInfo;
+            }
+
+            return $result;
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
+            return [];
         }
-
-        return null;
     }
 
-    private function getPaymentDetails(int $storeId): void
+    /**
+     * Load payment details if not already loaded.
+     *
+     * @param int $storeId
+     *
+     * @return void
+     */
+    private function loadPaymentDetails(int $storeId): void
     {
-        if (null !== $this->paymentDetails) {
+        if ($this->paymentDetails !== null) {
             return;
         }
+
+        $order = $this->getInfo()->getOrder();
+        $paymentId = $this->paymentInfoBuilder->getPaymentByOrderId($order);
 
         $this->paymentDetails = $this->clientProvider->getClient($storeId)
             ->merchant($this->worldlineConfig->getMerchantId($storeId))
             ->payments()
-            ->getPaymentDetails(
-                $this->paymentInfoBuilder->getPaymentByOrderId(
-                    $this->getInfo()->getOrder()
-                )
+            ->getPaymentDetails($paymentId);
+    }
+
+    /**
+     * Find all split payments with specific product IDs.
+     *
+     * @param int $storeId
+     *
+     * @return array[] Each element contains 'payment' (PaymentResponse) and 'operationAmount' (int, cents)
+     */
+    private function findSplitPayments(int $storeId): array
+    {
+        $this->splitPayments = [];
+        $this->mainPaymentResponse = null;
+
+        foreach ($this->paymentDetails->getOperations() as $paymentDetail) {
+            $payment = $this->safeGetPayment($storeId, $paymentDetail->getId());
+            if (!$payment) {
+                continue;
+            }
+
+            $productId = $this->getPaymentProductId($payment);
+            if ($this->isSplitPaymentProduct($productId)
+                && $paymentDetail->getStatus() === 'CAPTURED'
+            ) {
+                $operationAmount = $productId === PaymentProductsDetailsInterface::ILLICADO_PRODUCT_ID
+                    ? (int) $paymentDetail->getAmountOfMoney()->getAmount()
+                    : $this->calculateNonIllicadoSplitAmount($payment);
+                $this->splitPayments[] = [
+                    'payment' => $payment,
+                    'operationAmount' => $operationAmount,
+                ];
+            } elseif (!$this->mainPaymentResponse) {
+                $this->mainPaymentResponse = $payment;
+            }
+        }
+
+        return $this->splitPayments;
+    }
+
+    /**
+     * Calculate split amount for non-Illicado products (Cheque Vacances, Mealvouchers).
+     */
+    private function calculateNonIllicadoSplitAmount($payment): int
+    {
+        $operations = $this->paymentDetails->getOperations();
+        $lastOperation = end($operations);
+        return (int) ($payment->getPaymentOutput()->getAmountOfMoney()->getAmount() -
+            $lastOperation->getAmountOfMoney()->getAmount());
+    }
+
+    /**
+     * Safely fetch a payment and log any exceptions.
+     *
+     * @param int $storeId
+     * @param string $paymentId
+     *
+     * @return object|null
+     */
+    private function safeGetPayment(int $storeId, string $paymentId): ?object
+    {
+        try {
+            return $this->clientProvider->getClient($storeId)
+                ->merchant($this->worldlineConfig->getMerchantId($storeId))
+                ->payments()
+                ->getPayment($paymentId);
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Extract the product ID from a payment.
+     */
+    private function getPaymentProductId($payment): ?int
+    {
+        $output = $this->getOutput($payment);
+        $redirectOutput = $output ? $output->getRedirectPaymentMethodSpecificOutput() : null;
+        return $redirectOutput ? $redirectOutput->getPaymentProductId() : null;
+    }
+
+    private function applyMainPaymentDetails(PaymentInfoInterface $paymentInformation): void
+    {
+        if (!$this->mainPaymentResponse) {
+            return;
+        }
+
+        $output = $this->getOutput($this->mainPaymentResponse);
+
+        $cardOutput = $output->getCardPaymentMethodSpecificOutput();
+        if ($cardOutput) {
+            $paymentInformation->setPaymentProductId($cardOutput->getPaymentProductId());
+            $paymentInformation->setPaymentMethod(
+                PaymentProductsDetailsInterface::PAYMENT_PRODUCTS[$cardOutput->getPaymentProductId()]['group'] ?? ''
             );
+            if ($cardOutput->getCard()) {
+                $paymentInformation->setCardLastNumbers(trim($cardOutput->getCard()->getCardNumber(), '*'));
+            }
+            return;
+        }
+
+        $redirectOutput = $output->getRedirectPaymentMethodSpecificOutput();
+        if ($redirectOutput) {
+            $paymentInformation->setPaymentProductId($redirectOutput->getPaymentProductId());
+            $paymentInformation->setPaymentMethod(
+                PaymentProductsDetailsInterface::PAYMENT_PRODUCTS[$redirectOutput->getPaymentProductId()]['group'] ?? ''
+            );
+        }
+    }
+
+    private function analyzeOperationsByMethod(): array
+    {
+        if ($this->operationAnalysis !== null) {
+            return $this->operationAnalysis;
+        }
+
+        $this->operationAnalysis = [];
+
+        if (!$this->paymentDetails || !$this->paymentDetails->getOperations()) {
+            return $this->operationAnalysis;
+        }
+
+        foreach ($this->paymentDetails->getOperations() as $operation) {
+            $method = $operation->getPaymentMethod();
+            $key = self::STATUS_AMOUNT_MAP[(int) $operation->getStatusOutput()->getStatusCode()] ?? null;
+            if (!$method || !$key) {
+                continue;
+            }
+
+            if (!isset($this->operationAnalysis[$method])) {
+                $this->operationAnalysis[$method] = ['captured' => 0, 'refunded' => 0, 'pending_refund' => 0];
+            }
+
+            $this->operationAnalysis[$method][$key] += (int) $operation->getAmountOfMoney()->getAmount();
+        }
+
+        return $this->operationAnalysis;
+    }
+
+    private function applyOperationData(PaymentInfoInterface $paymentInfo, array $data): void
+    {
+        $currency = $paymentInfo->getCurrency();
+        $fmt = function (int $amount) use ($currency) {
+            return $this->paymentInfoBuilder->getFormattedSplitPaymentAmount($amount, $currency);
+        };
+
+        $paymentInfo->setAuthorizedAmount($fmt($data['captured']));
+        $paymentInfo->setRefundedAmount($data['refunded'] > 0 ? $fmt($data['refunded']) : 0);
+
+        $available = $data['captured'] - $data['refunded'] - $data['pending_refund'];
+        $paymentInfo->setAmountAvailableForRefund($available > 0 ? $fmt($available) : 0);
+
+        if ($data['captured'] > 0 && $data['refunded'] >= $data['captured']) {
+            $paymentInfo->setStatus('REFUNDED');
+            $paymentInfo->setStatusCode(self::STATUS_CODE_REFUNDED);
+        } elseif ($data['pending_refund'] > 0) {
+            $paymentInfo->setStatus('PENDING_REFUND');
+            $paymentInfo->setStatusCode(self::STATUS_CODE_PENDING_REFUND);
+        }
+    }
+
+    private function applySplitRefundData(PaymentInfoInterface $paymentInfo, int $capturedAmountCents): void
+    {
+        $analysis = $this->analyzeOperationsByMethod();
+        $redirectData = $analysis['redirect'] ?? null;
+        if (!$redirectData || $redirectData['captured'] <= 0) {
+            return;
+        }
+
+        $currency = $paymentInfo->getCurrency();
+        $ratio = $capturedAmountCents / $redirectData['captured'];
+
+        $refunded = (int) round($redirectData['refunded'] * $ratio);
+        $pendingRefund = (int) round($redirectData['pending_refund'] * $ratio);
+
+        if ($refunded >= $capturedAmountCents) {
+            $paymentInfo->setStatus('REFUNDED');
+            $paymentInfo->setStatusCode(self::STATUS_CODE_REFUNDED);
+        } elseif ($pendingRefund > 0) {
+            $paymentInfo->setStatus('PENDING_REFUND');
+            $paymentInfo->setStatusCode(self::STATUS_CODE_PENDING_REFUND);
+        }
+
+        if ($refunded > 0) {
+            $paymentInfo->setRefundedAmount(
+                $this->paymentInfoBuilder->getFormattedSplitPaymentAmount($refunded, $currency)
+            );
+        }
+
+        $available = $capturedAmountCents - $refunded - $pendingRefund;
+        if ($available > 0) {
+            $paymentInfo->setAmountAvailableForRefund(
+                $this->paymentInfoBuilder->getFormattedSplitPaymentAmount($available, $currency)
+            );
+        }
+    }
+
+    private function applyMainPaymentRefundData(PaymentInfoInterface $paymentInfo): void
+    {
+        $cardData = $this->analyzeOperationsByMethod()['card'] ?? null;
+        if ($cardData) {
+            $this->applyOperationData($paymentInfo, $cardData);
+            return;
+        }
+
+        $formattedSplit = $this->paymentInfoBuilder->
+            getFormattedSplitPaymentAmount($this->totalSplitPaymentAmountCents, $paymentInfo->getCurrency());
+        $remaining = $paymentInfo->getAuthorizedAmount() - $formattedSplit;
+        if ($remaining > 0) {
+            $paymentInfo->setAuthorizedAmount($remaining);
+        }
+    }
+
+    /**
+     * Check if a product ID is one of the split payment product types.
+     */
+    private function isSplitPaymentProduct(?int $productId): bool
+    {
+        return in_array($productId, [
+            PaymentProductsDetailsInterface::CHEQUE_VACANCES_CONNECT_PRODUCT_ID,
+            PaymentProductsDetailsInterface::MEALVOUCHERS_PRODUCT_ID,
+            PaymentProductsDetailsInterface::ILLICADO_PRODUCT_ID,
+        ], true);
     }
 
     public function getMethod(): MethodInterface
@@ -388,18 +627,6 @@ class Info extends MagentoInfo
     {
         $this->setTemplate('Cawl_PaymentCore::info/pdf/worldline_payment.phtml');
         return $this->toHtml();
-    }
-
-    /**
-     * @param $payment
-     *
-     * @return void
-     */
-    private function setSplitPaymentFinalStatus(&$payment)
-    {
-        $payment->getStatusOutput()->setStatusCode($this->paymentDetails->getStatusOutput()->getStatusCode());
-        $payment->getStatusOutput()->setStatusCategory($this->paymentDetails->getStatusOutput()->getStatusCategory());
-        $payment->setStatus($this->paymentDetails->getStatusOutput()->getStatusCategory());
     }
 
     /**
