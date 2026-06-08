@@ -73,6 +73,7 @@
     <preference type="Cawl\PaymentCore\Service\Refund\RefundRequestDataBuilder" for="Cawl\PaymentCore\Api\Service\Refund\RefundRequestDataBuilderInterface" />
     <preference type="Cawl\PaymentCore\Service\Payment\GetPaymentService" for="Cawl\PaymentCore\Api\Service\Payment\GetPaymentServiceInterface" />
     <preference type="Cawl\PaymentCore\Service\Services\TestConnectionService" for="Cawl\PaymentCore\Api\Service\Services\TestConnectionServiceInterface" />
+    <preference type="Cawl\PaymentCore\Service\Services\StoreConnectionService" for="Cawl\PaymentCore\Api\Service\Services\StoreConnectionServiceInterface" />
     <preference type="Cawl\PaymentCore\Service\Services\SurchargeCalculationService" for="Cawl\PaymentCore\Api\Service\Services\SurchargeCalculationServiceInterface" />
     <preference type="Cawl\PaymentCore\Service\Services\CalculateSurchargeRequestBuilder" for="Cawl\PaymentCore\Api\Service\CalculateSurchargeRequestBuilderInterface" />
     <preference type="Cawl\PaymentCore\Service\Token\DeleteTokenService" for="Cawl\PaymentCore\Api\Service\Token\DeleteTokenServiceInterface" />
@@ -190,6 +191,14 @@
     <type name="Cawl\PaymentCore\Model\Config\WebhookConfig">
         <plugin name="Cawl_PaymentCore::decrypt_keys_for_tests"
                 type="Cawl\PaymentCore\Infrastructure\Plugin\WebhookConfig\DecryptedKey"/>
+    </type>
+    <type name="Magento\Quote\Model\ResourceModel\Quote">
+        <plugin name="cawl_mark_quote_payment_info_as_deleted"
+                type="Cawl\PaymentCore\Plugin\Quote\MarkQuotePaymentInfoAsDeleted"
+                sortOrder="10"/>
+        <plugin name="cawl_mark_surcharging_quote_as_deleted"
+                type="Cawl\PaymentCore\Plugin\Quote\MarkSurchargingQuoteAsDeleted"
+                sortOrder="20"/>
     </type>
     <!-- End Plugin -->
 

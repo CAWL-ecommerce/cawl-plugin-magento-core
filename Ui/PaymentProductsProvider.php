@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 use Cawl\PaymentCore\Api\Data\CacheIdentifierInterface;
 use Cawl\PaymentCore\Api\Data\CacheIdentifierInterfaceFactory;
 use Cawl\PaymentCore\Api\Service\GetPaymentProductsServiceInterface;
+use Cawl\PaymentCore\Api\Service\Services\StoreConnectionServiceInterface;
 use Cawl\PaymentCore\Api\Ui\PaymentProductsProviderInterface;
 use Cawl\PaymentCore\Service\Payment\GetPaymentProductsRequestBuilder;
 
@@ -55,6 +56,11 @@ class PaymentProductsProvider implements PaymentProductsProviderInterface
      */
     private $getPaymentProductsRequestBuilder;
 
+    /**
+     * @var StoreConnectionServiceInterface
+     */
+    private $storeConnectionService;
+
     public function __construct(
         CacheInterface $cache,
         LoggerInterface $logger,
@@ -62,7 +68,8 @@ class PaymentProductsProvider implements PaymentProductsProviderInterface
         SerializerInterface $serializer,
         CacheIdentifierInterfaceFactory $cacheIdentifierFactory,
         GetPaymentProductsServiceInterface $getPaymentProductsRequest,
-        GetPaymentProductsRequestBuilder $getPaymentProductsRequestBuilder
+        GetPaymentProductsRequestBuilder $getPaymentProductsRequestBuilder,
+        StoreConnectionServiceInterface $storeConnectionService
     ) {
         $this->cache = $cache;
         $this->logger = $logger;
@@ -71,10 +78,15 @@ class PaymentProductsProvider implements PaymentProductsProviderInterface
         $this->cacheIdentifierFactory = $cacheIdentifierFactory;
         $this->getPaymentProductsRequest = $getPaymentProductsRequest;
         $this->getPaymentProductsRequestBuilder = $getPaymentProductsRequestBuilder;
+        $this->storeConnectionService = $storeConnectionService;
     }
 
     public function getPaymentProducts(int $storeId): array
     {
+        if (!$this->storeConnectionService->execute($storeId)) {
+            return [];
+        }
+
         $cachedPayProducts = $this->getPaymentProductsFromCache($storeId);
         if (!empty($cachedPayProducts)) {
             return $cachedPayProducts;

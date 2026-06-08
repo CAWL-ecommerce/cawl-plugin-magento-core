@@ -9,6 +9,7 @@ use Magento\Framework\App\Http\Context as HttpContext;
 use Magento\Payment\Gateway\Config\Config as PaymentGatewayConfig;
 use Magento\Quote\Api\Data\CartInterface;
 use Cawl\PaymentCore\Api\AvailableMethodCheckerInterface;
+use Cawl\PaymentCore\Api\Service\Services\StoreConnectionServiceInterface;
 
 class AvailableMethodChecker implements AvailableMethodCheckerInterface
 {
@@ -16,10 +17,17 @@ class AvailableMethodChecker implements AvailableMethodCheckerInterface
      * @var HttpContext
      */
     private $httpContext;
+    /**
+     * @var StoreConnectionServiceInterface
+     */
+    private $storeConnectionService;
 
-    public function __construct(HttpContext $httpContext)
-    {
+    public function __construct(
+        HttpContext $httpContext,
+        StoreConnectionServiceInterface $storeConnectionService
+    ) {
         $this->httpContext = $httpContext;
+        $this->storeConnectionService = $storeConnectionService;
     }
 
     /**
@@ -29,9 +37,14 @@ class AvailableMethodChecker implements AvailableMethodCheckerInterface
      */
     public function checkIsAvailable(PaymentGatewayConfig $config, CartInterface $quote): bool
     {
+        if (!$this->storeConnectionService->execute((int) $quote->getStoreId())) {
+            return false;
+        }
+
         if (!$this->customerGroupValidation($config, $quote)) {
             return false;
         }
+
         return true;
     }
 
