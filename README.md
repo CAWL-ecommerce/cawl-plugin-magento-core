@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.41
+- Fixed: Fixing security issues
+
 ### 1.1.40
 - Added: New signature types options for SEPA Direct Debit
 

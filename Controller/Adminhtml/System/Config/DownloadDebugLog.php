@@ -14,6 +14,13 @@ use Cawl\PaymentCore\Logger\ContentProcessor;
 class DownloadDebugLog extends Action implements HttpGetActionInterface
 {
     /**
+     * Authorization level of a basic admin session
+     *
+     * @see _isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'Cawl_PaymentCore::config_worldline';
+
+    /**
      * @var RawFactory
      */
     private $resultRawFactory;
