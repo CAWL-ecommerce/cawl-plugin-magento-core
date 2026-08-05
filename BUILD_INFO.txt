@@ -1,1 +1,1 @@
-Built from Worldline-Plugins/cawl-plugin-magento-core@v1.1.41 on Tue Jul 21 15:00:19 UTC 2026
+Built from Worldline-Plugins/cawl-plugin-magento-core@v1.1.42 on Wed Aug  5 13:07:00 UTC 2026

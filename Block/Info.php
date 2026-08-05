@@ -177,11 +177,7 @@ class Info extends MagentoInfo
             )) {
             $this->isSplitPayment = true;
             foreach ($splitPaymentInfos as $splitPaymentInfo) {
-                $formatted = $this->infoFormatter->format($splitPaymentInfo);
-
-                foreach ($formatted as $item) {
-                    $specificInformation[] = $item;
-                }
+                $specificInformation[] = $this->infoFormatter->format($splitPaymentInfo);
             }
         }
         $paymentInformation = $this->getPaymentInformation();
@@ -195,10 +191,7 @@ class Info extends MagentoInfo
             }
             $this->applyMainPaymentRefundData($paymentInformation);
         }
-        $specificInformation[] = array_merge(
-            $specificInformation,
-            $this->infoFormatter->format($this->getPaymentInformation())
-        );
+        $specificInformation[] = $this->infoFormatter->format($this->getPaymentInformation());
 
         return $specificInformation;
     }
