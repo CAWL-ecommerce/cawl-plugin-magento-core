@@ -73,6 +73,10 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.43
+- Changed: "Group Cards" is now enabled by default on new installations
+- Changed: Card saving now requires an enabled vault and a logged in shopper
+
 ### 1.1.42
 - Fixed: Connection error when saving API and Webhook credentials on PHP 8.5 and Magento 2.4.9
 - Fixed: Order details rendering for split payments
