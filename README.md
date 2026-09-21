@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.44
+- Fixed: Adjust tax amounts rounding and prevent a validation amount failure
+
 ### 1.1.43
 - Changed: "Group Cards" is now enabled by default on new installations
 - Changed: Card saving now requires an enabled vault and a logged in shopper
