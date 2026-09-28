@@ -117,7 +117,8 @@ class EmailSender
         $addTo = $this->emailsStringToArray($sendTo);
 
         if ($ccTo) {
-            $addTo[] = $ccTo;
+            $addTo = array_merge($addTo, $this->emailsStringToArray($ccTo));
+            $addTo = array_values(array_unique($addTo));
         }
 
         try {

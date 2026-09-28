@@ -73,8 +73,12 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.45
+- Changed: Remove constraint to be logged in for Mealvouchers
+
 ### 1.1.44
 - Fixed: Adjust tax amounts rounding and prevent a validation amount failure
+- Fixed: Sending emails with multiple addresses in the CC field
 
 ### 1.1.43
 - Changed: "Group Cards" is now enabled by default on new installations
