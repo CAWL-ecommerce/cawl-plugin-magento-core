@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.46
+- Fixed: Handling and processing Void action from order details page
+
 ### 1.1.45
 - Changed: Remove constraint to be logged in for Mealvouchers
 

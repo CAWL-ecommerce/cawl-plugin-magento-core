@@ -54,7 +54,7 @@ class TransactionVoid extends AbstractTransaction
         }
 
         return $this->cancelPaymentService->execute(
-            $data[VoidAndCancelDataBuilder::TRANSACTION_ID],
+            $payment,
             $data[VoidAndCancelDataBuilder::STORE_ID]
         );
     }
