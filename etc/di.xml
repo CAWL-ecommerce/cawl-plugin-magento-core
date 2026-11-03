@@ -146,6 +146,9 @@
                 <item name="refund.refund_requested" xsi:type="object">Cawl\PaymentCore\Model\Webhook\CreditmemoProcessor</item>
                 <item name="refund.rejected" xsi:type="object">Cawl\PaymentCore\Model\Webhook\RejectPaymentProcessor</item>
             </argument>
+            <argument name="customProcessorStrategies" xsi:type="array">
+                <item name="wero_capture_strategy" xsi:type="object">Cawl\PaymentCore\Model\Webhook\WeroCustomProcessorStrategy\Proxy</item>
+            </argument>
         </arguments>
     </type>
 

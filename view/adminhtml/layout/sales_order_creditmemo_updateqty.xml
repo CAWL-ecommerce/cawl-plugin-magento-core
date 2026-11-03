@@ -4,5 +4,8 @@
         <referenceContainer name="creditmemo_totals">
             <block class="Cawl\PaymentCore\Block\Sales\Creditmemo\Create\Surcharging" before="tax" name="worldline_payment_surcharging" template="Cawl_PaymentCore::order/creditmemo/create/totals/surcharging.phtml"/>
         </referenceContainer>
+        <referenceContainer name="submit_before">
+            <block class="Cawl\PaymentCore\Block\Adminhtml\Order\Creditmemo\RefundReason" name="worldline_payment_refund_reason" template="Cawl_PaymentCore::order/creditmemo/create/refund_reason.phtml"/>
+        </referenceContainer>
     </body>
 </page>
