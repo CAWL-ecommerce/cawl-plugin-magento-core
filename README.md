@@ -73,6 +73,9 @@ To install these solutions from the GitHub:
 
 ### Change log:
 
+### 1.1.49
+- Added: PostFinance Pay payment method
+
 ### 1.1.48
 - Changed: Add Wero payment method
 
